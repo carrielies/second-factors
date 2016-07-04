@@ -1,54 +1,56 @@
-import Govuk from '../components/govuk'
-import QuestionPage from '../utils/question_page'
-import Question from '../components/question'
-import Field from '../components/field'
+import Govuk from '../../components/govuk'
+import QuestionPage from '../../utils/question_page'
+import Question from '../../components/question'
+import Field from '../../components/field'
+import Ga from '../../components/ga'
 import React from 'react'
 import speakeasy from 'speakeasy';
 import {connect} from 'react-redux'
+import Breadcrumb from '../../components/breadcrumb'
+import { browserHistory, Link } from 'react-router'
 
 export default connect((state) => state) (
     class extends QuestionPage {
 
 
         constructor(props) {
-            super(props)
+            super(props);
+            this.state = {token: ""}
         }
 
-
-        verifyCode(token, secret) {
-
-            return speakeasy.totp.verify({
-                secret: secret,
-                encoding: 'base32',
-                token: token
-            });
+        onTokenChange(token) {
+            this.setState({token})
         }
 
         onNext(e) {
+            e.preventDefault();
+            let ga = this.refs.ga;
+
             let props = this.validate(e,{
                 code: {msg: "Enter your code", summary: "You need to enter your code", regEx: /\w+/}
             });
 
             if( !props ) return;
 
-            if (!this.verifyCode(props.code, this.props.account.ga_secret)) {
+            if (!ga.verifyToken(props.code)) {
                 let errors = {};
                 errors["code"] = {msg: "Wrong code entered", summary: "You entered the wrong code"};
                 this.setState( {errors: errors});
-                e.preventDefault();
             }
+            browserHistory.push("/logged_in")
         }
 
         render() {
 
             let errors = this.state.errors;
-            let hint = this.props.account.ga_token;
+            let hint = this.state.token;
 
             return (
 
-                <Govuk phaseBanner="true">
+                <Govuk >
 
-                    {this.props.breadcrumb}
+                    <Breadcrumb text="Sign in to Government Gateway"/>
+                    <Ga ref="ga" secret={this.props.account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
 
                     <Question title="What's your 6 digit google authenticator code?" errors={errors}>
                         <Field ref="code" name="code" labelText="Code" errors={errors} labelHint={hint}/>

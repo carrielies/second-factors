@@ -2,8 +2,8 @@ import Govuk from '../../components/govuk'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
-import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
+import React from 'react'
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
@@ -14,25 +14,25 @@ export default connect((state) => state) (
 
         onNext(e) {
             this.validate(e, {
-                firstnames: {msg: "Enter your first name", summary: "You need to enter your first name", regEx: /\w+/},
-                lastname: {msg: "Enter your last name", summary: "You need to enter your last name", regEx: /\w+/}
+                code: {msg: "Enter your email code", summary: "You need to enter your email code", regEx: /\w+/},
             }, (props) => {
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {firstnames: props.firstnames, lastname: props.lastname}})
-                browserHistory.push("/register/your_email")
+                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {email_code: props.email_code}})
+                browserHistory.push("/register/your_password")
             })
         }
 
         render() {
 
+            let para = `We've sent an email to ${this.props.account.email} with a special code. `
+
             return (
-                <Govuk phaseBanner="true">
+                <Govuk>
                     <Breadcrumb text="Register for Government Gateway"/>
+                    {this.props.breadcrumb}
 
-                    <Question title="What's your name ?" para="Enter all your names in full" errors={this.state.errors}>
-                        <Field ref="firstnames" name="firstnames" errors={this.state.errors} labelText="First names"/>
-                        <Field ref="lastname" name="lastname" errors={this.state.errors} labelText="Last name"/>
+                    <Question title="Confirm email code?" errors={this.state.errors} para={para}>
+                        <Field ref="code" name="code" errors={this.state.errors} labelText="What's the code?" />
                     </Question>
-
                     <br/>
                     <a href="#next" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     <br/>

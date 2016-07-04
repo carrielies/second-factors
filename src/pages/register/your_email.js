@@ -14,11 +14,10 @@ export default connect((state) => state) (
 
         onNext(e) {
             this.validate(e, {
-                firstnames: {msg: "Enter your first name", summary: "You need to enter your first name", regEx: /\w+/},
-                lastname: {msg: "Enter your last name", summary: "You need to enter your last name", regEx: /\w+/}
+                email: {msg: "Enter your email addess", summary: "You need to enter your email address", regEx: /\w+/},
             }, (props) => {
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {firstnames: props.firstnames, lastname: props.lastname}})
-                browserHistory.push("/register/your_email")
+                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {email: props.email}});
+                browserHistory.push("/register/confirm_email")
             })
         }
 
@@ -28,11 +27,10 @@ export default connect((state) => state) (
                 <Govuk phaseBanner="true">
                     <Breadcrumb text="Register for Government Gateway"/>
 
-                    <Question title="What's your name ?" para="Enter all your names in full" errors={this.state.errors}>
-                        <Field ref="firstnames" name="firstnames" errors={this.state.errors} labelText="First names"/>
-                        <Field ref="lastname" name="lastname" errors={this.state.errors} labelText="Last name"/>
+                    <Question title="What is your email address?" errors={this.state.errors} para="Your email address will be needed whenever you sign in">
+                        <Field ref="email" name="email" errors={this.state.errors} labelText="Email" />
+                        <Field ref="email" name="email" errors={this.state.errors} labelText="Confirm email"/>
                     </Question>
-
                     <br/>
                     <a href="#next" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     <br/>

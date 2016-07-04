@@ -11,8 +11,7 @@ export default function(props) {
     }
     else {
         return (
-            <div className="error-summary" role="group" aria-labelledby="error-summary-heading-example-1"
-                 tabindex="-1">
+            <div className="error-summary" role="group">
                 <h1 className="heading-medium error-summary-heading" id="error-summary-heading-example-1">
                     {header}
                 </h1>
