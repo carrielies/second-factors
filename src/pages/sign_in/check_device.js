@@ -68,7 +68,7 @@ export default connect((state) => state) (
                         {this.state.matched ?
 
                             <Link to="/logged_in" className="button">Device Matched</Link> :
-                            <Link to="/ga" className="button">Device not Matched</Link>
+                            <Link to="/your_auth_factors" className="button">Device not Matched</Link>
                         }
                         
                     </Govuk>

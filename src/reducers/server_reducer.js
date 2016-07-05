@@ -4,6 +4,7 @@ const initState = {
         email: "marky@gmail.com",
         firstnames: "Marky Mark",
         lastname: "Middleton",
+        always_use_2fa: false,
         factors: {
             password: {
                 secret: "password"

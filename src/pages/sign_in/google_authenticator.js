@@ -63,7 +63,7 @@ export default connect((state) => state) (
                         <summary><span className="summary">Having problems?</span></summary>
                         <div className="panel panel-border-narrow">
                             <p>
-                                <a href="#next" onClick={(e) => this.next(e)}>Recover your user password online or by post</a>
+                                <Link to="/your_auth_factors">Try a different authentication factor</Link>
                             </p>
                         </div>
                     </details>
