@@ -37,6 +37,9 @@ export default connect((state) => state) (
                 errors["code"] = {msg: "Wrong code entered", summary: "You entered the wrong code"};
                 this.setState( {errors: errors});
             }
+            
+            this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {two_fa_passed: true}});
+            
             browserHistory.push("/logged_in")
         }
 

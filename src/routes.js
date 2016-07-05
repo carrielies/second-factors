@@ -16,6 +16,7 @@ import LoggedIn from './pages/sign_in/logged_in'
 import Summary from './pages/register/summary'
 import Demo from './pages/demo'
 import CheckDevice from './pages/sign_in/check_device'
+import LandingPage from './pages/service/landing_page'
 
 export default function(props) {
     
@@ -37,6 +38,7 @@ export default function(props) {
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
             <Route path="/logged_in" component={LoggedIn}/>
+            <Route path="/service/landing_page" component={LandingPage}/>
             <Route path="/check_device" component={CheckDevice}/>
             <Route path="/demo" component={Demo}/>
         </Router>

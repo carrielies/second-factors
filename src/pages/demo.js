@@ -104,6 +104,8 @@ export default connect((state) => state) (
 
                     <br/>
                     <br/>
+
+
                     <table>
                         <thead>
                         <tr>
@@ -229,6 +231,103 @@ export default connect((state) => state) (
                         </tr>
                         </tbody>
                     </table>
+                    <br/>
+                    <br/>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colSpan="1">Repsonse to Service scenario's</th>
+                            <th colSpan="1">
+                                <a href="#" onClick={(e) => this.go(e, "/service/landing_page")}>Go</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Trusted, and authenticated to correct level</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        auth_level_desired: "1",
+                                        auth_level_required: "1",
+                                        response_from_gw: {
+                                            level: "1",
+                                            trust_id: "6876Ff876W868SD787",
+                                            name: "Marky Mid",
+                                            cred_id: "1543245377",
+                                            last_logged_in: "01/12/2016 09:26"
+                                        }
+                                     }
+
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Not trusted, and authenticated to correct level</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        auth_level_desired: "1",
+                                        auth_level_required: "1",
+                                        response_from_gw: {
+                                            level: "1",
+                                            trust_id: "6876DIFFERENTW868SD787",
+                                            name: "Marky Mid",
+                                            cred_id: "1543245377",
+                                            last_logged_in: "01/12/2016 09:26"
+                                        }
+                                     }
+
+
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Trusted but at level 1, but level 2 was desired</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        auth_level_desired: "2",
+                                        auth_level_required: "1",
+                                        response_from_gw: {
+                                            level: "1",
+                                            trust_id: "6876Ff876W868SD787",
+                                            name: "Marky Mid",
+                                            cred_id: "1543245377",
+                                            last_logged_in: "01/12/2016 09:26"
+                                        }
+                                     }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>Trusted but at level 2, but level 1 was desired</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        auth_level_desired: "1",
+                                        auth_level_required: "1",
+                                        response_from_gw: {
+                                            level: "2",
+                                            trust_id: "6876Ff876W868SD787",
+                                            name: "Marky Mid",
+                                            cred_id: "1543245377",
+                                            last_logged_in: "01/12/2016 09:26"
+                                        }
+                                     }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+
+
+
 
 
 

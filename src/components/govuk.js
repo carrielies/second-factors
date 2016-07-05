@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { connect } from 'react-redux';
+import { browserHistory, Link } from 'react-router'
+
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -39,7 +41,7 @@ export default connect((state) => state) (
                                     <nav id="proposition-menu">
                                         <div className="grid-row">
                                             <div className="column-half">
-                                                <a href="/" id="proposition-name">{this.props.title || "Government Gateway"}</a>
+                                                <Link to="/demo" id="proposition-name">{this.props.title || "Government Gateway"}</Link>
                                             </div>
                                             <div className="column-half logout">
                                                 {signedIn}

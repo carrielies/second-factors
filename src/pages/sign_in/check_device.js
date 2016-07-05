@@ -14,7 +14,9 @@ export default connect((state) => state) (
     class extends QuestionPage {
 
         onNext(e) {
-
+            e.preventDefault();
+            this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {two_fa_passed: true}})
+            browserHistory.push("/logged_in")
         }
 
         onFingerprint(res) {
@@ -67,7 +69,7 @@ export default connect((state) => state) (
                         <br/>
                         {this.state.matched ?
 
-                            <Link to="/logged_in" className="button">Device Matched</Link> :
+                            <a href="#" className="button" onClick={(e) => onNext(e)}>Device Matched</a> :
                             <Link to="/your_auth_factors" className="button">Device not Matched</Link>
                         }
                         

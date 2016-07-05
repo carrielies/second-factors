@@ -5,6 +5,7 @@ const initState = {
         firstnames: "Marky Mark",
         lastname: "Middleton",
         always_use_2fa: false,
+        two_fa_passed: false,
         factors: {
             password: {
                 secret: "password"
