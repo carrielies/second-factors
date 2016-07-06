@@ -15,6 +15,12 @@ import YourAuthFactors from './pages/sign_in/your_auth_factors'
 import LoggedIn from './pages/sign_in/logged_in'
 import Sso from './pages/sign_in/sso'
 import ServiceRedirect from './pages/sign_in/service_redirect'
+import HelpDeskIndex from './pages/helpdesk/index'
+import HelpDeskLandingPage from './pages/helpdesk/landing_page'
+import HelpDeskSearch from './pages/helpdesk/search'
+import HelpDeskSearchResults from './pages/helpdesk/search_results.js'
+import HelpDeskProveIdentity from './pages/helpdesk/prove_identity'
+import HelpDeskProveGoogleAuthenticator from './pages/helpdesk/prove_google_authenticator'
 import Summary from './pages/register/summary'
 import Demo from './pages/demo'
 import CheckDevice from './pages/sign_in/check_device'
@@ -31,6 +37,7 @@ export default function(props) {
             <Route path="/your_auth_factors" component={YourAuthFactors}/>
             <Route path="/service_redirect" component={ServiceRedirect}/>
             <Route path="/sso" component={Sso}/>
+            <Route path="/logged_in" component={LoggedIn}/>
             <Route path="/register/ga" component={SetupGa}/>
             <Route path="/register/device" component={SetupDevice}/>
             <Route path="/register" component={YourName}/>
@@ -41,8 +48,13 @@ export default function(props) {
             <Route path="/register/your_password" component={YourPassword}/>
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
-            <Route path="/logged_in" component={LoggedIn}/>
             <Route path="/service/landing_page" component={LandingPage}/>
+            <Route path="/helpdesk/index" component={HelpDeskIndex}/>
+            <Route path="/helpdesk/landing_page" component={HelpDeskLandingPage}/>
+            <Route path="/helpdesk/search" component={HelpDeskSearch}/>
+            <Route path="/helpdesk/search_results" component={HelpDeskSearchResults}/>
+            <Route path="/helpdesk/prove_identity" component={HelpDeskProveIdentity}/>
+            <Route path="/helpdesk/prove_google_authenticator" component={HelpDeskProveGoogleAuthenticator}/>
             <Route path="/check_device" component={CheckDevice}/>
             <Route path="/demo" component={Demo}/>
         </Router>
