@@ -6,6 +6,8 @@ const initState = {
         lastname: "Middleton",
         always_use_2fa: false,
         two_fa_passed: false,
+        cred_id: "765875675786",
+        trust_id: "875678687GJHGH343",
         factors: {
             password: {
                 secret: "password"

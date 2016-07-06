@@ -1,8 +1,12 @@
 const initState = {
-    name: "Child Maintenance",
-    auth_level_required: "2",
-    auth_level_desired: "2",
-    redirect_url: "/service/landing_page",
+    
+    request: {
+        name: "Child Maintenance",
+        auth_level_required: "2",
+        auth_level_desired: "2",
+        redirect_url: "/service/landing_page",
+    },
+    
     response_from_gw: {
         level: "1",
         trust_id: "6876Ff876W868SD787",

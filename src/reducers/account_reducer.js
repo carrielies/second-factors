@@ -1,5 +1,11 @@
 const initState = {
-  signed_in: false
+  signed_in: false,
+    email: "marky@gmail.com",
+    factors: {
+        password: {
+            secret: "password"
+        }
+    }
 };
 
 export default function(state=initState, action ) {

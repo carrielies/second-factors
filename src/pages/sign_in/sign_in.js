@@ -38,7 +38,7 @@ export default connect((state) => state) (
                 }
 
                 this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true}});
-                browserHistory.push("/check_device");
+                browserHistory.push("/your_auth_factors");
             })
         }
 
@@ -51,11 +51,11 @@ export default connect((state) => state) (
 
                 <Govuk phaseBanner="true">
 
-                    <Breadcrumb text={`Sign in to ${this.props.service.name} using your Government Gateway account`}/>
+                    <Breadcrumb text={`Sign in to ${this.props.service.request.name} using your Government Gateway account`}/>
                     <Fingerprint/>
-                    <Question title={`Sign in to ${this.props.service.name}`} button="Sign in" errors={errors}>
-                        <Field ref="email" name="email" labelText="Email" errors={errors}/>
-                        <Field ref="password" name="password"  labelText="Password" errors={errors}/>
+                    <Question title={`Sign in to ${this.props.service.request.name}`} button="Sign in" errors={errors}>
+                        <Field ref="email" name="email" labelText="Email" errors={errors} value={this.props.account.email}/>
+                        <Field ref="password" name="password"  labelText="Password" errors={errors} value={this.props.account.factors.password.secret} type="password"/>
                     </Question>
 
                     <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>

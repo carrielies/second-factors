@@ -72,6 +72,14 @@ export default connect((state) => state) (
 
         render() {
 
+            let request =  {
+                name: "Child Maintenance",
+                auth_level_required: "2",
+                auth_level_desired: "2",
+                redirect_url: "/service/landing_page"
+            };
+
+
             return (
                 <GovUk>
                     <br/>
@@ -121,9 +129,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "1",
-                                        auth_level_required: "1"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "1",
+                                            auth_level_required: "1"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": false
                                      }
@@ -135,9 +146,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "2",
-                                        auth_level_required: "1"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "2",
+                                            auth_level_required: "1"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": false
                                      }
@@ -149,9 +163,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "2",
-                                        auth_level_required: "2"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "2",
+                                            auth_level_required: "2"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": false
                                      }
@@ -163,9 +180,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "1",
-                                        auth_level_required: "1"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "1",
+                                            auth_level_required: "1"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": true
                                      }
@@ -177,9 +197,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "1",
-                                        auth_level_required: "1"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "1",
+                                            auth_level_required: "1"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": true,
                                         factors: {
@@ -196,9 +219,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "2",
-                                        auth_level_required: "1"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "2",
+                                            auth_level_required: "1"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": false,
                                         factors: {
@@ -215,9 +241,12 @@ export default connect((state) => state) (
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        auth_level_desired: "2",
-                                        auth_level_required: "2"
-                                     },
+                                        request: {
+                                            ...request,
+                                            auth_level_desired: "2",
+                                            auth_level_required: "2"
+                                        }
+                                    },
                                     account: {
                                         "always_use_2fa": false,
                                         factors: {

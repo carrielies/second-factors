@@ -26,13 +26,13 @@ export default connect((state) => state) (
 
             if( service.trusted_hashes.indexOf(resp.trust_id) != -1 ) {
                 return(
-                    <Govuk title={service.name}>
+                    <Govuk title={service.request.name}>
                         <Content title={`Welcome back ${resp.name}`}>
                             <p>
                                 You last logged into {service.name} on {resp.last_logged_in}
                             </p>
 
-                            { service.auth_level_desired == "2" && resp.level == "1" ?
+                            { service.request.auth_level_desired == "2" && resp.level == "1" ?
                                 <p>We kind of trust you, but we need to double check your identity</p> :
                                 <p>We trust you!</p>
                             }
@@ -43,7 +43,7 @@ export default connect((state) => state) (
             }
             else {
                 return(
-                    <Govuk title={service.name}>
+                    <Govuk title={service.request.name}>
                         <Content title={`Welcome back ${resp.name}`}>
                             <p>
                                 You last logged into {service.name} on {resp.last_logged_in}
