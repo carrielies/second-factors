@@ -13,6 +13,7 @@ import YourPassword from './pages/register/your_password'
 import RegisterYourAuthFactors from './pages/register/your_auth_factors'
 import YourAuthFactors from './pages/sign_in/your_auth_factors'
 import LoggedIn from './pages/sign_in/logged_in'
+import Sso from './pages/sign_in/sso'
 import ServiceRedirect from './pages/sign_in/service_redirect'
 import Summary from './pages/register/summary'
 import Demo from './pages/demo'
@@ -29,6 +30,7 @@ export default function(props) {
             <Route path="/ga" component={GoogleAuthenticator}/>
             <Route path="/your_auth_factors" component={YourAuthFactors}/>
             <Route path="/service_redirect" component={ServiceRedirect}/>
+            <Route path="/sso" component={Sso}/>
             <Route path="/register/ga" component={SetupGa}/>
             <Route path="/register/device" component={SetupDevice}/>
             <Route path="/register" component={YourName}/>

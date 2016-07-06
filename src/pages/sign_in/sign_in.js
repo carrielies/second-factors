@@ -19,6 +19,28 @@ export default connect((state) => state) (
             this.state = {errors: {}};
 
         }
+        
+        componentDidMount() {
+            let cookie = this.props.cookie;
+
+            if( cookie.email ) {
+                // already logged in
+
+                let server = new Server(this.props.server);
+                let service = this.props.service.request
+                let account = server.findByEmail(cookie.email);
+
+                if ( cookie.service_name === service.name ) {
+                    this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true}});
+                    browserHistory.push("/your_auth_factors");
+                }
+                else {
+                    this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true}});
+                    browserHistory.push("/sso");
+                }
+            }
+
+        }
 
         onNext(e) {
             this.validate(e,{

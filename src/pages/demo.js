@@ -12,6 +12,7 @@ export default connect((state) => state) (
             this.state = {
                 account: props.account,
                 server: props.server,
+                cookie: props.cookie,
                 service: props.service
             }
         }
@@ -31,6 +32,7 @@ export default connect((state) => state) (
             let server = new Server(this.props.server);
             let account = server.findByEmail("marky@gmail.com");
             let service = this.props.service;
+            let cookie = this.props.cookie;
 
             if ( mergeData ) {
                 if(mergeData.server) {
@@ -44,9 +46,14 @@ export default connect((state) => state) (
                 if(mergeData.account) {
                     account = {...account, ...mergeData.account}
                 }
+
+                if(mergeData.cookie) {
+                    cookie = {...cookie, ...mergeData.cookie}
+                }
+
             }
 
-            this.setState( {account: account, service: service, server: server})
+            this.setState( {account: account, service: service, server: server, cookie: cookie})
         }
 
         go(e, url) {
@@ -54,6 +61,7 @@ export default connect((state) => state) (
             this.props.dispatch({type: "SAVE_ACCOUNT", data: JSON.parse(this.refs.account.value)});
             this.props.dispatch({type: "SAVE_ACCOUNT_TO_SERVER", data: JSON.parse(this.refs.server.value)});
             this.props.dispatch({type: "SAVE_SERVICE_TO_SERVER", data: JSON.parse(this.refs.service.value)});
+            this.props.dispatch({type: "SAVE_COOKIE", data: JSON.parse(this.refs.cookie.value)});
             browserHistory.push(url)
         }
 
@@ -69,6 +77,10 @@ export default connect((state) => state) (
             this.setState({service: event.target.value});
         }
 
+        handleCookieChange(event) {
+            this.setState({cookie: event.target.value});
+        }
+
 
         render() {
 
@@ -79,6 +91,26 @@ export default connect((state) => state) (
                 redirect_url: "/service/landing_page"
             };
 
+
+            let service_requires_2fa = {
+                ...request,
+                auth_level_desired: "2",
+                auth_level_required: "2"
+            };
+
+            let service_would_like_2fa = {
+                ...request,
+                auth_level_desired: "2",
+                auth_level_required: "1"
+
+            };
+
+            let service_requires_basic_auth = {
+                ...request,
+                auth_level_desired: "1",
+                auth_level_required: "1"
+
+            };
 
             return (
                 <GovUk>
@@ -109,6 +141,15 @@ export default connect((state) => state) (
                             <textarea ref="service" cols="70" rows="5" onChange={this.handleServiceChange}  value={JSON.stringify(this.state.service, null, 2)}/>
                         </div>
                     </div>
+                    <br/>
+                    <div className="grid-row">
+                        <div className="column-one-third">
+                            Cookie
+                        </div>
+                        <div className="column-two-thirds">
+                            <textarea ref="cookie" cols="70" rows="5" onChange={this.handleCookieChange}  value={JSON.stringify(this.state.cookie, null, 2)}/>
+                        </div>
+                    </div>
 
                     <br/>
                     <br/>
@@ -117,143 +158,332 @@ export default connect((state) => state) (
                     <table>
                         <thead>
                         <tr>
-                            <th colSpan="1">Your auth factors scenario's</th>
+                            <th colSpan="1">Uplift</th>
                             <th colSpan="1">
-                                <a href="#" onClick={(e) => this.go(e, "/your_auth_factors")}>Go</a>
+                                <a href="#" onClick={(e) => this.go(e, "/signin")}>Go</a>
                             </th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Signed in: Desired 1, Required 1</td>
+                            <td>Signed in level 1: Desired 2, Required 2</td>
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "1",
-                                            auth_level_required: "1"
-                                        }
+                                        request: {...service_requires_2fa }
                                     },
+                                    cookie: {
+                                        cred_id: "1234567",
+                                        level: "1",
+                                        service_name: "Child Maintenance",
+                                        email: "average@joe.com"
+                                    }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Signed in level 1: Desired 2, Required 1</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_would_like_2fa }
+                                    },
+                                    cookie: {
+                                        cred_id: "1234567",
+                                        level: "1",
+                                        service_name: "Child Maintenance",
+                                        email: "average@joe.com"
+                                    }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Signed in level 2: Desired 2, Required 2</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    },
+                                    cookie: {
+                                        cred_id: "1234567",
+                                        level: "2",
+                                        service_name: "Child Maintenance",
+                                        email: "average@joe.com"
+                                    }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Signed in to Welsh Government as Level1, now logging into Child Maintenance as Level 1</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_basic_auth }
+                                    },
+                                    cookie: {
+                                        cred_id: "1234567",
+                                        level: "1",
+                                        service_name: "Welsh Government",
+                                        email: "average@joe.com"
+                                    }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Signed in to Welsh Government as Level1, now logging into Child Maintenance as Level 2</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    },
+                                    cookie: {
+                                        cred_id: "1234567",
+                                        level: "1",
+                                        service_name: "Welsh Government",
+                                        email: "average@joe.com"
+                                    }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Signed in to Welsh Government as Level2, now logging into Child Maintenance as Level 2</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    },
+                                    cookie: {
+                                        cred_id: "1234567",
+                                        level: "2",
+                                        service_name: "Welsh Government",
+                                        email: "average@joe.com"
+                                    }
+                                 }
+                            )}>setup</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colSpan="1">Persona's</th>
+                            <th colSpan="1">
+                                <a href="#" onClick={(e) => this.go(e, "/service_redirect")}>Go</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Lapse Larry</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
                                     account: {
-                                        "always_use_2fa": false
+                                        email: "lapse@larry.com"
+                                    }
+                                }
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Security Simon</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    account: {
+                                        email: "security@simon.com"
+                                    }
+                                }
+                            )}>setup</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Average Joe</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    account: {
+                                        email: "average@joe.com"
+                                    }
+                                }
+                            )}>setup</a></td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <br/>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colSpan="1">Service's</th>
+                            <th colSpan="1">
+                                <a href="#" onClick={(e) => this.go(e, "/service_redirect")}>Go</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Would like 2FA</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_would_like_2fa }
+                                    }
+                                },
+                            )}>setup</a></td>
+                        </tr>
+                        <tr>
+                            <td>Requires 2FA</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    }
+                                },
+                            )}>setup</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>Requires Basic Login</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_basic_auth }
+                                    }
+                                },
+                            )}>setup</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>Uplift to 2fa</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    }
+                                },
+                            )}>setup</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>SSO</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    }
+                                },
+                            )}>setup</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>None repudiation</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_2fa }
+                                    }
+                                },
+                            )}>setup</a></td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colSpan="1">Your auth factors scenario's</th>
+                            <th colSpan="1">
+                                <a href="#" onClick={(e) => this.go(e, "/signin")}>Go</a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Sign in: Desired 1, Required 1</td>
+                            <td><a href="#" onClick={(e) => this.setup(e,
+                                {
+                                    service: {
+                                        request: {...service_requires_basic_auth }
+                                    },
+
+                                    account: {
+                                        email: "average@joe.com"
                                      }
                                  }
                             )}>setup</a></td>
                         </tr>
                         <tr>
-                            <td>Signed in: Desired 2, Required 1</td>
+                            <td>Sign in: Desired 2, Required 1</td>
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "2",
-                                            auth_level_required: "1"
-                                        }
+                                        request: {...service_would_like_2fa }
                                     },
+
                                     account: {
-                                        "always_use_2fa": false
+                                        email: "average@joe.com"
                                      }
                                  }
                             )}>setup</a></td>
                         </tr>
                         <tr>
-                            <td>Signed in: Desired 2, Required 2</td>
+                            <td>Sign in: Desired 2, Required 2</td>
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "2",
-                                            auth_level_required: "2"
-                                        }
+                                        request: {...service_requires_2fa }
                                     },
+
                                     account: {
-                                        "always_use_2fa": false
+                                        email: "average@joe.com"
                                      }
                                  }
                              )}>setup</a></td>
                         </tr>
                         <tr>
-                            <td>Signed in: Desired 1, Required, Credentials: 2fa mandatory</td>
+                            <td>Sign in: Desired 1, Required, Credentials: 2fa mandatory</td>
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "1",
-                                            auth_level_required: "1"
-                                        }
+                                        request: {...service_requires_basic_auth }
                                     },
                                     account: {
-                                        "always_use_2fa": true
+                                        email: "security@simon.com"
                                      }
                                  }
                             )}>setup</a></td>
                         </tr>
                         <tr>
-                            <td>Signed in: Desired 1, Required, Credentials: 2fa mandatory, No Factors</td>
+                            <td>Sign in: Desired 2, Required 1, No Factors</td>
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "1",
-                                            auth_level_required: "1"
-                                        }
+                                        request: {...service_would_like_2fa }
                                     },
+
                                     account: {
-                                        "always_use_2fa": true,
-                                        factors: {
-                                            password: {
-                                                secret: "password"
-                                            }
-                                        }
-                                     }
-                                 }
-                            )}>setup</a></td>
-                        </tr>
-                        <tr>
-                            <td>Signed in: Desired 2, Required 1, No Factors</td>
-                            <td><a href="#" onClick={(e) => this.setup(e,
-                                {
-                                    service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "2",
-                                            auth_level_required: "1"
-                                        }
-                                    },
-                                    account: {
-                                        "always_use_2fa": false,
-                                        factors: {
-                                            password: {
-                                                secret: "password"
-                                            }
-                                        }
+                                        "email": "laps@larry.com"
                                      }
                                  }
                              )}>setup</a></td>
                         </tr>
                         <tr>
-                            <td>Signed in: Desired 2, Required 2, No Factors</td>
+                            <td>Sign in: Desired 2, Required 2, No Factors</td>
                             <td><a href="#" onClick={(e) => this.setup(e,
                                 {
                                     service: {
-                                        request: {
-                                            ...request,
-                                            auth_level_desired: "2",
-                                            auth_level_required: "2"
-                                        }
+                                        request: {...service_requires_2fa }
                                     },
+
                                     account: {
-                                        "always_use_2fa": false,
-                                        factors: {
-                                            password: {
-                                                secret: "password"
-                                            }
-                                        }
+                                        "email": "laps@larry.com"
                                      }
                                  }
                              )}>setup</a></td>

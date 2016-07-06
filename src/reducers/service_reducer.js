@@ -9,13 +9,13 @@ const initState = {
     
     response_from_gw: {
         level: "1",
-        trust_id: "6876Ff876W868SD787",
+        trust_id: "875678687GJHGH343",
         name: "Marky Mid",
         cred_id: "1543245377",
         last_logged_in: "01/12/2016 09:25"
     },
     trusted_hashes: [
-        "6876Ff876W868SD787"
+        "875678687GJHGH343"
     ]
 };
 
