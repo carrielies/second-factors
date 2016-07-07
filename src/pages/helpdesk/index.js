@@ -15,7 +15,7 @@ export default connect((state) => state) (
 
         onClick(e) {
             e.preventDefault();
-            this.props.dispatch( {type: 'SAVE_SERVICE_TO_SERVER', data: {
+            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
                 request: {
                     name: "Help desk",
                     auth_level_required: "1",

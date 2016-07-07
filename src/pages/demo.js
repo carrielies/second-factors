@@ -59,8 +59,8 @@ export default connect((state) => state) (
         go(e, url) {
             e.preventDefault();
             this.props.dispatch({type: "SAVE_ACCOUNT", data: JSON.parse(this.refs.account.value)});
-            this.props.dispatch({type: "SAVE_ACCOUNT_TO_SERVER", data: JSON.parse(this.refs.server.value)});
-            this.props.dispatch({type: "SAVE_SERVICE_TO_SERVER", data: JSON.parse(this.refs.service.value)});
+            this.props.dispatch({type: "SAVE_SERVER", data: JSON.parse(this.refs.server.value)});
+            this.props.dispatch({type: "SAVE_SERVICE", data: JSON.parse(this.refs.service.value)});
             this.props.dispatch({type: "SAVE_COOKIE", data: JSON.parse(this.refs.cookie.value)});
             browserHistory.push(url)
         }

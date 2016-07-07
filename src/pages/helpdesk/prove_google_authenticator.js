@@ -36,9 +36,10 @@ export default connect((state) => state) (
                 let errors = {};
                 errors["code"] = {msg: "Wrong code entered", summary: "You entered the wrong code"};
                 this.setState( {errors: errors});
+                return;
             }
 
-            // browserHistory.push("/logged_in")
+            browserHistory.push("/helpdesk/manage_account")
         }
 
         render() {
@@ -56,7 +57,7 @@ export default connect((state) => state) (
                         <Field ref="code" name="code" labelText="Code" errors={errors} labelHint={hint}/>
                     </Question>
 
-                    <a href="#" className="button" onClick={(e) => this.onNext(e)}>They've answered</a>
+                    <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     <br/>
                     <br/>
                     <Link to="/helpdesk/prove_identity">They don't know the answer</Link>

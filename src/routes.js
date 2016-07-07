@@ -21,6 +21,9 @@ import HelpDeskSearch from './pages/helpdesk/search'
 import HelpDeskSearchResults from './pages/helpdesk/search_results.js'
 import HelpDeskProveIdentity from './pages/helpdesk/prove_identity'
 import HelpDeskProveGoogleAuthenticator from './pages/helpdesk/prove_google_authenticator'
+import HelpDeskManageAccount from './pages/helpdesk/manage_account'
+import HelpDeskResetPassword from './pages/helpdesk/reset_password'
+import HelpDeskManageGoogleAuthenticator from './pages/helpdesk/manage_google_authenticator'
 import Summary from './pages/register/summary'
 import Demo from './pages/demo'
 import CheckDevice from './pages/sign_in/check_device'
@@ -49,12 +52,16 @@ export default function(props) {
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
             <Route path="/service/landing_page" component={LandingPage}/>
+            <Route path="/helpdesk" component={HelpDeskIndex}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>
             <Route path="/helpdesk/landing_page" component={HelpDeskLandingPage}/>
             <Route path="/helpdesk/search" component={HelpDeskSearch}/>
             <Route path="/helpdesk/search_results" component={HelpDeskSearchResults}/>
             <Route path="/helpdesk/prove_identity" component={HelpDeskProveIdentity}/>
             <Route path="/helpdesk/prove_google_authenticator" component={HelpDeskProveGoogleAuthenticator}/>
+            <Route path="/helpdesk/manage_account" component={HelpDeskManageAccount}/>
+            <Route path="/helpdesk/manage_google_authenticator" component={HelpDeskManageGoogleAuthenticator}/>
+            <Route path="/helpdesk/reset_password" component={HelpDeskResetPassword}/>
             <Route path="/check_device" component={CheckDevice}/>
             <Route path="/demo" component={Demo}/>
         </Router>

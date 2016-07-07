@@ -52,24 +52,14 @@ export default connect((state) => state) (
         }
 
 
-    // <tr>
-    // <td>Google authenticator</td>
-    // <td>This requires a special app installed on THEIR browser or a phone app which generates a new code every 30 seconds.   </td>
-    // <td></td>
-    // <td className="change-link">
-    // <a href="#/help_desk_v2/google_auth_challenge">Issue Challenge</a><br/>
-    // </td>
-    // </tr>
-    //
-    // <tr>
-    // <td>SMS code</td>
-    // <td>Requires them to read back a code which is sent to their phone<br/>
-    // </td>
-    // <td></td>
-    // <td className="change-link">
-    //     <a href="#/help_desk_v2/sms_challenge">Issue Challenge</a><br/>
-    // </td>
-    // </tr>
+        forceRetrust(e) {
+            e.preventDefault();
+            let account = this.props.helpdesk.account;
+            account.trust_id= this.guid();
+            this.props.dispatch({type: 'SAVE_HELPDESK', data: {account}});
+            browserHistory.push("/helpdesk/manage_account");
+        }
+
 
 
         render() {
@@ -119,7 +109,7 @@ export default connect((state) => state) (
                                     will result in any services they have enrolled in, re-asking them for known facts, to re-establish the trust.
                                 </p>
 
-                                <a href="#/help_desk_v2/manage_account" className="button-secondary">Force services to re-trust user by asking for known facts</a>
+                                <a href="#" className="button-secondary" onClick={(e) => this.forceRetrust(e)}>Force services to re-trust user by asking for known facts</a>
 
                             </div>
 

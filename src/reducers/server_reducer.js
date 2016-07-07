@@ -8,6 +8,7 @@ const initState = {
         two_fa_passed: false,
         cred_id: "765875675786",
         trust_id: "875678687GJHGH343",
+        interactions: [],
         factors: {
             password: {
                 secret: "password"
@@ -15,7 +16,7 @@ const initState = {
             google_authenticator: {
                 secret: "JM4VQTSGMQRSGRZEKJGSMUTNORUE63JS"
             }
-        }
+        },
     },
     "security@simon.com": {
         email: "security@simon.com",
@@ -25,6 +26,7 @@ const initState = {
         two_fa_passed: false,
         cred_id: "1234SIMON",
         trust_id: "875678687GJHGH343",
+        interactions: [],
         factors: {
             password: {
                 secret: "password"
@@ -55,6 +57,7 @@ const initState = {
         two_fa_passed: false,
         cred_id: "1234LARRY",
         trust_id: "875678687GJHGH343",
+        interactions: [],
         factors: {
             password: {
                 secret: "password"
@@ -70,7 +73,7 @@ const initState = {
 export default function(state=initState, action ) {
 
     switch(action.type) {
-        case 'SAVE_ACCOUNT_TO_SERVER':
+        case 'SAVE_SERVER':
             return {...state, ...action.data};
         default:
             return state

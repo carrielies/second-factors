@@ -9,7 +9,7 @@ export default connect((state) => state) (
 
         gotoHmrc(e) {
             e.preventDefault();
-            this.props.dispatch( {type: 'SAVE_SERVICE_TO_SERVER', data: {
+            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
                 request: {
                     name: "Hmrc",
                     auth_level_required: "1",
@@ -23,7 +23,7 @@ export default connect((state) => state) (
 
         upliftToLevel2(e) {
             e.preventDefault();
-            this.props.dispatch( {type: 'SAVE_SERVICE_TO_SERVER', data: {
+            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
                 request: {
                     name: "Child Maintenance",
                     auth_level_required: "2",
@@ -37,7 +37,7 @@ export default connect((state) => state) (
 
         upliftToLevel1Desired2(e) {
             e.preventDefault();
-            this.props.dispatch( {type: 'SAVE_SERVICE_TO_SERVER', data: {
+            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
                 request: {
                     name: "Child Maintenance",
                     auth_level_required: "1",

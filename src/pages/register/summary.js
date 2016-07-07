@@ -17,7 +17,7 @@ export default connect((state) => state) (
             let email = this.props.account.email;
             let account = {};
             account[email] = {...this.props.account};
-            this.props.dispatch( {type: 'SAVE_ACCOUNT_TO_SERVER', data: account});
+            this.props.dispatch( {type: 'SAVE_SERVER', data: account});
             browserHistory.push( "/signin")
         }
 

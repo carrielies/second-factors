@@ -11,7 +11,7 @@ export default connect((state) => state) (
         componentDidMount() {
             setTimeout( () => {
                 browserHistory.push("/signin")
-            },2000)
+            },2)
         }
 
         render() {

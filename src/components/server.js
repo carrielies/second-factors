@@ -14,7 +14,6 @@ export default class {
     findByEmail(email) {
         const account = this.data[email];
         return account;
-
     }
 
 
