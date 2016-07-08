@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server-prod.js",
     "webpack": "node server.js",
-    "build": "webpack --progress --colors --config webpack-prod.config.js",
+    "postinstall": "webpack --progress --colors --config webpack-prod.config.js",
     "lint": "eslint src"
   },
   "repository": {
