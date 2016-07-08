@@ -3,6 +3,7 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import Question from '../../components/question'
 import Field from '../../components/field'
+import StoreHelper from '../../utils/store_helper'
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
@@ -13,18 +14,21 @@ export default connect((state) => state) (
         constructor(props) {
             super(props);
             let new_password = generatePassword();
-            this.state = { new_password }
+            this.state = { new_password };
 
-            let account = props.helpdesk.account;
-            account.factors.password.secret =
+            let store = new StoreHelper(this.props);
 
+            let account = store.serverAccount(store.helpdesk.selected_account);
+            account.factors.password.secret = new_password;
             props.dispatch( { type: 'SAVE_HELPDESK', data: {account}})
+            store.saveInteraction( "help_desk", "Password reset", account);
+
         }
 
 
         render() {
             return(
-                <Govuk>
+                <Govuk title="Helpdesk">
                     <Content title="Reset password">
                         <p>
                             The customer will be asked to change this password, the next time they sign in.

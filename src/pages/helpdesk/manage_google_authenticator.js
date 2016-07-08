@@ -2,6 +2,7 @@ import React from 'react'
 import Govuk from '../../components/govuk'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
+import StoreHelper from '../../utils/store_helper'
 import Field from '../../components/field'
 import Ga from '../../components/ga'
 import Breadcrumb from '../../components/breadcrumb'
@@ -17,12 +18,11 @@ export default connect((state) => state) (
             e.preventDefault();
 
             if( this.refs.yes.checked ) {
-                let account = this.props.helpdesk.account;
-                account.trust_id = this.guid();
-
-                delete( this.props.helpdesk.account.factors.google_authenticator );
-
-                this.props.dispatch({type: 'SAVE_HELPDESK', data: {account}});
+                let store = new StoreHelper(this.props);
+                let account = store.serverAccount(store.helpdesk.selected_account);
+                delete( account.factors.google_authenticator );
+                store.saveInteraction( "help_desk", "Removed Google authenticator", account);
+                store.saveServerAccount(account);
             }
 
 
@@ -32,8 +32,12 @@ export default connect((state) => state) (
         }
 
         render() {
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
+            
             return(
-                <Govuk>
+                <Govuk title="Helpdesk">
+                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`}/>
                     <Question title="Remove Google Authenticator?">
                         <p>
                             Removing google authenticator from the account will force the customers trust to existing services

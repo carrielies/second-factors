@@ -8,6 +8,7 @@ export default class StoreHelper {
         this.server = store.server;
         this.service = store.service;
         this.cookie = store.cookie;
+        this.helpdesk = store.helpdesk;
     }
 
     saveAccount(data) {
@@ -22,17 +23,38 @@ export default class StoreHelper {
         this.store.dispatch({type: "SAVE_SERVER", data: {...this.server, ...data}})
     }
 
+    saveServerAccount(account) {
+        let data = {};
+        data[account.email] = account
+        this.saveServer(data);
+    }
+
+    serverAccount(email) {
+        let account = this.findAccountByEmail(email);
+        account.breakTrust = () => {
+            account.trust_id= this.guid();
+            return account;
+        };
+        return account;
+    }
+
+
     saveService(data) {
         this.store.dispatch({type: "SAVE_SERVICE", data: {...this.service, ...data}})
     }
-    
-    
-    saveInteraction( type, event ) {
-        let interactions = this.account.interactions;
-        let time = moment(new Date()).format('DD/MM/YY HH:mm:ss');
 
-        interactions.push( {type, event, time});
-        this.store.dispatch({type: "SAVE_ACCOUNT", data: {...this.account, interactions}})
+    saveHelpdesk(data) {
+        this.store.dispatch({type: "SAVE_HELPDESK", data: {...this.helpdesk, ...data}})
+    }
+
+
+    saveInteraction( origin, event, account ) {
+
+        let acc = account ? account : this.account
+        let interactions = acc.interactions;
+        let time = moment(new Date()).format('DD/MM/YY HH:mm:ss');
+        interactions.push( {origin, event, time});
+        this.store.dispatch({type: "SAVE_ACCOUNT", data: {...this.acc, interactions}})
     }
 
     findAccountByEmailAndPassword(email, password) {
@@ -45,6 +67,14 @@ export default class StoreHelper {
     findAccountByEmail(email) {
         const account = this.server[email];
         return account;
+    }
+
+    guid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+
     }
 
 }

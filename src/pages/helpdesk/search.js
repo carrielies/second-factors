@@ -34,7 +34,7 @@ export default connect((state) => state) (
                         <Field ref="gatewayId" name="gatewayId" errors={this.state.errors} labelText="Gateway Id" labelHint=""/>
                     </Question>
                     <br/>
-                    <a href="#/help_desk_v2/search_results" className="button" onClick={(e) => this.search(e)}>Search</a>
+                    <a href="#" className="button" onClick={(e) => this.search(e)}>Search</a>
 
 
                 </Govuk>

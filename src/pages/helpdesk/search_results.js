@@ -6,6 +6,9 @@ import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
 import Server from '../../components/server'
+import StoreHelper from '../../utils/store_helper'
+import Breadcrumb from '../../components/breadcrumb'
+
 
 import {connect} from 'react-redux'
 
@@ -15,13 +18,9 @@ export default connect((state) => state) (
 
         select(e, email) {
             e.preventDefault();
-            let server = new Server(this.props.server);
-            let account = server.findByEmail(email);
-            this.props.dispatch({type: 'SAVE_HELPDESK', data: {account: account}});
+            (new StoreHelper(this.props)).saveHelpdesk( {selected_account: email} );
             browserHistory.push("/helpdesk/prove_identity")
         }
-        
-        
 
         render() {
 
@@ -44,7 +43,7 @@ export default connect((state) => state) (
 
             return(
                 <Govuk title="Helpdesk">
-
+                    <Breadcrumb text="" back="/helpdesk/search"/>
                     <h1 className="heading-medium">Results</h1>
                     <table className="table-font-xsmall summary" >
                         <thead>

@@ -6,10 +6,16 @@ export default class extends React.Component {
 
     back(e) {
         e.preventDefault();
-        browserHistory.goBack();
+        if ( this.props.back ) {
+            browserHistory.push(this.props.back);
+        }
+        else {
+            browserHistory.goBack();
+        }
     }
 
     render() {
+
         return (
             <div className="grid-row bread">
                 <div className="column-two-thirds">

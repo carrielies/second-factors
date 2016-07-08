@@ -5,6 +5,7 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
+import StoreHelper from '../../utils/store_helper'
 import Breadcrumb from '../../components/breadcrumb'
 
 import {connect} from 'react-redux'
@@ -14,14 +15,21 @@ export default connect((state) => state) (
 
         forceRetrust(e) {
             e.preventDefault();
-            let account = this.props.helpdesk.account;
-            account.trust_id= this.guid();
-            this.props.dispatch({type: 'SAVE_HELPDESK', data: {account}});
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount( store.helpdesk.selected_account );
+            store.saveServerAccount(account.breakTrust());
+            let helpdesk = store.helpdesk;
+            helpdesk.trust_broken = true;
+            store.saveHelpdesk(helpdesk);
+            store.saveInteraction( "help_desk", "Forced retrust", account);
         }
 
 
         authFactors() {
-            let factors = this.props.helpdesk.account.factors || [];
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
+
+            let factors = account.factors || [];
 
             let handlers = {
                 google_authenticator: () => {
@@ -69,14 +77,15 @@ export default connect((state) => state) (
 
             let service = this.props.service;
             let resp = service.response_from_gw;
-            
-            let account = this.props.helpdesk.account;
 
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
+            let helpdesk = store.helpdesk;
 
             let logs = account.interactions.map( (e) => {
                return(
                    <tr>
-                       <td>{e.type}</td>
+                       <td>{e.origin}</td>
                        <td>{e.event}</td>
                        <td>{e.time}</td>
                    </tr>
@@ -84,7 +93,9 @@ export default connect((state) => state) (
             });
 
             return(
-                <Govuk phaseBanner="true">
+                <Govuk title="Helpdesk">
+                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`} back="/helpdesk/prove_identity"/>
+
                     <h1 className="heading-medium">{`${account.firstnames} ${account.lastname}`}</h1>
                     <table className="table-font-xsmall summary" >
                         <thead>
@@ -116,36 +127,18 @@ export default connect((state) => state) (
                         <tr>
                             <td>Trust Id</td>
                             <td>{account.trust_id}</td>
-                            <td></td>
+                            <td> {helpdesk.trust_broken ? "Forced Retrust" : ""}</td>
                         </tr>
 
                         </tbody>
                     </table>
 
-
-
-                    <h1 className="heading-medium">Services which they have interacted with</h1>
-                    <table className="table-font-xsmall summary" >
-                        <thead>
-                        <tr>
-                            <th>Event</th>
-                            <th>Message</th>
-                            <th>Time</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {logs}
-                        </tbody>
-                    </table>
-
                     <br/>
-                    <a href="#" onClick={(e) => this.forceRetrust(e)} className="button-secondary">Force services to re-trust user by asking for known facts</a>
-                    <br/>
-                    <br/>
-
 
                     <h1 className="heading-medium">Their authentication factors</h1>
-                    <p>Changing these will not break trust between a user and service. If you are not 100% sure that you trust the person is who they say they are then click the break trust button. </p>
+                    <a href="#" onClick={(e) => this.forceRetrust(e)} >Force services to re-trust user by asking for known facts</a>
+                    <br/>
+                    <br/>
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
@@ -154,9 +147,25 @@ export default connect((state) => state) (
                         </thead>
                         <tbody>
                         {this.authFactors()}
-                        
+
                         </tbody>
                     </table>
+                    <br/>
+
+                    <h1 className="heading-medium">Their event log</h1>
+                    <table className="table-font-xsmall summary" >
+                        <thead>
+                        <tr>
+                            <th>Origin</th>
+                            <th>Event</th>
+                            <th>Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {logs}
+                        </tbody>
+                    </table>
+
 
 
 

@@ -5,16 +5,23 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
-
+import StoreHelper from '../../utils/store_helper'
+import Breadcrumb from '../../components/breadcrumb'
 
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
     class extends QuestionPage{
 
-
+        constructor(props) {
+            super(props)
+        }
+        
         authFactors() {
-            let factors = this.props.helpdesk.account.factors || [];
+            
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount( store.helpdesk.selected_account );
+            let factors = account.factors || [];
 
             let handlers = {
                 google_authenticator: () => {
@@ -54,9 +61,20 @@ export default connect((state) => state) (
 
         forceRetrust(e) {
             e.preventDefault();
-            let account = this.props.helpdesk.account;
-            account.trust_id= this.guid();
-            this.props.dispatch({type: 'SAVE_HELPDESK', data: {account}});
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount( store.helpdesk.selected_account );
+            store.saveServerAccount(account.breakTrust());
+            let helpdesk = store.helpdesk;
+            helpdesk.trust_broken = true;
+            store.saveHelpdesk(helpdesk);
+            store.saveInteraction( "help_desk", "Forced retrust", account);
+            browserHistory.push("/helpdesk/manage_account");
+        }
+
+        continueWithReason(e) {
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
+            store.saveInteraction( "help_desk", `Proved identity by other means: ${this.refs.how.value}`, account);
             browserHistory.push("/helpdesk/manage_account");
         }
 
@@ -65,9 +83,12 @@ export default connect((state) => state) (
         render() {
 
             let factors = this.authFactors();
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
 
             return(
-                <Govuk  title="Helpdesk">
+                <Govuk title="Helpdesk">
+                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`} back="/helpdesk/search_results"/>
                     <Content>
                         <h1 className="heading-medium">Prove their identity ?</h1>
                         <p>We need to trust the customer is who they say they are.  This can be done by issuing a challenge based on 2nd factors they have set up.</p>
@@ -97,7 +118,6 @@ export default connect((state) => state) (
                     </table>
 
                     <br/>
-                    <Content>
                         <details>
 
                             <summary><span class="summary">Customer unable to prove their identity</span></summary>
@@ -105,17 +125,35 @@ export default connect((state) => state) (
                             <div class="panel panel-border-narrow">
 
                                 <p>
-                                    If you can not prove the customers identity, then any password resets, changes to email address's etc
-                                    will result in any services they have enrolled in, re-asking them for known facts, to re-establish the trust.
+                                    If you continue on, then you will break their trust between any of their enrolled services.
                                 </p>
 
-                                <a href="#" className="button-secondary" onClick={(e) => this.forceRetrust(e)}>Force services to re-trust user by asking for known facts</a>
+                                <a href="#" className="button" onClick={(e) => this.forceRetrust(e)}>Manage their account</a>
 
                             </div>
 
                         </details>
-                    </Content>
+                        <br/>
 
+                        <details>
+
+                            <summary><span class="summary">I've proved their identity by other means</span></summary>
+
+                            <div class="panel panel-border-narrow">
+
+                                <h1 className="heading-small">
+                                    How have you proved their identity ?
+                                </h1>
+                                <p>This will be recorded in their event log</p>
+                                <textarea ref="how" cols="100" rows="3"></textarea>
+                                <br/>
+                                <br/>
+
+                                <a href="#" className="button" onClick={(e) => this.continueWithReason(e)}>Manage their account</a>
+
+                            </div>
+
+                        </details>
 
 
 

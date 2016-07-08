@@ -4,6 +4,7 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import Ga from '../../components/ga'
 import React from 'react'
+import StoreHelper from '../../utils/store_helper'
 import speakeasy from 'speakeasy';
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
@@ -39,6 +40,10 @@ export default connect((state) => state) (
                 return;
             }
 
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
+            store.saveInteraction( "help_desk", `Proved identity with google authenticator`, account);
+
             browserHistory.push("/helpdesk/manage_account")
         }
 
@@ -46,14 +51,16 @@ export default connect((state) => state) (
 
             let errors = this.state.errors;
             let hint = this.state.token;
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount(store.helpdesk.selected_account);
             return (
 
                 <Govuk title="Helpdesk">
 
-                    <Breadcrumb text={`${this.props.helpdesk.account.firstnames} ${this.props.helpdesk.account.lastname}`}/>
-                    <Ga ref="ga" secret={this.props.helpdesk.account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
+                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`}/>
+                    <Ga ref="ga" secret={account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
 
-                    <Question title="What's your 6 digit google authenticator code?" errors={errors}>
+                    <Question title="What's their 6 digit google authenticator code?" errors={errors}>
                         <Field ref="code" name="code" labelText="Code" errors={errors} labelHint={hint}/>
                     </Question>
 
