@@ -9,18 +9,24 @@ export default connect((state) => state) (
     class extends React.Component {
 
         componentDidMount() {
-            setTimeout( () => {
-                browserHistory.push("/signin")
-            },2)
+
+            if ( this.props.debug ) {
+                setTimeout(() => {
+                    browserHistory.replace("/signin")
+                }, 2000)
+            }
+            else {
+                browserHistory.replace("/signin")
+            }
         }
 
         render() {
             let service = this.props.service || {};
             return (
-                <Govuk>
+                <Govuk title={service.request.name}>
                     <h1 className="heading-medium">Redirecting to Government Gateway...</h1>
-
-                    <JSONTree data={service.request} isLightTheme={false} expandAll={true} hideRoot={true}/>
+                    {this.props.debug ?
+                        <JSONTree data={service.request} isLightTheme={false} expandAll={true} hideRoot={true}/> : null }
                 </Govuk>
             )
         }

@@ -14,11 +14,15 @@ export default connect((state) => state) (
         
         onNext(e) {
             e.preventDefault();
+            let factors = Object.keys(this.props.account.factors).join(",");
+
             let email = this.props.account.email;
             let account = {};
             account[email] = {...this.props.account};
             this.props.dispatch( {type: 'SAVE_SERVER', data: account});
-            browserHistory.push( "/signin")
+            let store = new StoreHelper(this.props);
+            store.saveInteraction( "registration", `Account created with factors: ${factors}` );
+            browserHistory.push( "/logged_in")
         }
 
         render() {

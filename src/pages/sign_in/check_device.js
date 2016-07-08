@@ -69,7 +69,7 @@ export default connect((state) => state) (
                         <br/>
                         {this.state.matched ?
 
-                            <a href="#" className="button" onClick={(e) => onNext(e)}>Device Matched</a> :
+                            <a href="#" className="button" onClick={(e) => this.onNext(e)}>Device Matched</a> :
                             <Link to="/your_auth_factors" className="button">Device not Matched</Link>
                         }
                         

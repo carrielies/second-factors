@@ -35,7 +35,7 @@ export default connect((state) => state) (
                     }
                 };
 
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors} })
+                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors, two_fa_passed: true} })
                 browserHistory.push("/register/summary");
             })
         }

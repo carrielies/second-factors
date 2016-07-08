@@ -16,7 +16,10 @@ const initState = {
     },
     trusted_hashes: [
         "875678687GJHGH343"
-    ]
+    ],
+    enrolled_users: {
+        "marky@gmail.com" : "875678687GJHGH343"
+    }
 };
 
 export default function(state=initState, action ) {

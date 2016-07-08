@@ -11,7 +11,7 @@ export default connect((state) => state) (
             
             let signedIn;
             if (this.props.account.signed_in) {
-                signedIn = <span><a id="sign-out" href="#">Sign out</a></span>
+                signedIn = <span><Link to="/" id="sign-out" >Sign out</Link></span>
             }
             
             return (
@@ -41,7 +41,7 @@ export default connect((state) => state) (
                                     <nav id="proposition-menu">
                                         <div className="grid-row">
                                             <div className="column-half">
-                                                <Link to="/demo" id="proposition-name">{this.props.title || "Government Gateway"}</Link>
+                                                <Link to="/" id="proposition-name">{this.props.title || "Government Gateway"}</Link>
                                             </div>
                                             <div className="column-half logout">
                                                 {signedIn}

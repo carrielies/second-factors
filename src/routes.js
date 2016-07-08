@@ -25,14 +25,17 @@ import HelpDeskManageAccount from './pages/helpdesk/manage_account'
 import HelpDeskResetPassword from './pages/helpdesk/reset_password'
 import HelpDeskManageGoogleAuthenticator from './pages/helpdesk/manage_google_authenticator'
 import Summary from './pages/register/summary'
+import Home from './pages/home'
 import Demo from './pages/demo'
 import CheckDevice from './pages/sign_in/check_device'
 import LandingPage from './pages/service/landing_page'
+import ServiceHome from './pages/service/index'
 
 export default function(props) {
     
     const history = syncHistoryWithStore(browserHistory, props.store);
-    
+        
+
     return (
         <Router history={history}>
             <Route path="/signin" component={SignIn}/>
@@ -52,6 +55,8 @@ export default function(props) {
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
             <Route path="/service/landing_page" component={LandingPage}/>
+            <Route path="/service/index" component={ServiceHome}/>
+            <Route path="/service" component={ServiceHome}/>
             <Route path="/helpdesk" component={HelpDeskIndex}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>
             <Route path="/helpdesk/landing_page" component={HelpDeskLandingPage}/>
@@ -63,6 +68,7 @@ export default function(props) {
             <Route path="/helpdesk/manage_google_authenticator" component={HelpDeskManageGoogleAuthenticator}/>
             <Route path="/helpdesk/reset_password" component={HelpDeskResetPassword}/>
             <Route path="/check_device" component={CheckDevice}/>
+            <Route path="/" component={Home}/>
             <Route path="/demo" component={Demo}/>
         </Router>
         
