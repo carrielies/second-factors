@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "GG3 react alpha prototype",
   "scripts": {
-    "start": "node server.js",
+    "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
+    "start": "node server-prod.js",
+    "webpack": "node server.js",
     "lint": "eslint src"
   },
   "repository": {
@@ -56,6 +58,7 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "govuk-elements-sass": "^1.1.4",
     "govuk_frontend_toolkit": "^4.9.1",
     "react": "^15.1.0",
