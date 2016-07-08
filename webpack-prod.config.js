@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    devtool: "source-map",
     entry: [
         './src/index'
     ],
@@ -12,25 +13,24 @@ module.exports = {
         publicPath: '/static/'
     },
     plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            },
+            comments: false,
+        }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin(),
         new webpack.DefinePlugin({
+            output: {comments: false},
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            compressor: {
-                warnings: false
-            }
-        }),
-        new CopyWebpackPlugin([
-            { from: 'node_modules/govuk_frontend_toolkit/images/seperator.png', to: 'dist/seperator.png'},
-        ])
     ],
     module: {
         loaders: [
-            {test: /\.js$/, loaders: ['react-hot', 'babel'], include: path.join(__dirname, 'src')},
+            {test: /\.js$/, exclude: /node_modules/, loaders: [ 'babel'], include: path.join(__dirname, 'src')},
             {test: /\.scss$/, loaders: ['style', 'css', 'sass' ]  },
             {test: /\.less$/, loaders: ['style', 'css', 'less']},
             {test: /\.gif$/, loader: "url-loader?mimetype=img/png"},

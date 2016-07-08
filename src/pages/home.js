@@ -1,13 +1,11 @@
 import React from 'react'
 import GovUk from '../components/govuk'
-import Server from '../components/server'
 import StoreHelper from '../utils/store_helper'
-import Autocomplete from 'react-autocomplete'
 import { browserHistory, Link } from 'react-router'
-import {DropdownList} from 'react-widgets'
+// import {DropdownList} from 'react-widgets'
 
 import {connect} from 'react-redux'
-import 'react-widgets/lib/less/react-widgets.less'
+// import 'react-widgets/lib/less/react-widgets.less'
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -21,8 +19,11 @@ export default connect((state) => state) (
             this.selectUser(users[0])
         }
 
-        selectUser(user) {
+        onSelectUser(e) {
+            this.selectUser(e.target.value)
+        }
 
+        selectUser(user) {
             let store = new StoreHelper(this.props);
             let account = store.findAccountByEmail(user);
 
@@ -42,10 +43,20 @@ export default connect((state) => state) (
         render() {
 
             let users = Object.keys(this.props.server);
+
+            let drop_down = users.map( (u) => {
+                return(
+                    <option value={u}>{u}</option>
+                )
+            });
+
             return(
                 <GovUk title="Home">
                     <br/>
-                    <DropdownList defaultValue={users[0]} ref="user" duration="20" data ={users} onChange={(user) => this.selectUser(user)}/>
+                    <select onChange={(e) => this.onSelectUser(e)}>
+                        {drop_down}
+                    </select>
+                    <br/>
                     <br/>
                     <Link to="/helpdesk">Helpdesk</Link>
                     <br/>
