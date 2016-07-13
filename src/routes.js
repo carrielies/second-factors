@@ -27,6 +27,7 @@ import HelpDeskManageGoogleAuthenticator from './pages/helpdesk/manage_google_au
 import Summary from './pages/register/summary'
 import Home from './pages/home'
 import Demo from './pages/demo'
+import U2f from './pages/u2f'
 import CheckDevice from './pages/sign_in/check_device'
 import LandingPage from './pages/service/landing_page'
 import ServiceHome from './pages/service/index'
@@ -68,6 +69,7 @@ export default function(props) {
             <Route path="/helpdesk/manage_google_authenticator" component={HelpDeskManageGoogleAuthenticator}/>
             <Route path="/helpdesk/reset_password" component={HelpDeskResetPassword}/>
             <Route path="/check_device" component={CheckDevice}/>
+            <Route path="/u2f" component={U2f}/>
             <Route path="/" component={Home}/>
             <Route path="/demo" component={Demo}/>
         </Router>

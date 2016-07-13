@@ -68,6 +68,7 @@
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "speakeasy": "^2.0.0",
+    "u2f": "^0.1.2",
     "webpack": "^1.12.2"
   }
 }

@@ -18,11 +18,12 @@ export default class QuestionPage extends React.Component {
     validate(e,rules,callback) {
         let errors = {};
         let props = {};
+        let refs = this.refs;
         Object.keys(rules).forEach( (k) => {
-            let val = this.refs[k].value();
+            let val = refs[k].value();
             props[k] = val;
             let regEx = rules[k].regEx || /\w+/;
-            if (! val.match(regEx) ) errors[k] = rules[k]
+            if (!val || ! val.match(regEx) ) errors[k] = rules[k]
         });
 
         this.setState( {errors});

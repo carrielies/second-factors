@@ -46,7 +46,7 @@ export default connect((state) => state) (
 
                 <Govuk>
 
-                    <Breadcrumb text="Register for Government Gateway"/>
+                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
 
                     <Question title="Trust this device?" para="" errors={this.state.errors}>
                         <Fingerprint ref="fp" qrcodeSize={128}/>

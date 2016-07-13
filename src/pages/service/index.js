@@ -43,14 +43,22 @@ export default connect((state) => state) (
                     <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Child Maintenance</a>
                     <hr/>
 
-                    <h1 className="heading-small">OpenId Request</h1>
-                    <div className="grid-row">
-                        <div className="column-two-thirds">
-                            <textarea ref="request" cols="70" rows="6" onChange={ (e) => this.handleRequestChange(e)}  value={this.state.request}/>
+                    <details>
+
+                        <summary><span class="summary">Behind the scenes stuff...</span></summary>
+
+                        <div class="panel panel-border-narrow">
+
+                            <h1 className="heading-small">OpenId Request</h1>
+                            <div className="grid-row">
+                                <div className="column-two-thirds">
+                                    <textarea ref="request" cols="70" rows="6" onChange={ (e) => this.handleRequestChange(e)}  value={this.state.request}/>
+                                </div>
+                                <div className="column-one-third">
+                                </div>
+                            </div>
                         </div>
-                        <div className="column-one-third">
-                        </div>
-                    </div>
+                    </details>
 
                 </Govuk>
             )

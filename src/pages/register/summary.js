@@ -2,6 +2,7 @@ import Govuk from '../../components/govuk'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
+import StoreHelper from '../../utils/store_helper'
 import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory,Link } from 'react-router'
@@ -30,7 +31,7 @@ export default connect((state) => state) (
             return (
                 <Govuk phaseBanner="true">
 
-                    {this.props.breadcrumb}
+                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
                     <Question title="Your government gateway account has been created">
                     </Question>
 

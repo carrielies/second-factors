@@ -27,7 +27,7 @@ export default connect((state) => state) (
 
             return (
                 <Govuk>
-                    <Breadcrumb text="Register for Government Gateway"/>
+                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
                     {this.props.breadcrumb}
 
                     <Question title="Confirm email code?" errors={this.state.errors} para={para}>

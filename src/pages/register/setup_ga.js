@@ -61,7 +61,7 @@ export default connect((state) => state) (
     
                 <Govuk phaseBanner="true">
 
-                    <Breadcrumb text="Register for Government Gateway"/>
+                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
 
                     <Content title="Setup google authenticator">
                         <div className="grid-row">

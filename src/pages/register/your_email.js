@@ -25,7 +25,7 @@ export default connect((state) => state) (
 
             return (
                 <Govuk phaseBanner="true">
-                    <Breadcrumb text="Register for Government Gateway"/>
+                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
 
                     <Question title="What is your email address?" errors={this.state.errors} para="Your email address will be needed whenever you sign in">
                         <Field ref="email" name="email" errors={this.state.errors} labelText="Email" />
