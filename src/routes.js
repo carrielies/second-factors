@@ -8,7 +8,6 @@ import SetupDevice from './pages/register/setup_device'
 import YourName from './pages/register/your_name'
 import YourEmail from './pages/register/your_email'
 import ConfirmEmail from './pages/register/confirm_email'
-import YourSecret from './pages/register/your_secret_questions'
 import YourPassword from './pages/register/your_password'
 import RegisterYourAuthFactors from './pages/register/your_auth_factors'
 import YourAuthFactors from './pages/sign_in/your_auth_factors'
@@ -54,7 +53,6 @@ export default function(props) {
             <Route path="/register" component={YourName}/>
             <Route path="/register/your_name" component={YourName}/>
             <Route path="/register/your_email" component={YourEmail}/>
-            <Route path="/register/your_secret" component={YourSecret}/>
             <Route path="/register/confirm_email" component={ConfirmEmail}/>
             <Route path="/register/your_password" component={YourPassword}/>
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>

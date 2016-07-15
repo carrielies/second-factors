@@ -16,12 +16,61 @@ export default connect((state) => state) (
 
         onNext(e) {
             e.preventDefault();
-            if( this.refs.ga.checked ) {
+            if( this.refs.ga && this.refs.ga.checked ) {
                 browserHistory.push("/register/ga")
             }
-            if( this.refs.none.checked ) {
+            if( this.refs.df && this.refs.df.checked ) {
                 browserHistory.push("/register/device")
             }
+
+            if( this.refs.none.checked ) {
+                browserHistory.push("/register/summary")
+            }
+
+        }
+
+        availableFactors() {
+
+            let handlers = {
+                google_authenticator: (setup) => {
+                    if ( setup ) {
+                        return(
+                            <span className="second_factor_already_setup">Google authenticator - [Already setup]</span>
+                        )
+                    }
+                    else return(
+                        <label className="block-label" for="radio-1" key="radio-1">
+                            <input ref="ga" id="radio-1" type="radio" name="radio-group"/>Google authenticator
+                        </label>
+                    )
+                },
+                password: (setup) => {
+                    return(
+                        null
+                    )
+                },
+                device_fingerprint: (setup) => {
+                    if ( setup ) {
+                        return(
+                            <span className="second_factor_already_setup">Device fingerprint - [Already setup]</span>
+                        )
+                    }
+                    else return(
+                        <label className="block-label" for="radio-2" key="radio-2">
+                            <input ref="df" id="radio-2" type="radio" name="radio-group"/>Device fingerprint
+                        </label>
+                    )
+                }
+            };
+
+            let facs = this.props.account.factors;
+
+            let res = [];
+            Object.keys(handlers).forEach( (f) => {
+                res.push(handlers[f](facs[f]));
+            });
+
+            return res;
 
         }
 
@@ -33,11 +82,10 @@ export default connect((state) => state) (
 
                     <Question title="Setup two step verification?" para="Adding additional authentication methods helps to protect you online. Choose how you would like us to athenticate you from the list below:">
                         <p>{this.props.extraText}</p>
-                        <label className="block-label" for="radio-1">
-                            <input ref="ga" id="radio-1" type="radio" name="radio-group"/>Google authenticator
-                        </label>
+                        {this.availableFactors()}
+
                         <label className="block-label" for="radio-2">
-                            <input ref="none" id="radio-2" type="radio" name="radio-group"/>Don't use two step verification
+                            <input ref="none" id="radio-2" type="radio" name="radio-group"/>I'm done
                         </label>
                         
                     </Question>

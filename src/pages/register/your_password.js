@@ -25,7 +25,7 @@ export default connect((state) => state) (
                     }
                 };
                 this.props.dispatch( {type: 'SAVE_ACCOUNT', data: factors});
-                browserHistory.push("/register/your_secret")
+                browserHistory.push("/register/your_auth_factors")
             })
         }
 

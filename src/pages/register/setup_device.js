@@ -36,7 +36,7 @@ export default connect((state) => state) (
                 };
 
                 this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors, two_fa_passed: true} })
-                browserHistory.push("/register/summary");
+                browserHistory.push("/register/your_auth_factors");
             })
         }
 
@@ -52,7 +52,7 @@ export default connect((state) => state) (
                         <Fingerprint ref="fp" qrcodeSize={128}/>
                         <Content>
                             <p>This code uniquely identifies your smart phone, tablet, laptop or computer and
-                                forms part of your digital signature
+                                forms part of your digital signature.
                             </p>
                         </Content>
                         <Field ref="deviceName" name="deviceName" errors={this.state.errors} labelText="Device Name" labelHint="ie. home-laptop "/>

@@ -54,7 +54,11 @@ export default connect((state) => state) (
                             <td>Lastname</td>
                             <td>{this.props.account.lastname}</td>
                         </tr>
-                        
+                        <tr>
+                            <td>Authentication Factors</td>
+                            <td>{Object.keys(this.props.account.factors).join(", ").replace("_", " ")}</td>
+                        </tr>
+
                         </tbody>
                     </table>
                     <br/>
