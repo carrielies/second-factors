@@ -55,7 +55,7 @@ export default class StoreHelper {
     saveInteraction( origin, event, account ) {
 
         let acc = account ? account : this.account;
-        let interactions = acc.interactions;
+        let interactions = acc.interactions || [];
         let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
         interactions.push( {origin, event, time});
         this.store.dispatch({type: "SAVE_ACCOUNT", data: {...this.acc, interactions}})

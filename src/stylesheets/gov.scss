@@ -376,3 +376,22 @@ select {
   width: 100%;
   font-size: 16px;
 }
+
+.spacegov {
+  height: 60px;
+  background: url("/public/images/saturn.jpg") no-repeat;
+  background-color: black;
+  background-position: center;
+  //background-color: #eee;
+}
+
+
+.white_bar {
+  max-width: 960px;
+  width: 960px;
+  margin: 0 15px;
+  margin: 0 30px;
+  margin: 0 auto;
+  height: 10px;
+  background-color: #eee;
+}

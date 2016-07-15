@@ -11,7 +11,7 @@ export default connect((state) => state) (
             super(props);
 
             let request = {
-                name: "Child Maintenance",
+                name: "Spacegov",
                 auth_level_required: "1",
                 auth_level_desired: "1",
                 redirect_url: "/service/landing_page"
@@ -35,12 +35,16 @@ export default connect((state) => state) (
 
         render() {
             return(
-                <Govuk title="Child Maintenance">
-                    <Content title="Home page">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
+                    <div className="spacegov"></div>
+                    <Content title="Your Space Portal">
+                        <p>
+                            For your space fairing adventures, aquisitions and licensing sign into spacegov using your government gateway account.
+
+                        </p>
                     </Content>
                     <br/>
-                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Child Maintenance</a>
+                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov</a>
                     <hr/>
 
                     <details>

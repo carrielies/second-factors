@@ -1,13 +1,16 @@
 import React from 'react'
 import Govuk from '../../components/govuk'
 import Content from '../../components/content'
+import Question from '../../components/question'
+import QuestionPage from '../../utils/question_page'
 import StoreHelper from '../../utils/store_helper'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
 import JSONTree from 'react-json-tree'
+import Field from '../../components/field'
 
 export default connect((state) => state) (
-    class extends React.Component {
+    class extends QuestionPage {
 
         gotoHmrc(e) {
             e.preventDefault();
@@ -52,12 +55,25 @@ export default connect((state) => state) (
         }
 
         enrollUser(e) {
-            e.preventDefault();
-            let store = new StoreHelper(this.props);
-            let service = store.service;
-            let resp = service.response_from_gw;
-            service.enrolled_users[resp.email] = resp.trust_id;
-            store.saveService( service );
+
+            this.validate(e, {
+                license: {msg: "Enter your license number", summary: "You need to enter your license number", regEx: /\w+/},
+                org: {msg: "Enter your organisation name", summary: "You need to enter your organisation name", regEx: /\w+/},
+            }, (props) => {
+
+                let store = new StoreHelper(this.props);
+                let service = store.service;
+                let resp = service.response_from_gw;
+
+                let enrolment = {
+                    trust_id: resp.trust_id,
+                    space_trading_license_number: props.license,
+                    org_name: props.org
+                };
+
+                service.enrolled_users[resp.email] = enrolment;
+                store.saveService( service );
+            })
         }
 
         enrollment() {
@@ -65,24 +81,23 @@ export default connect((state) => state) (
             let resp = service.response_from_gw;
 
             return(
-                <Content>
-                    <h1 className="heading-medium">This is the first time you have visited {service.name}</h1>
-                    <p>Typically the service would ask for some known facts, to prove their identity</p>
-                    <a href="#" className="button" onClick={(e) => this.enrollUser(e)}>Enroll {resp.name}</a>
-                </Content>
+                <Question title={`Hello ${resp.name}`} errors={this.state.errors}>
+                    <p>As this is the first time you have used this service, we need to get some details from you.</p>
+                    <Field ref="license" name="license" labelText="Your secret space trading licence number" labelHint="Keep this a secret" errors={this.state.errors}/>
+                    <Field ref="org" name="org" labelText="Your organisation name" errors={this.state.errors}/>
+                    <a href="#" className="button" onClick={(e) => this.enrollUser(e)}>Enrol for Spacegov</a>
+                </Question>
             )
         }
 
-        weTrustYou() {
+        weTrustYou(enrolment) {
             let service = this.props.service;
             let resp = service.response_from_gw;
-
             return(
-                    <Content>
-                        <p>
-                            You last logged into {service.request.name} on {resp.last_logged_in}
-                        </p>
+                    <Content title={`Welcome back ${resp.name} of ${enrolment.org_name}`}>
+                        <p>What would you like to do today ?</p>
                         <p>We trust you</p>
+                        <a href="#" onClick={(e) => this.upliftToLevel2(e)}>Buy a spaceship?</a>
                     </Content>
             )
         }
@@ -124,27 +139,28 @@ export default connect((state) => state) (
             let resp = service.response_from_gw;
             let request = service.request;
 
-            let trust = service.enrolled_users[resp.email];
+            let enrolment = service.enrolled_users[resp.email];
 
             let content = null;
-            if ( ! trust ) content = this.enrollment();
+            if ( ! enrolment ) content = this.enrollment();
 
-            else if ( trust == resp.trust_id ) {
+            else if ( enrolment.trust_id == resp.trust_id ) {
 
                 if ( service.request.auth_level_desired == "2" && resp.level == "1" ) {
-                    content = this.weKindOfTrustYou();
+                    content = this.weKindOfTrustYou(enrolment);
                 }
                 else {
-                    content = this.weTrustYou();
+                    content = this.weTrustYou(enrolment);
                 }
 
             }
             else {
-                content = this.weDontTrustYou();
+                content = this.weDontTrustYou(enrolment);
             }
 
             return (
-                <Govuk title={service.request.name}>
+                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                    <div className="spacegov"></div>
                     {content}
                     <hr/>
 

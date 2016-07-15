@@ -18,7 +18,6 @@ const initState = {
         "875678687GJHGH343"
     ],
     enrolled_users: {
-        "marky@gmail.com" : "875678687GJHGH343"
     }
 };
 

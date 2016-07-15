@@ -32,7 +32,7 @@ export default connect((state) => state) (
                             <div className="header-global">
                                 <div className="header-logo">
                                     <a href="https://www.gov.uk/" title="Go to the GOV.UK homepage" id="logo" className="content">
-                                        <img src="/govuk_template/images/gov.uk_logotype_crown_invert_trans.png" width="35" height="31" alt=""/> GOV.UK
+                                        <img src="/govuk_template/images/gov.uk_logotype_crown_invert_trans.png" width="35" height="31" alt=""/> {this.props.header || "GOV.UK"}
                                     </a>
                                 </div>
                             </div>
@@ -52,18 +52,20 @@ export default connect((state) => state) (
                             </div>
                         </div>
                     </header>
-    
-                    <div id="global-header-bar"></div>
-    
+
+                    {this.props.hidePhaseBanner ?  <div className="white_bar"></div> :
+                        <div id="global-header-bar"></div>
+                    }
     
                     <main role="main">
                         <div id="page-container">
+                            {this.props.hidePhaseBanner ? null:
                             <div className="phase-banner">
                                 <p>
                                     <strong className="phase-tag">ALPHA</strong>
                                     <span className="span">This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
                                 </p>
-                            </div>
+                            </div> }
     
                             {this.props.children}
                             <br/>

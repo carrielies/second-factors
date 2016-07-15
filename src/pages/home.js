@@ -61,7 +61,7 @@ export default connect((state) => state) (
                     <Link to="/helpdesk">Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/service">Child Maintenance</Link>
+                    <Link to="/service">Spacegov</Link>
                     <br/>
                     <br/>
                     <Link to="/register">Register for Child Maintenance</Link>
