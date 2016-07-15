@@ -94,9 +94,9 @@ export default connect((state) => state) (
 
             return(
                 <Govuk title="Helpdesk">
-                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`} back="/helpdesk/prove_identity"/>
+                    <Breadcrumb text={`${account.name}`} back="/helpdesk/prove_identity"/>
 
-                    <h1 className="heading-medium">{`${account.firstnames} ${account.lastname}`}</h1>
+                    <h1 className="heading-medium">{`${account.name}`}</h1>
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
@@ -113,7 +113,7 @@ export default connect((state) => state) (
 
                         <tr>
                             <td>Name</td>
-                            <td>{`${account.firstnames} ${account.lastname}`}</td>
+                            <td>{`${account.name}`}</td>
                             <td className="change-link"></td>
                         </tr>
                         <tr>

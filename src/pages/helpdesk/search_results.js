@@ -31,7 +31,7 @@ export default connect((state) => state) (
                 let account = server[k];
                 return (
                     <tr>
-                        <td>{account.firstnames} {account.lastname}</td>
+                        <td>{account.name}</td>
                         <td>{account.email}</td>
                         <td>-</td>
                         <td>{account.cred_id}</td>

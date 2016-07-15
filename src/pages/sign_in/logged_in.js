@@ -18,7 +18,7 @@ export default connect((state) => state) (
                 response_from_gw: {
                     level: account.two_fa_passed ? "2" : "1",
                     trust_id: account.trust_id,
-                    name: account.firstnames + " " + account.lastname,
+                    name: account.name,
                     email: account.email,
                     cred_id: account.cred_id,
                     last_logged_in: "01/12/2016 09:25"

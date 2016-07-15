@@ -14,10 +14,9 @@ export default connect((state) => state) (
 
         onNext(e) {
             this.validate(e, {
-                firstnames: {msg: "Enter your first name", summary: "You need to enter your first name", regEx: /\w+/},
-                lastname: {msg: "Enter your last name", summary: "You need to enter your last name", regEx: /\w+/}
+                name: {msg: "Enter your full name", summary: "You need to enter your full name", regEx: /\w+/},
             }, (props) => {
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {firstnames: props.firstnames, lastname: props.lastname}})
+                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {name: props.name}})
                 browserHistory.push("/register/your_email")
             })
         }
@@ -28,8 +27,7 @@ export default connect((state) => state) (
                     <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
 
                     <Question title="What's your name ?" para="Enter all your names in full" errors={this.state.errors}>
-                        <Field ref="firstnames" name="firstnames" errors={this.state.errors} labelText="First names"/>
-                        <Field ref="lastname" name="lastname" errors={this.state.errors} labelText="Last name"/>
+                        <Field ref="name" name="name" errors={this.state.errors} labelText="Name"/>
                     </Question>
 
                     <br/>

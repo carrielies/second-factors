@@ -47,12 +47,8 @@ export default connect((state) => state) (
                             <td>{this.props.account.email}</td>
                         </tr>
                         <tr>
-                            <td>Firstnames</td>
-                            <td>{this.props.account.firstnames}</td>
-                        </tr>
-                        <tr>
-                            <td>Lastname</td>
-                            <td>{this.props.account.lastname}</td>
+                            <td>Name</td>
+                            <td>{this.props.account.name}</td>
                         </tr>
                         <tr>
                             <td>Authentication Factors</td>

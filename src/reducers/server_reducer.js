@@ -2,8 +2,7 @@ const initState = {
     
     "average@joe.com": {
         email: "average@joe.com",
-        firstnames: "Average",
-        lastname: "Joe",
+        name: "Average Joe",
         always_use_2fa: false,
         two_fa_passed: false,
         cred_id: "765875675786",
@@ -20,8 +19,7 @@ const initState = {
     },
     "security@simon.com": {
         email: "security@simon.com",
-        firstnames: "Security",
-        lastname: "Simon",
+        name: "Security Simon",
         always_use_2fa: true,
         two_fa_passed: false,
         cred_id: "1234SIMON",
@@ -51,8 +49,7 @@ const initState = {
     },
     "lapse@larry.com": {
         email: "lapse@larry.com",
-        firstnames: "Lapse",
-        lastname: "Larry",
+        name: "Lapse Larry",
         always_use_2fa: false,
         two_fa_passed: false,
         cred_id: "1234LARRY",

@@ -57,7 +57,7 @@ export default connect((state) => state) (
 
                 <Govuk title="Helpdesk">
 
-                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`}/>
+                    <Breadcrumb text={`${account.name}`}/>
                     <Ga ref="ga" secret={account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
 
                     <Question title="What's their 6 digit google authenticator code?" errors={errors}>

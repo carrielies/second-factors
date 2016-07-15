@@ -88,7 +88,7 @@ export default connect((state) => state) (
 
             return(
                 <Govuk title="Helpdesk">
-                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`} back="/helpdesk/search_results"/>
+                    <Breadcrumb text={`${account.name}`} back="/helpdesk/search_results"/>
                     <Content>
                         <h1 className="heading-medium">Prove their identity ?</h1>
                         <p>We need to trust the customer is who they say they are.  This can be done by issuing a challenge based on 2nd factors they have set up.</p>

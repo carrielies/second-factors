@@ -37,7 +37,7 @@ export default connect((state) => state) (
             
             return(
                 <Govuk title="Helpdesk">
-                    <Breadcrumb text={`${account.firstnames} ${account.lastname}`}/>
+                    <Breadcrumb text={`${account.name}`}/>
                     <Question title="Remove Google Authenticator?">
                         <p>
                             Removing google authenticator from the account will force the customers trust to existing services
