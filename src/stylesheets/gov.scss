@@ -382,9 +382,14 @@ select {
   background: url("/public/images/saturn.jpg") no-repeat;
   background-color: black;
   background-position: center;
-  //background-color: #eee;
 }
 
+.asteroidgov {
+  height: 60px;
+  background: url("/public/images/asteroid.jpg") no-repeat;
+  background-color: black;
+  background-position: center;
+}
 
 .white_bar {
   max-width: 960px;

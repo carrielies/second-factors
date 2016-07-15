@@ -30,7 +30,11 @@ import Demo from './pages/demo'
 import U2f from './pages/u2f'
 import CheckDevice from './pages/sign_in/check_device'
 import LandingPage from './pages/service/landing_page'
+import AsteroidGovLandingPage from './pages/service/asteroid_gov_landing_page'
 import ServiceHome from './pages/service/index'
+import ServiceEnrol from './pages/service/enrol'
+import WeKindOfTrustYou from './pages/service/we_kind_of_trust_you'
+import WeDontTrustYou from './pages/service/we_dont_trust_you'
 
 export default function(props) {
     
@@ -56,6 +60,10 @@ export default function(props) {
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
             <Route path="/service/landing_page" component={LandingPage}/>
+            <Route path="/service/we_kind_of_trust_you" component={WeKindOfTrustYou}/>
+            <Route path="/service/we_dont_trust_you" component={WeDontTrustYou}/>
+            <Route path="/service/enrol" component={ServiceEnrol}/>
+            <Route path="/service/asteroid_gov_landing_page" component={AsteroidGovLandingPage}/>
             <Route path="/service/index" component={ServiceHome}/>
             <Route path="/service" component={ServiceHome}/>
             <Route path="/helpdesk" component={HelpDeskIndex}/>
