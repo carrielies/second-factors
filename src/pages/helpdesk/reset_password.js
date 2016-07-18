@@ -22,7 +22,19 @@ export default connect((state) => state) (
             account.factors.password.secret = new_password;
             props.dispatch( { type: 'SAVE_HELPDESK', data: {account}})
             store.saveInteraction( "help_desk", "Password reset", account);
+            this.forceRetrust();
+        }
 
+        forceRetrust() {
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount( store.helpdesk.selected_account );
+
+            let helpdesk = store.helpdesk;
+
+            if( helpdesk.trust_broken == true ) {
+                store.saveInteraction( "help_desk", "Forced retrust", account);
+                store.saveServerAccount(account.breakTrust());
+            }
         }
 
 

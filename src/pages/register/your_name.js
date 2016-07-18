@@ -16,7 +16,7 @@ export default connect((state) => state) (
             this.validate(e, {
                 name: {msg: "Enter your full name", summary: "You need to enter your full name", regEx: /\w+/},
             }, (props) => {
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {name: props.name}})
+                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {name: props.name, trust_id: this.guid(), signed_in: true, cred_id: this.cred_id(), interactions: [] }})
                 browserHistory.push("/register/your_email")
             })
         }

@@ -40,7 +40,6 @@ export default connect((state) => state) (
                     org_name: props.org,
                     mission: props.mission
                 };
-
                 service.enrolled_users[resp.email] = enrolment;
                 store.saveService( service );
                 this.setState( {licenseNumber: licenseNumber} );

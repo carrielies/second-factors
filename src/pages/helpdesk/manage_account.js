@@ -82,7 +82,8 @@ export default connect((state) => state) (
             let account = store.serverAccount(store.helpdesk.selected_account);
             let helpdesk = store.helpdesk;
 
-            let logs = account.interactions.map( (e) => {
+            let interactions = account.interactions || [];
+            let logs = interactions.map( (e) => {
                return(
                    <tr>
                        <td>{e.origin}</td>
@@ -127,7 +128,7 @@ export default connect((state) => state) (
                         <tr>
                             <td>Trust Id</td>
                             <td>{account.trust_id}</td>
-                            <td> {helpdesk.trust_broken ? "Forced Retrust" : ""}</td>
+                            <td> {helpdesk.trust_broken ? "Any changes will break trust" : ""}</td>
                         </tr>
 
                         </tbody>

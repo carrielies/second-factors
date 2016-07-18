@@ -63,7 +63,6 @@ export default connect((state) => state) (
             e.preventDefault();
             let store = new StoreHelper(this.props);
             let account = store.serverAccount( store.helpdesk.selected_account );
-            store.saveServerAccount(account.breakTrust());
             let helpdesk = store.helpdesk;
             helpdesk.trust_broken = true;
             store.saveHelpdesk(helpdesk);

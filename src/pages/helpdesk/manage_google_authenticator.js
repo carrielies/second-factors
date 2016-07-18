@@ -25,10 +25,20 @@ export default connect((state) => state) (
                 store.saveServerAccount(account);
             }
 
-
-
             browserHistory.push("/helpdesk/manage_account")
 
+        }
+
+        forceRetrust() {
+            let store = new StoreHelper(this.props);
+            let account = store.serverAccount( store.helpdesk.selected_account );
+
+            let helpdesk = store.helpdesk;
+
+            if( helpdesk.trust_broken == true ) {
+                store.saveInteraction( "help_desk", "Forced retrust", account);
+                store.saveServerAccount(account.breakTrust());
+            }
         }
 
         render() {

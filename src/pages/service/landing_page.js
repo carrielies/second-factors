@@ -19,6 +19,7 @@ export default connect((state) => state) (
 
             console.dir(this.props.cookie);
             console.dir(this.props.service);
+            console.dir(this.props.account);
             let service = this.props.service;
             let cookie = this.props.cookie;
             let resp = service.response_from_gw;

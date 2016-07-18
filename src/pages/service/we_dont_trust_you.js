@@ -16,33 +16,17 @@ export default connect((state) => state) (
         onNext(e) {
 
             this.validate(e, {
-                license: {msg: "Enter your license number", summary: "You need to enter your license number", regEx: /\w+/},
-                org: {msg: "Enter your organisation name", summary: "You need to enter your organisation name", regEx: /\w+/},
+                secret: {msg: "You need to enter an amount", summary: "Enter your station tax bill", regEx: /\w+/},
             }, (props) => {
 
                 let store = new StoreHelper(this.props);
                 let service = store.service;
                 let resp = service.response_from_gw;
                 let enrolment = service.enrolled_users[resp.email];
-
-                let errors = {};
-                if ( enrolment.space_trading_license_number != props.license ) {
-                    errors["license"] = {msg: "The license number entered does not match our records", summary: "You need to enter your correct license number", regEx: /\w+/}
-                }
-
-                if ( enrolment.org_name.toUpperCase() != props.org.toUpperCase() ) {
-                    errors["org"] = {msg: "The organisation name does not match our records", summary: "You need to enter the correct organisation name", regEx: /\w+/}
-                }
-
-                if( Object.keys(errors).length == 0 ) {
-                    enrolment.trust_id = resp.trust_id;
-                    service.enrolled_users[resp.email] = enrolment;
-                    store.saveService( service );
-                    browserHistory.push("/service/landing_page")
-                }
-                else {
-                    this.setState( {errors})
-                }
+                enrolment.trust_id = resp.trust_id;
+                service.enrolled_users[resp.email] = enrolment;
+                store.saveService( service );
+                browserHistory.push("/service/landing_page")
             })
         }
 
@@ -59,8 +43,7 @@ export default connect((state) => state) (
                     <div className="spacegov"></div>
                     <Question title={`Hello ${resp.name}`} errors={this.state.errors}>
                         <p>We need to check that it really is you.</p>
-                        <Field ref="license" name="license" labelText="Your secret space trading licence number" errors={this.state.errors}/>
-                        <Field ref="org" name="org" labelText="Your organisation name" errors={this.state.errors}/>
+                        <Field ref="secret" name="secret" labelText="What was your last station tax bill to the nearest pound ?" errors={this.state.errors}/>
                         <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     </Question>
                 </Govuk>

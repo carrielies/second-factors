@@ -4,6 +4,7 @@ import { browserHistory, Link } from 'react-router'
 import JSONTree from 'react-json-tree'
 import StoreHelper from '../../utils/store_helper'
 import {connect} from 'react-redux'
+import fecha from 'fecha'
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -13,7 +14,7 @@ export default connect((state) => state) (
             let store = new StoreHelper(this.props);
             let account = store.account;
             let service = store.service;
-
+            let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
             let res = {
                 response_from_gw: {
                     level: account.two_fa_passed ? "2" : "1",
@@ -21,9 +22,12 @@ export default connect((state) => state) (
                     name: account.name,
                     email: account.email,
                     cred_id: account.cred_id,
-                    last_logged_in: "01/12/2016 09:25"
+                    last_logged_in: time
                 }
             };
+
+
+
 
             let cookie = {
                 cred_id: account.cred_id,

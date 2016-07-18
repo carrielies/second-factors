@@ -31,7 +31,7 @@ export default connect((state) => state) (
                 let account = server.findByEmail(cookie.email);
 
                 if ( cookie.service_name === service.name ) {
-                    this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true}});
+                    this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true, two_fa_passed: false}});
                     browserHistory.push("/your_auth_factors");
                 }
                 else {
