@@ -2,10 +2,25 @@ import React from 'react'
 import GovUk from '../components/govuk'
 import StoreHelper from '../utils/store_helper'
 import { browserHistory, Link } from 'react-router'
-// var u2fapi  = require( 'u2f-client' );
 var u2fServer  = require( 'u2f' );
 import {connect} from 'react-redux'
-//import u2fapi from 'u2f-api-polyfill'
+import 'u2f-api-polyfill'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -19,14 +34,20 @@ export default connect((state) => state) (
             let appId = "https://localhost:3000";
             let req = u2fServer.request(appId);
             this.setState( {resp: "running..."});
-            u2f.register( [req], [], (resp) => {
+            u2f.register( appId, [req], [], (resp) => {
                 if ( resp.errorMessage ) {
                     this.setState({resp: resp.errorMessage});
                 }
                 else {
                     this.setState({resp: resp});
                 }
+                debugger
+
+                console.log(u2fServer.checkRegistration(req, resp));
+
                 console.log(resp);
+                console.log(req);
+                debugger
             },10)
         }
 

@@ -84,7 +84,7 @@ export default connect((state) => state) (
 
                     <div className="grid-row">
                         <div className="column-two-thirds">
-                            <h1 className="heading-medium">Problems signing into the government gateway?</h1>
+                            <h1 className="heading-medium">Problems signing into the Government Gateway?</h1>
                         </div>
                     </div>
 

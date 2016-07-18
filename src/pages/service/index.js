@@ -39,7 +39,7 @@ export default connect((state) => state) (
                     <div className="spacegov"></div>
                     <Content title="Your Space Portal">
                         <p>
-                            For your space fairing adventures, aquisitions and licensing sign into spacegov using your government gateway account.
+                            For your spacefaring adventures, aquisitions and licensing sign into Spacegov using your Government Gateway account.
 
                         </p>
                     </Content>

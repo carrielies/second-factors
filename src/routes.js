@@ -34,6 +34,11 @@ import ServiceHome from './pages/service/index'
 import ServiceEnrol from './pages/service/enrol'
 import WeKindOfTrustYou from './pages/service/we_kind_of_trust_you'
 import WeDontTrustYou from './pages/service/we_dont_trust_you'
+import ServiceMyDetails from './pages/service/my_details'
+import ServiceCleaningGrant from './pages/service/apply_for_cleaning_grant'
+import ServiceStationGrant from './pages/service/apply_for_station_grant'
+import ServiceGrantConfirmed from './pages/service/grant_confirmed'
+
 
 export default function(props) {
     
@@ -63,6 +68,13 @@ export default function(props) {
             <Route path="/service/enrol" component={ServiceEnrol}/>
             <Route path="/service/asteroid_gov_landing_page" component={AsteroidGovLandingPage}/>
             <Route path="/service/index" component={ServiceHome}/>
+            <Route path="/service/my_details" component={ServiceMyDetails}/>
+            <Route path="/service/apply_for_cleaning_grant" component={ServiceCleaningGrant}/>
+            <Route path="/service/apply_for_station_grant" component={ServiceStationGrant}/>
+            <Route path="/service/grant_confirmed" component={ServiceGrantConfirmed}/>
+
+
+
             <Route path="/service" component={ServiceHome}/>
             <Route path="/helpdesk" component={HelpDeskIndex}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>

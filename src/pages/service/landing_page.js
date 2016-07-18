@@ -9,6 +9,8 @@ import {connect} from 'react-redux'
 import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
+import Breadcrumb from '../../components/breadcrumb'
+
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -29,9 +31,6 @@ export default connect((state) => state) (
             else if ( enrolment.trust_id != resp.trust_id ) {
                 browserHistory.push("/service/we_dont_trust_you")
             }
-            else if ( (request.auth_level_desired == "2" && resp.level == "1") && !cookie.service_trust_to_level_2  ) {
-                browserHistory.push("/service/we_kind_of_trust_you")
-            }
         }
 
         gotoHmrc(e) {
@@ -49,6 +48,52 @@ export default connect((state) => state) (
 
             browserHistory.push("/service_redirect");
         }
+
+        applyForCleaningGrant(e) {
+            e.preventDefault();
+            let service = this.props.service;
+            let resp = service.response_from_gw;
+            if ( resp.level == "2") {
+                browserHistory.push("/service/apply_for_cleaning_grant");
+                return;
+            }
+
+
+            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
+                request: {
+                    name: "Spacegov",
+                    auth_level_required: "1",
+                    auth_level_desired: "2",
+                    redirect_url: "/service/apply_for_cleaning_grant"
+                }
+            }});
+            browserHistory.push("/service_redirect");
+
+        }
+
+
+        applyForStationGrant(e) {
+            e.preventDefault();
+            let service = this.props.service;
+            let resp = service.response_from_gw;
+            if ( resp.level == "2") {
+                browserHistory.push("/service/apply_for_station_grant");
+                return;
+            }
+
+
+            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
+                request: {
+                    name: "Spacegov",
+                    auth_level_required: "2",
+                    auth_level_desired: "2",
+                    redirect_url: "/service/apply_for_station_grant"
+                }
+            }});
+            browserHistory.push("/service_redirect");
+        }
+
+
 
         upliftToLevel2(e) {
             e.preventDefault();
@@ -90,6 +135,7 @@ export default connect((state) => state) (
             let resp = service.response_from_gw;
             let request = service.request;
             let cookie = this.props.cookie;
+            let account = this.props.account;
 
             let trust_level = resp.level;
 
@@ -105,6 +151,8 @@ export default connect((state) => state) (
                 <div>
                     <p>What would you like to do?</p>
                     <a className="button-secondary" href="#" onClick={(e) => this.gotoHmrc(e)}>Apply for a asteroid mining license with asteroid.gov</a><br/><br/>
+                    <Link to="/service/my_details" className="button-secondary">View my details</Link>
+                    <br/>
                     <a href="#" className="button" onClick={(e) => this.upliftToLevel1Desired2(e)}>Uplift my trust to level 2</a>
                 </div>;
 
@@ -144,92 +192,42 @@ export default connect((state) => state) (
             return(
                     <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
                         <div className="spacegov"></div>
-                        <Content title={`Hello ${resp.name}`}>
-                        </Content>
+                        <Breadcrumb text={`${account.name} (${enrolment.org_name})`} hide_back="true"/>
 
-                        <table>
-                            <thead>
-                            <tr>
-                                <th scope="col">License number</th>
-                                <th scope="col">Organisation</th>
-                                <th scope="col">Mission Statement</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>{enrolment.space_trading_license_number}</td>
-                                <td >{enrolment.org_name}</td>
-                                <td >{enrolment.mission}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <Content>
+                        <div className="grid-row">
+                            <div className="column-one-half">
+                                <h1 className="heading-medium">What would you like to do?</h1>
+                                <Link to="/service/my_details" className="button">View my details</Link>
+                                <br/>
+                                <br/>
+                                <a href="#" className="button" onClick={(e) => this.applyForCleaningGrant(e)}>Apply for a grant to clean your station</a>
+                                <br/>
+                                <br/>
+                                <a href="#" className="button" onClick={(e) => this.applyForStationGrant(e)}>Apply for a grant to create a new station</a>
+                            </div>
+                            <div className="column-one-half">
+                                <div className="info">Service trusts you to level {trust_level}
+                                    <br/>
+                                    <br/>
+                                    <ul className="list-bullet">
+                                        <li>View my details: <br/>Requires that you are logged in</li>
+                                        <br/>
+                                        <li>Station, cleaning grant: <br/>Would ideally like you to be at trust level 2, but will accept level 1</li>
+                                        <br/>
+                                        <li>New Station grant: <br/>Requires you to be at trust level 2</li>
 
-                            <h1 className="heading-small">We trust you to level {trust_level}</h1>
-                            <br/>
-                            {content}
+                                    </ul>
 
-                        </Content>
+                                </div>
+                            </div>
+                        </div>
+
                         <hr/>
                         <BehindTheScenes/>
 
                     </Govuk>
             );
 
-
-            // return (
-            //     <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
-            //         <div className="spacegov"></div>
-            //         {content}
-            //         <hr/>
-            //
-            //         <a href="#" onClick={(e) => this.upliftToLevel2(e)}>Uplift to level 2</a>
-            //         <br/>
-            //         <br/>
-            //         <a href="#" onClick={(e) => this.upliftToLevel1Desired2(e)}>Uplift if possible</a>
-            //         <br/>
-            //         <br/>
-            //         <a href="#" onClick={(e) => this.gotoHmrc(e)}>Goto HMRC</a>
-            //
-            //         <hr/>
-            //
-            //         <details>
-            //
-            //             <summary><span class="summary">Behind the scenes stuff...</span></summary>
-            //
-            //             <div class="panel panel-border-narrow">
-            //
-            //                 <h1 className="heading-small">OpenId/SAML Request issued by service</h1>
-            //                 <div className="grid-row">
-            //                     <div className="column-two-thirds">
-            //                         <textarea ref="request" cols="70" rows="6" value={JSON.stringify(request, null, 2)}/>
-            //                     </div>
-            //                     <div className="column-one-third">
-            //                     </div>
-            //
-            //                 </div>
-            //                 <h1 className="heading-small">Gateway Response</h1>
-            //                 <div className="grid-row">
-            //                     <div className="column-two-thirds">
-            //                         <textarea ref="request" cols="70" rows="6" value={JSON.stringify(resp, null, 2)}/>
-            //                     </div>
-            //                     <div className="column-one-third">
-            //                     </div>
-            //                 </div>
-            //                 <h1 className="heading-small">Service enrolments</h1>
-            //                 <div className="grid-row">
-            //                     <div className="column-two-thirds">
-            //                         <textarea ref="request" cols="70" rows="6" value={JSON.stringify(service.enrolled_users, null, 2)}/>
-            //                     </div>
-            //                     <div className="column-one-third">
-            //                     </div>
-            //                 </div>
-            //
-            //             </div>
-            //
-            //         </details>
-            //     </Govuk>
-            // );
 
         }
         
