@@ -35,7 +35,7 @@ export default connect((state) => state) (
                 <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
 
-                    <Breadcrumb text={`${account.name}`} back="/service/landing_page"/>
+                    <Breadcrumb text={`${account.name} (${enrolment.org_name})`} back="/service/landing_page"/>
 
                     <Content title="Apply for cleaning grant">
                             <p>As you were unable to authenticate with a second factor, you will need to visit
