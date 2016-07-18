@@ -19,9 +19,14 @@ export default class StoreHelper {
         this.store.dispatch({type: "SAVE_COOKIE", data: {...this.cookie, ...data}})
     }
     
-    clearCookie(data) {
+    clearCookie() {
         this.store.dispatch({type: "CLEAR_COOKIE", data: {}})
     }
+
+    clearAccount() {
+        this.store.dispatch({type: "CLEAR_ACCOUNT", data: {}})
+    }
+
 
     saveServer(data) {
         this.store.dispatch({type: "SAVE_SERVER", data: {...this.server, ...data}})

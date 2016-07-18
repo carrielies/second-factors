@@ -59,7 +59,7 @@ export default connect((state) => state) (
                     return;
                 }
 
-                this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true}});
+                this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true, two_fa_passed: false}});
                 browserHistory.push("/your_auth_factors");
             })
         }

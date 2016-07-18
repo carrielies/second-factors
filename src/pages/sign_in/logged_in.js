@@ -31,7 +31,7 @@ export default connect((state) => state) (
                 service_name: service.request.name,
                 email: account.email
             };
-            
+
             store.saveService( res );
             store.saveCookie(cookie);
             store.saveInteraction( "sign_in", service.request.name );

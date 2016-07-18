@@ -15,6 +15,7 @@ export default connect((state) => state) (
         componentDidMount() {
             let store = new StoreHelper(this.props);
             store.clearCookie();
+            store.clearAccount();
             let users = Object.keys(this.props.server);
             this.selectUser(users[0])
         }
