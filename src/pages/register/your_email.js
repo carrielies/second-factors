@@ -5,7 +5,7 @@ import Field from '../../components/field'
 import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
-
+import {saveRegistrationSession} from '../../reducers/store_helpers'
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
@@ -16,7 +16,8 @@ export default connect((state) => state) (
             this.validate(e, {
                 email: {msg: "Enter your email addess", summary: "You need to enter your email address", regEx: /\w+/},
             }, (props) => {
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {email: props.email}});
+                saveRegistrationSession(this.props.dispatch, {email: props.email} );
+                // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {email: props.email}});
                 browserHistory.push("/register/confirm_email")
             })
         }

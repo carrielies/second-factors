@@ -8,9 +8,11 @@ export default connect((state) => state) (
     class extends React.Component {
 
         render() {
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
+
+            let session = this.props.session.spacegov;
+            let gg3 = this.props.session.gg3;
+            let resp = gg3.response;
+            let request = gg3.request;
 
             return(
                 <details>
@@ -39,7 +41,7 @@ export default connect((state) => state) (
                         <h1 className="heading-small">{request.name} trust store</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
-                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(service.enrolled_users, null, 2)}/>
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(session.enrolled_users, null, 2)}/>
                             </div>
                             <div className="column-one-third">
                             </div>
@@ -47,7 +49,7 @@ export default connect((state) => state) (
                         <h1 className="heading-small">Cookie</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
-                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(this.props.cookie, null, 2)}/>
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(session, null, 2)}/>
                             </div>
                             <div className="column-one-third">
                             </div>

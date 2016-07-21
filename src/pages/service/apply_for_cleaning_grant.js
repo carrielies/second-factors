@@ -11,31 +11,18 @@ import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
 
+
 export default connect((state) => state) (
     class extends QuestionPage {
 
-        componentWillMount() {
-            // let account = this.props.account;
-
-
-
-        }
-
-
         level_1() {
-            let account = this.props.account;
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let cookie = this.props.cookie;
-            let trust_level = resp.level;
-            let enrolment = service.enrolled_users[resp.email];
+            let enrolment = this.props.session.spacegov.enrolment;
 
             return(
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
 
-                    <Breadcrumb text={`${account.name} (${enrolment.org_name})`} back="/service/landing_page"/>
+                    <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} back="/service/landing_page"/>
 
                     <Content title="Apply for cleaning grant">
                             <p>As you were unable to authenticate with a second factor, you will need to visit
@@ -49,23 +36,19 @@ export default connect((state) => state) (
         }
 
         render() {
-            let account = this.props.account;
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let cookie = this.props.cookie;
-            let trust_level = resp.level;
-            let enrolment = service.enrolled_users[resp.email];
+            let enrolment = this.props.session.spacegov.enrolment;
+            let gg3 = this.props.session.gg3;
+            let resp = gg3.response;
 
             if ( resp.level == "1") {
                 return this.level_1();
             }
 
             return (
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
 
-                    <Breadcrumb text={`${account.name} (${enrolment.org_name})`} back="/service/landing_page"/>
+                    <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} back="/service/landing_page"/>
                     <Question title="Apply for cleaning grant" para="We need some details about your space station.">
 
                         <Field ref="name" name="org" labelText="Your spacestation name"/>

@@ -1,13 +1,9 @@
-import Govuk from '../../components/govuk'
-import QuestionPage from '../../utils/question_page'
-import Question from '../../components/question'
-import Field from '../../components/field'
 import React from 'react'
-import Fingerprint from '../../components/fingerprint'
-import Server from '../../components/server'
+import {Breadcrumb, Govuk, Field, Question, Server } from '../../components/all'
+import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
-import Breadcrumb from '../../components/breadcrumb'
-
+import {findAccountByEmailAndPassword} from '../../utils/database'
+import {saveGG3Session} from '../../reducers/store_helpers'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (
@@ -17,25 +13,19 @@ export default connect((state) => state) (
         constructor(props) {
             super(props);
             this.state = {errors: {}};
-
         }
         
         componentDidMount() {
-            let cookie = this.props.cookie;
 
-            if( cookie.email ) {
-                // already logged in
+            let session = this.props.session.gg3;
+            let request = session.request;
 
-                let server = new Server(this.props.server);
-                let service = this.props.service.request
-                let account = server.findByEmail(cookie.email);
-
-                if ( cookie.service_name === service.name ) {
-                    this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true, two_fa_passed: false}});
+            if( session.signed_in  ) {
+                if ( session.service_name === request.name ) {
+                    saveGG3Session( this.props.dispatch, {level: "1"});
                     browserHistory.push("/your_auth_factors");
                 }
                 else {
-                    this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true}});
                     browserHistory.push("/sso");
                 }
             }
@@ -48,36 +38,35 @@ export default connect((state) => state) (
                 password: {msg: "Enter your password", summary: "You need to enter your password", regEx: /\w+/}
             }, (props) => {
 
-                let server = new Server(this.props.server);
-                let account = server.findByEmailAndPassword(props.email, props.password);
-                if ( !account ) {
-                    let errors = {};
-                    errors["email"] = {msg: "Invalid email/password", summary: "You need to enter a valid username and password", regEx: /\w+/}
-                    this.setState( {errors});
-
-                    e.preventDefault();
-                    return;
-                }
-
-                this.props.dispatch({type: 'SAVE_ACCOUNT', data: {...account, signed_in: true, two_fa_passed: false}});
-                browserHistory.push("/your_auth_factors");
+                findAccountByEmailAndPassword(props.email, props.password).then( (account)=> {
+                    if ( !account) {
+                        let errors = {};
+                        errors["email"] = {msg: "Invalid email/password", summary: "You need to enter a valid username and password", regEx: /\w+/}
+                        this.setState( {errors});
+                    }
+                    else {
+                        saveGG3Session(this.props.dispatch, {account: account, level: "1"});
+                        browserHistory.push("/your_auth_factors");
+                    }
+                });
             })
         }
 
         render() {
 
             let errors = this.state.errors;
-            console.dir(this.props.server);
+
+            let session = this.props.session.gg3;
+            let request = session.request;
 
             return (
 
                 <Govuk phaseBanner="true">
 
-                    <Breadcrumb text={`Sign in to ${this.props.service.request.name} using your Government Gateway account`}/>
-                    <Fingerprint/>
-                    <Question title={`Sign in to ${this.props.service.request.name}`} button="Sign in" errors={errors}>
-                        <Field ref="email" name="email" labelText="Email" errors={errors} value={this.props.account.email}/>
-                        <Field ref="password" name="password"  labelText="Password" errors={errors} value={this.props.account.factors.password.secret} type="password"/>
+                    <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>
+                    <Question title={`Sign in to ${request.name}`} button="Sign in" errors={errors}>
+                        <Field ref="email" name="email" labelText="Email" errors={errors} value={session.email}/>
+                        <Field ref="password" name="password"  labelText="Password" errors={errors} value={session.password} type="password"/>
                     </Question>
 
                     <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>

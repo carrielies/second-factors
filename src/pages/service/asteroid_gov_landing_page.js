@@ -14,18 +14,14 @@ export default connect((state) => state) (
     class extends QuestionPage {
 
         render() {
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let cookie = this.props.cookie;
-            let trust_level = resp.level;
+            let resp = this.props.session.gg3.response
 
             return(
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="ASTEROID.GOV">
+                <Govuk title="Asteroidgov" hidePhaseBanner={true} header="ASTEROID.GOV">
                     <div className="asteroidgov"></div>
                     <Content title={`Hello ${resp.name}`}>
 
-                        <h1 className="heading-small">We trust you to level {trust_level}</h1>
+                        <h1 className="heading-small">We trust you to level {resp.level}</h1>
                     </Content>
                     <hr/>
                     <BehindTheScenes/>

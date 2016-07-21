@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
+import {saveEnrolment} from '../../utils/spacegov_db'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -21,7 +22,6 @@ export default connect((state) => state) (
 
         }
 
-
         enrollUser(e) {
 
             this.validate(e, {
@@ -29,27 +29,28 @@ export default connect((state) => state) (
                 mission: {msg: "Enter your mission statement", summary: "You need to enter your mission statement", regEx: /\w+/},
             }, (props) => {
 
-                let store = new StoreHelper(this.props);
-                let service = store.service;
-                let resp = service.response_from_gw;
+                let resp = this.props.session.gg3.response;
                 let licenseNumber = this.license();
 
                 let enrolment = {
+                    email: resp.email,
+                    name: resp.name,
                     trust_id: resp.trust_id,
                     space_trading_license_number: licenseNumber,
                     org_name: props.org,
                     mission: props.mission
                 };
-                service.enrolled_users[resp.email] = enrolment;
-                store.saveService( service );
+
+                saveEnrolment(enrolment);
                 this.setState( {licenseNumber: licenseNumber} );
             })
         }
 
         yourLicenseNumber() {
-            let service = this.props.service;
+            let gg3 = this.props.session.gg3;
+            let request = gg3.request;
             return(
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title={request.name} hidePhaseBanner={true} header="SPACE.GOV">
                     <h1 className="heading-medium">Your license number</h1>
                     <div className="password_box">{this.state.licenseNumber}</div>
                     <br/>
@@ -61,17 +62,19 @@ export default connect((state) => state) (
         }
 
         render() {
-            console.dir(this.props.cookie);
-            console.dir(this.props.service);
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
+
+
+            let session = this.props.session.spacegov;
+            let gg3 = this.props.session.gg3;
+            let resp = gg3.response;
+            let request = gg3.request;
+
             if ( this.state.licenseNumber) {
                 return this.yourLicenseNumber();
             }
             else {
                 return (
-                    <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                    <Govuk title={request.name} hidePhaseBanner={true} header="SPACE.GOV">
                         <div className="spacegov"></div>
                         <Question title={`Hello ${resp.name}`} errors={this.state.errors}>
                             <p>As this is the first time you have used this service, we need to get some details from

@@ -6,27 +6,80 @@ import StoreHelper from '../../utils/store_helper'
 import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory,Link } from 'react-router'
+import {saveAccount, findAccount, saveInteraction} from '../../utils/database'
+import {saveGG3Session} from '../../reducers/store_helpers'
 
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
 
     class extends QuestionPage {
+
+        createAccount() {
+
+            let session = this.props.session.registration;
+
+            let factors = {
+                password: {
+                    secret: session.password
+                }
+            };
+
+            if( session.google_authenticator ) {
+                factors.google_authenticator = {
+                    secret: session.google_authenticator.secret
+                }
+            }
+
+            if( session.device_fingerprint ) {
+                factors.device_fingerprint = {
+                    devices: [
+                        {
+                            device: props.deviceName,
+                            fingerprint: this.refs.fp.secret()
+                        }
+
+                    ]
+                }
+            }
+
+            let account = {
+                email: session.email,
+                name: session.name,
+                trust_id: this.trust_id(),
+                factors: factors,
+                interactions: []
+            };
+            return account;
+        }
         
         onNext(e) {
             e.preventDefault();
-            let factors = Object.keys(this.props.account.factors).join(",");
+            let account = this.createAccount();
+            saveAccount(account).then( () => {
+                return saveInteraction( account.email, "registration", `Account created with factors: ${this.authFactors()}` );
+            }).then( () => {
+                return findAccount(account.email)
+            }).then( (a) => {
+                saveGG3Session(this.props.dispatch, {account: a, signed_in: true});
+                browserHistory.push( "/logged_in")
+            });
 
-            let email = this.props.account.email;
-            let account = {};
-            account[email] = {...this.props.account};
-            this.props.dispatch( {type: 'SAVE_SERVER', data: account});
-            let store = new StoreHelper(this.props);
-            store.saveInteraction( "registration", `Account created with factors: ${factors}` );
-            browserHistory.push( "/logged_in")
+        }
+
+        authFactors() {
+
+            let factors = ["Password"];
+            let session = this.props.session.registration;
+
+            if( session.google_authenticator ) factors.push( "Google authenticator");
+            if( session.device_fingerprint ) factors.push( "Device fingerprint");
+            return factors.join(", ");
         }
 
         render() {
+
+            let session = this.props.session.registration;
 
             return (
                 <Govuk phaseBanner="true">
@@ -44,15 +97,15 @@ export default connect((state) => state) (
                         <tbody>
                         <tr>
                             <td>Email</td>
-                            <td>{this.props.account.email}</td>
+                            <td>{session.email}</td>
                         </tr>
                         <tr>
                             <td>Name</td>
-                            <td>{this.props.account.name}</td>
+                            <td>{session.name}</td>
                         </tr>
                         <tr>
                             <td>Authentication Factors</td>
-                            <td>{Object.keys(this.props.account.factors).join(", ").replace("_", " ")}</td>
+                            <td>{this.authFactors()}</td>
                         </tr>
 
                         </tbody>

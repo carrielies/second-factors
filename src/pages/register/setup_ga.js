@@ -5,14 +5,12 @@ import Field from '../../components/field'
 import Content from '../../components/content'
 import Ga from '../../components/ga'
 import React from 'react'
-import speakeasy from 'speakeasy';
-import QRCode from 'qrcode.react';
 import Breadcrumb from '../../components/breadcrumb'
 
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
-
+import {saveRegistrationSession} from '../../reducers/store_helpers'
 
 
 
@@ -42,13 +40,12 @@ export default connect((state) => state) (
                 return;
             }
 
-            let factors = { ...this.props.account.factors,
-                    google_authenticator: {
-                        secret: this.refs.ga.secret()
-                    }
-            };
+            saveRegistrationSession(this.props.dispatch, {
+                google_authenticator: {
+                    secret: this.refs.ga.secret()
+                }
+            });
 
-            this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors, two_fa_passed: true} })
             browserHistory.push("/register/your_auth_factors")
         }
     

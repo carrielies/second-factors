@@ -7,6 +7,7 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
+import {saveRegistrationSession} from '../../reducers/store_helpers'
 
 export default connect((state) => state) (
 
@@ -16,7 +17,7 @@ export default connect((state) => state) (
             this.validate(e, {
                 code: {msg: "Enter your email code", summary: "You need to enter your email code", regEx: /\w+/},
             }, (props) => {
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {email_code: props.email_code}})
+                saveRegistrationSession(this.props.dispatch, {email_code: props.code} );
                 browserHistory.push("/register/your_password")
             })
         }

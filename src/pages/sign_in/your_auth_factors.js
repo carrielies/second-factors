@@ -33,7 +33,6 @@ export default connect((state) => state) (
 
 
         authFactors() {
-            let factors = this.props.account.factors || [];
 
             let handlers = {
                 google_authenticator: () => {
@@ -57,9 +56,10 @@ export default connect((state) => state) (
                 }
             };
 
+            let session = this.props.session.gg3;
             let list = [];
 
-            Object.keys(factors).forEach( (k) => {
+            Object.keys(session.account.factors).forEach( (k) => {
                 let entry = handlers[k]();
                 if (entry) list.push(entry)
             });
@@ -69,18 +69,12 @@ export default connect((state) => state) (
 
 
 
-
-
         render() {
 
-            // auth_level_required: "1",
-            //     auth_level_desired: "1"
-
-
-
-
+            let session = this.props.session.gg3;
+            let account = session.account;
             let factors = this.authFactors();
-            let service = this.props.service.request;
+            let request = session.request;
             let factors_not_setup = null;
             let has_factors = factors.length != 0;
 
@@ -96,10 +90,10 @@ export default connect((state) => state) (
 
 
 
-            if ( this.props.account.always_use_2fa ) {
+            if ( account.always_use_2fa ) {
                 return (
                     <Govuk>
-                        <Breadcrumb text={`Sign in to ${this.props.service.request.name} using your Government Gateway account`}/>
+                        <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>
 
                         <Question title="Two step verification?" para={`You have previously indicated that you always want to use a second factor when authenticating.`}>
                             {this.authFactors()}
@@ -133,13 +127,13 @@ export default connect((state) => state) (
                 )
             }
 
-            if ( service.auth_level_required === "1" && service.auth_level_desired === "1" && service.always_use_2fa != true) {
+            if ( request.auth_level_required === "1" && request.auth_level_desired === "1" && request.always_use_2fa != true) {
                 return (
                     <Govuk>
-                        <Breadcrumb text={`Sign in to ${this.props.service.request.name} using your Government Gateway account`}/>
+                        <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>
                         <Content title="Two step verification?">
                             <p>
-                                {this.props.service.request.name} does not require a second authentication factor
+                                {request.name} does not require a second authentication factor
                             </p>
                             <Link className="button" to="/logged_in">Continue</Link>
 
@@ -147,7 +141,7 @@ export default connect((state) => state) (
                     </Govuk>
                 )
             }
-            else if ( service.auth_level_required === "1"  && service.auth_level_desired === "2" ) {
+            else if ( request.auth_level_required === "1"  && request.auth_level_desired === "2" ) {
                 factors.push(
                     <label className="block-label" for="radio-2">
                         <input ref="none" id="radio-2" type="radio" name="radio-group"/>Don't use two step verification
@@ -157,9 +151,9 @@ export default connect((state) => state) (
 
                 return(
                     <Govuk>
-                        <Breadcrumb text={`Sign in to ${this.props.service.request.name} using your Government Gateway account`}/>
+                        <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>
 
-                        <Question title="Two step verification?" para={`${this.props.service.request.name} would like you to use a second authentication factor`}>
+                        <Question title="Two step verification?" para={`${request.name} would like you to use a second authentication factor`}>
                             {factors}
                         </Question>
                         <Content>
@@ -191,9 +185,9 @@ export default connect((state) => state) (
             else {
                 return(
                     <Govuk>
-                        <Breadcrumb text={`Sign in to ${this.props.service.request.name} using your Government Gateway account`}/>
+                        <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>
 
-                        <Question title="Two step verification?" para={`${this.props.service.request.name} would like you to use a second authentication factor`}>
+                        <Question title="Two step verification?" para={`${request.name} would like you to use a second authentication factor`}>
                             {this.authFactors()}
                             {factors_not_setup}
                         </Question>

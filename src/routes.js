@@ -32,7 +32,6 @@ import LandingPage from './pages/service/landing_page'
 import AsteroidGovLandingPage from './pages/service/asteroid_gov_landing_page'
 import ServiceHome from './pages/service/index'
 import ServiceEnrol from './pages/service/enrol'
-import WeKindOfTrustYou from './pages/service/we_kind_of_trust_you'
 import WeDontTrustYou from './pages/service/we_dont_trust_you'
 import ServiceMyDetails from './pages/service/my_details'
 import ServiceCleaningGrant from './pages/service/apply_for_cleaning_grant'
@@ -63,7 +62,6 @@ export default function(props) {
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
             <Route path="/service/landing_page" component={LandingPage}/>
-            <Route path="/service/we_kind_of_trust_you" component={WeKindOfTrustYou}/>
             <Route path="/service/we_dont_trust_you" component={WeDontTrustYou}/>
             <Route path="/service/enrol" component={ServiceEnrol}/>
             <Route path="/service/asteroid_gov_landing_page" component={AsteroidGovLandingPage}/>

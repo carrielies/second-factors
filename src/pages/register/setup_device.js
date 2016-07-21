@@ -7,6 +7,7 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
+import {saveRegistrationSession} from '../../reducers/store_helpers'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (
@@ -23,19 +24,26 @@ export default connect((state) => state) (
             }, (props) => {
 
 
-                let factors = { ...this.props.account.factors,
+                // let factors = { ...this.props.account.factors,
+                //     device_fingerprint: {
+                //         devices: [
+                //             {
+                //                 device: props.deviceName,
+                //                 fingerprint: this.refs.fp.secret()
+                //             }
+                //
+                //         ]
+                //     }
+                // };
+
+                saveRegistrationSession(this.props.dispatch, {
                     device_fingerprint: {
-                        devices: [
-                            {
-                                device: props.deviceName,
-                                fingerprint: this.refs.fp.secret()
-                            }
-
-                        ]
+                        device: props.deviceName,
+                        fingerprint: this.refs.fp.secret()
                     }
-                };
+                });
 
-                this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors, two_fa_passed: true} })
+                // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors, two_fa_passed: true} })
                 browserHistory.push("/register/your_auth_factors");
             })
         }

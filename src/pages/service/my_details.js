@@ -10,26 +10,29 @@ import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
+import {findEnrolment} from '../../utils/spacegov_db'
 
 
 export default connect((state) => state) (
     class extends QuestionPage {
 
+        constructor(props) {
+            super(props);
+            this.state = {enrolment: {}};
+            let gg3 = props.session.gg3;
+            findEnrolment(gg3.response.email).then( (enrolment) => this.setState({enrolment}));
+        }
+
         render() {
-            let account = this.props.account;
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let cookie = this.props.cookie;
-            let trust_level = resp.level;
-            let enrolment = service.enrolled_users[resp.email];
+
+            let enrolment = this.state.enrolment;
 
             return(
 
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
 
-                    <Breadcrumb text={`${account.name} (${enrolment.org_name})`}/>
+                    <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`}/>
 
                     <Content title="Your details">
 

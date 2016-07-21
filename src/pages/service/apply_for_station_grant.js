@@ -10,6 +10,7 @@ import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
+import {saveGG3Session} from '../../reducers/store_helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -17,33 +18,25 @@ export default connect((state) => state) (
 
         onNext(e) {
             e.preventDefault();
-
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request: {
-                    name: "Spacegov",
-                    auth_level_required: "2",
-                    auth_level_desired: "2",
-                    redirect_url: "/service/grant_confirmed"
-                }
-            }});
+            let request = {
+                name: "Spacegov",
+                auth_level_required: "2",
+                auth_level_desired: "2",
+                redirect_url: "/service/grant_confirmed"
+            };
+            saveGG3Session(this.props.dispatch, {request});
             browserHistory.push("/service_redirect");
         }
 
 
         render() {
-            let account = this.props.account;
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let cookie = this.props.cookie;
-            let trust_level = resp.level;
-            let enrolment = service.enrolled_users[resp.email];
+            let enrolment = this.props.session.spacegov.enrolment;
 
             return (
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
 
-                    <Breadcrumb text={`${account.name} (${enrolment.org_name})`} back="/service/landing_page"/>
+                    <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} back="/service/landing_page"/>
                     <Question title="Apply for station grant" para="We need some details about your space station.">
 
                         <Field ref="name" name="org" labelText="Your spacestation name"/>

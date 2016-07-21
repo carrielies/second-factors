@@ -31,9 +31,11 @@ export default connect((state) => state) (
 
         availableFactors() {
 
+            let session = this.props.session.registration;
+
             let handlers = {
-                google_authenticator: (setup) => {
-                    if ( setup ) {
+                google_authenticator: () => {
+                    if ( session.google_authenticator ) {
                         return(
                             <span className="second_factor_already_setup">Google authenticator - [Already setup]</span>
                         )
@@ -44,13 +46,8 @@ export default connect((state) => state) (
                         </label>
                     )
                 },
-                password: (setup) => {
-                    return(
-                        null
-                    )
-                },
-                device_fingerprint: (setup) => {
-                    if ( setup ) {
+                device_fingerprint: () => {
+                    if ( session.device_fingerprint ) {
                         return(
                             <span className="second_factor_already_setup">Device fingerprint - [Already setup]</span>
                         )
@@ -63,15 +60,7 @@ export default connect((state) => state) (
                 }
             };
 
-            let facs = this.props.account.factors;
-
-            let res = [];
-            Object.keys(handlers).forEach( (f) => {
-                res.push(handlers[f](facs[f]));
-            });
-
-            return res;
-
+            return Object.keys(handlers).map( (f) => handlers[f]());
         }
 
         render() {
@@ -81,7 +70,6 @@ export default connect((state) => state) (
                     <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
 
                     <Question title="Setup two step verification?" para="Adding additional authentication methods helps to protect you online. Choose how you would like us to athenticate you from the list below:">
-                        <p>{this.props.extraText}</p>
                         {this.availableFactors()}
 
                         <label className="block-label" for="radio-2">

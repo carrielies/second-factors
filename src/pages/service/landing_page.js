@@ -10,190 +10,93 @@ import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
+import {findEnrolment} from '../../utils/spacegov_db'
+import {saveGG3Session, saveSpacegovSession} from '../../reducers/store_helpers'
 
 
 export default connect((state) => state) (
     class extends QuestionPage {
 
-        componentWillMount() {
 
-            console.dir(this.props.cookie);
-            console.dir(this.props.service);
-            console.dir(this.props.account);
-            let service = this.props.service;
-            let cookie = this.props.cookie;
-            let resp = service.response_from_gw;
-            let request = service.request;
+        constructor(props) {
+            super(props);
+            this.state = {enrolment: {}};
+            let resp = props.session.gg3.response;
 
-            let enrolment = service.enrolled_users[resp.email];
-            if ( !enrolment ) {
-                browserHistory.push("/service/enrol")
-            }
-            else if ( enrolment.trust_id != resp.trust_id ) {
-                browserHistory.push("/service/we_dont_trust_you")
-            }
+            findEnrolment(resp.email).then( (enrolment) =>{
+                if ( !enrolment ) {
+                    browserHistory.push("/service/enrol");
+                    return;
+                }
+                else if ( enrolment.trust_id != resp.trust_id ) {
+                    browserHistory.push("/service/we_dont_trust_you");
+                    return;
+                }
+
+                saveSpacegovSession(this.props.dispatch, {enrolment});
+            })
         }
+
 
         gotoHmrc(e) {
             e.preventDefault();
-            let store = new StoreHelper(this.props);
-            store.saveCookie( {service_trust_to_level_2: false} );
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request: {
-                    name: "Asteroid Gov",
-                    auth_level_required: "1",
-                    auth_level_desired: "1",
-                    redirect_url: "/service/asteroid_gov_landing_page"
-                }
-            }});
-
+            let request = {
+                name: "Asteroid Gov",
+                auth_level_required: "1",
+                auth_level_desired: "1",
+                redirect_url: "/service/asteroid_gov_landing_page"
+            };
+            saveGG3Session(this.props.dispatch, {request});
             browserHistory.push("/service_redirect");
         }
 
         applyForCleaningGrant(e) {
             e.preventDefault();
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            if ( resp.level == "2") {
-                browserHistory.push("/service/apply_for_cleaning_grant");
-                return;
-            }
-
-
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request: {
-                    name: "Spacegov",
-                    auth_level_required: "1",
-                    auth_level_desired: "2",
-                    redirect_url: "/service/apply_for_cleaning_grant"
-                }
-            }});
+            let request = {
+                name: "Spacegov",
+                auth_level_required: "1",
+                auth_level_desired: "2",
+                redirect_url: "/service/apply_for_cleaning_grant"
+            };
+            saveGG3Session(this.props.dispatch, {request});
             browserHistory.push("/service_redirect");
-
         }
 
 
         applyForStationGrant(e) {
             e.preventDefault();
-            let service = this.props.service;
-            let resp = service.response_from_gw;
+            let gg3 = this.props.session.gg3;
+            let resp = gg3.response;
             if ( resp.level == "2") {
                 browserHistory.push("/service/apply_for_station_grant");
                 return;
             }
-
-
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request: {
-                    name: "Spacegov",
-                    auth_level_required: "2",
-                    auth_level_desired: "2",
-                    redirect_url: "/service/apply_for_station_grant"
-                }
-            }});
-            browserHistory.push("/service_redirect");
-        }
-
-
-
-        upliftToLevel2(e) {
-            e.preventDefault();
-            let store = new StoreHelper(this.props);
-            store.saveCookie( {service_trust_to_level_2: false} );
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request: {
-                    name: "Spacegov",
-                    auth_level_required: "2",
-                    auth_level_desired: "2",
-                    redirect_url: "/service/landing_page"
-                }
-            }});
-
-            browserHistory.push("/service_redirect");
-        }
-
-        upliftToLevel1Desired2(e) {
-            e.preventDefault();
-            let store = new StoreHelper(this.props);
-            store.saveCookie( {service_trust_to_level_2: false} );
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request: {
-                    name: "Spacegov",
-                    auth_level_required: "1",
-                    auth_level_desired: "2",
-                    redirect_url: "/service/landing_page"
-                }
-            }});
-
+            let request = {
+                name: "Spacegov",
+                auth_level_required: "2",
+                auth_level_desired: "2",
+                redirect_url: "/service/apply_for_station_grant"
+            };
+            saveGG3Session(this.props.dispatch, {request});
             browserHistory.push("/service_redirect");
         }
 
 
         render() {
-            console.dir(this.props.cookie);
-            console.dir(this.props.service);
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let cookie = this.props.cookie;
-            let account = this.props.account;
+            let session = this.props.session.spacegov;
+            let gg3 = this.props.session.gg3;
+            let request = gg3.request;
+            let resp = gg3.response;
 
-            let trust_level = resp.level;
-
-            if ( cookie.service_trust_to_level_2 ) trust_level = "1 (+known fact based uplift)";
-
-            let enrolment = service.enrolled_users[resp.email];
+            let enrolment = session.enrolment;
             if ( !enrolment ) {
                 return null;
             }
 
-
-            let level1_content =
-                <div>
-                    <p>What would you like to do?</p>
-                    <a className="button-secondary" href="#" onClick={(e) => this.gotoHmrc(e)}>Apply for a asteroid mining license with asteroid.gov</a><br/><br/>
-                    <Link to="/service/my_details" className="button-secondary">View my details</Link>
-                    <br/>
-                    <a href="#" className="button" onClick={(e) => this.upliftToLevel1Desired2(e)}>Uplift my trust to level 2</a>
-                </div>;
-
-            let level1_with_service_uplift_content =
-                <div>
-                    <p>What would you like to do?</p>
-                    <a className="button-secondary" href="#" onClick={(e) => this.gotoHmrc(e)}>Apply for a asteroid mining license with asteroid.gov</a><br/><br/>
-                    <button className="button-secondary">Apply for a grant to clean up your launch pad</button><br/><br/>
-                    <a href="#" className="button" onClick={(e) => this.upliftToLevel2(e)}>Uplift my trust to level 2</a>
-                </div>;
-
-            let level2_content =
-                <div>
-                    <p>What would you like to do?</p>
-                    <a className="button-secondary" href="#" onClick={(e) => this.gotoHmrc(e)}>Apply for a asteroid mining license with asteroid.gov</a><br/><br/>
-                    <button className="button-secondary">Apply for grant to clean up your launch pad</button><br/><br/>
-                    <button className="button-secondary">Apply for a spaceship</button><br/><br/>
-                    <button className="button-secondary">Launch a spaceship</button><br/><br/>
-                    <button className="button-secondary">Buy a 200KW mining laser</button>
-                </div>;
-
-            let content = null;
-
-            if ( trust_level == "1") {
-                content = level1_content;
-            }
-
-            if ( trust_level == "1 (+known fact based uplift)") {
-                content = level1_with_service_uplift_content;
-            }
-
-            if ( trust_level == "2" ) {
-                content = level2_content
-            }
-
-
             return(
-                    <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                    <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                         <div className="spacegov"></div>
-                        <Breadcrumb text={`${account.name} (${enrolment.org_name})`} hide_back="true"/>
+                        <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} hide_back="true"/>
 
                         <div className="grid-row">
                             <div className="column-one-half">
@@ -207,7 +110,7 @@ export default connect((state) => state) (
                                 <a href="#" className="button" onClick={(e) => this.applyForStationGrant(e)}>Apply for a grant to create a new station</a>
                             </div>
                             <div className="column-one-half">
-                                <div className="info">Service trusts you to level {trust_level}
+                                <div className="info">Service trusts you to level {resp.level}
                                     <br/>
                                     <br/>
                                     <ul className="list-bullet">

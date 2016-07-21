@@ -8,6 +8,7 @@ import speakeasy from 'speakeasy';
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
+import {saveGG3Session} from '../../reducers/store_helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -37,9 +38,8 @@ export default connect((state) => state) (
                 errors["code"] = {msg: "Wrong code entered", summary: "You entered the wrong code"};
                 this.setState( {errors: errors});
             }
-            
-            this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {two_fa_passed: true}});
-            
+
+            saveGG3Session( this.props.dispatch, {level: "2"});
             browserHistory.push("/logged_in")
         }
 
@@ -47,13 +47,15 @@ export default connect((state) => state) (
 
             let errors = this.state.errors;
             let hint = this.state.token;
+            let session = this.props.session.gg3;
+            let account = session.account;
 
             return (
 
                 <Govuk >
 
                     <Breadcrumb text="Sign in to Government Gateway"/>
-                    <Ga ref="ga" secret={this.props.account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
+                    <Ga ref="ga" secret={account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
 
                     <Question title="What's your 6 digit google authenticator code?" errors={errors}>
                         <Field ref="code" name="code" labelText="Code" errors={errors} labelHint={hint}/>

@@ -3,6 +3,7 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
+import {saveGG3Session} from '../../reducers/store_helpers'
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -27,9 +28,12 @@ export default connect((state) => state) (
         onClick(e) {
             e.preventDefault();
             let request = JSON.parse(this.state.request);
-            this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-                request
-            }});
+            saveGG3Session(this.props.dispatch, {request})
+            //
+            //
+            // this.props.dispatch( {type: 'SAVE_SERVICE', data: {
+            //     request
+            // }});
             browserHistory.push("/signin")
         }
 

@@ -2,22 +2,30 @@ import React from 'react'
 import GovUk from '../components/govuk'
 import StoreHelper from '../utils/store_helper'
 import { browserHistory, Link } from 'react-router'
-// import {DropdownList} from 'react-widgets'
+import {allAccounts, findAccount} from '../utils/database'
+import {saveGG3Session} from '../reducers/store_helpers'
 
 import {connect} from 'react-redux'
-// import 'react-widgets/lib/less/react-widgets.less'
 
 export default connect((state) => state) (
     class extends React.Component {
 
+        constructor() {
+            super();
+            this.state = {accounts: []};
 
+            allAccounts().then((accounts) => {
+                this.setState({accounts} );
+                this.selectUser(accounts[0].email);
+            });
+        }
 
         componentDidMount() {
-            let store = new StoreHelper(this.props);
+            // let store = new StoreHelper(this.props);
             store.clearCookie();
             store.clearAccount();
-            let users = Object.keys(this.props.server);
-            this.selectUser(users[0])
+            // let users = Object.keys(this.props.server);
+            // this.selectUser(users[0])
         }
 
         onSelectUser(e) {
@@ -25,31 +33,31 @@ export default connect((state) => state) (
         }
 
         selectUser(user) {
-            let store = new StoreHelper(this.props);
-            let account = store.findAccountByEmail(user);
-
-            let data = {
-                email: user,
-                factors: {
-                    password: {
-                        secret: account.factors.password.secret
-                    }
-                }
-            };
-
-            this.props.dispatch( {type: 'SAVE_ACCOUNT', data: data })
+            findAccount(user).then( (account) => {
+                saveGG3Session(this.props.dispatch, {email: user, password: account.factors.password.secret});
+            });
+            // let account = this.state.accounts.filter((a) => a.email === user)[0];
+            //
+            //
+            //
+            // let store = new StoreHelper(this.props);
+            // let account = store.findAccountByEmail(user);
+            //
+            // let data = {
+            //     email: user,
+            //     factors: {
+            //         password: {
+            //             secret: account.factors.password.secret
+            //         }
+            //     }
+            // };
+            //
+            // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: data })
 
         }
 
         render() {
-
-            let users = Object.keys(this.props.server);
-
-            let drop_down = users.map( (u) => {
-                return(
-                    <option value={u}>{u}</option>
-                )
-            });
+            let drop_down = this.state.accounts.map( (u) => <option value={u.email}>{u.email}</option> );
 
             return(
                 <GovUk title="Home">
@@ -62,11 +70,9 @@ export default connect((state) => state) (
                     <Link to="/helpdesk">Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/service">Spacegov</Link>
+                    <Link to="/service">Spacegovaa</Link>
                     <br/>
                     <br/>
-
-
 
                 </GovUk>
             )
