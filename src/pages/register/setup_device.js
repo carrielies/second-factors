@@ -7,7 +7,7 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
-import {saveRegistrationSession} from '../../reducers/store_helpers'
+import {saveRegistrationSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (

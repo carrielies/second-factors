@@ -5,16 +5,6 @@ import store from './store'
 import Routes from './routes'
 import './stylesheets/gov.scss'
 
-
-// const store = createStore(
-//     combineReducers({
-//         account: accountReducer,
-//         routing: routerReducer
-//     }),
-//     applyMiddleware(routerMiddleware(browserHistory))
-// );
-
-
 function AppRoutes() {
     return(
         <Provider store={store}>

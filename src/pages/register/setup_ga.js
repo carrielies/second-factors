@@ -10,7 +10,7 @@ import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
-import {saveRegistrationSession} from '../../reducers/store_helpers'
+import {saveRegistrationSession} from '../../reducers/helpers'
 
 
 

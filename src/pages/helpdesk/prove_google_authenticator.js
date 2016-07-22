@@ -4,12 +4,11 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import Ga from '../../components/ga'
 import React from 'react'
-import StoreHelper from '../../utils/store_helper'
 import speakeasy from 'speakeasy';
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {

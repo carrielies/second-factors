@@ -3,10 +3,9 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
-import StoreHelper from '../../utils/store_helper'
 import Breadcrumb from '../../components/breadcrumb'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/helpdesk_db'
-import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -35,6 +34,10 @@ export default connect((state) => state) (
             e.preventDefault();
             let session = this.props.session.helpdesk;
             let account = this.props.session.helpdesk.account;
+
+            if( !session.id_proven ) {
+                account.trust_id = this.trust_id();
+            }
 
             updateAccount(account).then(() => {
                 return saveAccountInteraction(account.email, "helpdesk", session.actions.join(", ") );

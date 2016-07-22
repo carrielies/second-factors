@@ -2,12 +2,11 @@ import Govuk from '../../components/govuk'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
-import StoreHelper from '../../utils/store_helper'
 import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory,Link } from 'react-router'
 import {saveAccount, findAccount, saveInteraction} from '../../utils/database'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 

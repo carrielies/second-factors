@@ -5,10 +5,9 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
-import StoreHelper from '../../utils/store_helper'
 import Breadcrumb from '../../components/breadcrumb'
 import {saveAccountInteraction, findAccount} from '../../utils/helpdesk_db'
-import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -71,7 +70,6 @@ export default connect((state) => state) (
 
             let actions = session.actions;
             actions.push("trust_id reset");
-            account.trust_id = this.trust_id();
 
             saveHelpdeskSession(this.props.dispatch, {actions: actions});
             this.manage_account("unable to prove identity", account, false);

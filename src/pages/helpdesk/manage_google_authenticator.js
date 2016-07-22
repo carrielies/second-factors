@@ -2,12 +2,11 @@ import React from 'react'
 import Govuk from '../../components/govuk'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
-import StoreHelper from '../../utils/store_helper'
 import Field from '../../components/field'
 import Ga from '../../components/ga'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -32,7 +31,6 @@ export default connect((state) => state) (
         }
 
         render() {
-            let store = new StoreHelper(this.props);
             let account = this.props.session.helpdesk.account;
 
             return(

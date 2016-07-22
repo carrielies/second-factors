@@ -4,7 +4,7 @@ import { browserHistory, Link } from 'react-router'
 import JSONTree from 'react-json-tree'
 import {connect} from 'react-redux'
 import fecha from 'fecha'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 import {saveInteraction} from '../../utils/database'
 
 export default connect((state) => state) (

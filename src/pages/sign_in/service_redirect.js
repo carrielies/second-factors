@@ -21,12 +21,12 @@ export default connect((state) => state) (
         }
 
         render() {
-            let service = this.props.service || {};
+            let session = this.props.session.gg3;
             return (
-                <Govuk title={service.request.name}>
+                <Govuk title={session.request.name}>
                     <h1 className="heading-medium">Redirecting to Government Gateway...</h1>
                     {this.props.debug ?
-                        <JSONTree data={service.request} isLightTheme={false} expandAll={true} hideRoot={true}/> : null }
+                        <JSONTree data={gg3.request} isLightTheme={false} expandAll={true} hideRoot={true}/> : null }
                 </Govuk>
             )
         }

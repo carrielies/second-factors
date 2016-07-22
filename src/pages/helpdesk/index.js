@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
-import {saveHelpdeskSession, saveGG3Session} from '../../reducers/store_helpers'
+import {saveHelpdeskSession, saveGG3Session} from '../../reducers/helpers'
 
 
 export default connect((state) => state) (

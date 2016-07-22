@@ -3,14 +3,13 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import Question from '../../components/question'
 import QuestionPage from '../../utils/question_page'
-import StoreHelper from '../../utils/store_helper'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
 import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {

@@ -2,7 +2,7 @@ import React from 'react'
 import GovUk from '../components/govuk'
 import { browserHistory, Link } from 'react-router'
 import {allAccounts, findAccount} from '../utils/database'
-import {saveGG3Session,clearAllSessions} from '../reducers/store_helpers'
+import {saveGG3Session,clearAllSessions} from '../reducers/helpers'
 
 import {connect} from 'react-redux'
 

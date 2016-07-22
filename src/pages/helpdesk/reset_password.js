@@ -3,12 +3,11 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import Question from '../../components/question'
 import Field from '../../components/field'
-import StoreHelper from '../../utils/store_helper'
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
 import generatePassword from 'password-generator'
-import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
     
 export default connect((state) => state) (
     class extends React.Component {

@@ -1,6 +1,5 @@
 import React from 'react'
 import GovUk from '../components/govuk'
-import StoreHelper from '../utils/store_helper'
 // import { browserHistory, Link } from 'react-router'
 // var u2fServer  = require( '../utils/u2fserver' );
 import {connect} from 'react-redux'

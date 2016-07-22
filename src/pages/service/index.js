@@ -3,7 +3,7 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 export default connect((state) => state) (
     class extends React.Component {

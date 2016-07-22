@@ -5,7 +5,7 @@ import Field from '../../components/field'
 import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
-import {saveRegistrationSession} from '../../reducers/store_helpers'
+import {saveRegistrationSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 

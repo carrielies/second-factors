@@ -8,7 +8,7 @@ import speakeasy from 'speakeasy';
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {

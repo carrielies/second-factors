@@ -3,7 +3,7 @@ import {Breadcrumb, Govuk, Field, Question, Server } from '../../components/all'
 import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
 import {findAccountByEmailAndPassword} from '../../utils/database'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (
@@ -19,7 +19,6 @@ export default connect((state) => state) (
 
             let session = this.props.session.gg3;
             let request = session.request;
-
             if( session.signed_in  ) {
                 if ( session.service_name === request.name ) {
                     saveGG3Session( this.props.dispatch, {level: "1"});

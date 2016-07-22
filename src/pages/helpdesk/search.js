@@ -6,7 +6,7 @@ import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
 import {searchForAcounts} from '../../utils/helpdesk_db'
-import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 

@@ -3,7 +3,6 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import Question from '../../components/question'
 import QuestionPage from '../../utils/question_page'
-import StoreHelper from '../../utils/store_helper'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
 import JSONTree from 'react-json-tree'
@@ -11,7 +10,7 @@ import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
 import {findEnrolment} from '../../utils/spacegov_db'
-import {saveGG3Session, saveSpacegovSession} from '../../reducers/store_helpers'
+import {saveGG3Session, saveSpacegovSession} from '../../reducers/helpers'
 
 
 export default connect((state) => state) (
@@ -38,12 +37,12 @@ export default connect((state) => state) (
         }
 
 
-        gotoHmrc(e) {
+        gotoAsteroidgov(e) {
             e.preventDefault();
             let request = {
                 name: "Asteroid Gov",
                 auth_level_required: "1",
-                auth_level_desired: "1",
+                auth_level_desired: "2",
                 redirect_url: "/service/asteroid_gov_landing_page"
             };
             saveGG3Session(this.props.dispatch, {request});
@@ -52,6 +51,8 @@ export default connect((state) => state) (
 
         applyForCleaningGrant(e) {
             e.preventDefault();
+            let gg3 = this.props.session.gg3;
+            let resp = gg3.response;
             let request = {
                 name: "Spacegov",
                 auth_level_required: "1",
@@ -59,7 +60,12 @@ export default connect((state) => state) (
                 redirect_url: "/service/apply_for_cleaning_grant"
             };
             saveGG3Session(this.props.dispatch, {request});
-            browserHistory.push("/service_redirect");
+            if ( resp.level != "2") {
+                browserHistory.push("/service_redirect");
+            }
+            else {
+                browserHistory.push("/service/apply_for_cleaning_grant");
+            }
         }
 
 
@@ -108,6 +114,10 @@ export default connect((state) => state) (
                                 <br/>
                                 <br/>
                                 <a href="#" className="button" onClick={(e) => this.applyForStationGrant(e)}>Apply for a grant to create a new station</a>
+                                <br/>
+                                <br/>
+                                <a href="#" className="button" onClick={(e) => this.gotoAsteroidgov(e)}>Goto asteroid gov</a>
+
                             </div>
                             <div className="column-one-half">
                                 <div className="info">Service trusts you to level {resp.level}

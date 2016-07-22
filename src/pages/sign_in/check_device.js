@@ -7,7 +7,7 @@ import QuestionPage from '../../utils/question_page'
 import QRCode from 'qrcode.react';
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import {saveGG3Session} from '../../reducers/store_helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -19,8 +19,10 @@ export default connect((state) => state) (
         }
 
         onFingerprint(res) {
+            let session = this.props.session.gg3;
+            let account = session.account;
+
             let matched = false;
-            let account = this.props.account;
             let results = account.factors.device_fingerprint.devices.forEach( (d) => {
                 if ( d.fingerprint == res ) {
                     matched = true;
