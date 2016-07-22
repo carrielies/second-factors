@@ -8,9 +8,11 @@ export default connect((state) => state) (
     class extends React.Component {
         
         render() {
-            
+
+            let session = this.props.session.gg3;
+
             let signedIn;
-            if (this.props.account.signed_in) {
+            if (session.signed_in) {
                 signedIn = <span><Link to="/" id="sign-out" >Sign out</Link></span>
             }
             

@@ -9,6 +9,7 @@ import speakeasy from 'speakeasy';
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
+import {saveHelpdeskSession} from '../../reducers/store_helpers'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -40,19 +41,15 @@ export default connect((state) => state) (
                 return;
             }
 
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
-            store.saveInteraction( "help_desk", `Proved identity with google authenticator`, account);
-
-            browserHistory.push("/helpdesk/manage_account")
+            saveHelpdeskSession(this.props.dispatch, {id_proof: "Google Authenticator", id_proven: true});
+            browserHistory.push("/helpdesk/prove_identity")
         }
 
         render() {
 
             let errors = this.state.errors;
             let hint = this.state.token;
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
+            let account = this.props.session.helpdesk.account;
             return (
 
                 <Govuk title="Helpdesk">

@@ -24,7 +24,7 @@ export default connect((state) => state) (
                     email: account.email,
                     last_logged_in: time
             };
-            saveGG3Session(this.props.dispatch, {response});
+            saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: request.name});
             saveInteraction(account.email, "sign_in", request.name);
 
             if ( this.props.debug ) {

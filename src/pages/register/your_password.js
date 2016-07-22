@@ -17,15 +17,7 @@ export default connect((state) => state) (
                 password: {msg: "Enter your password", summary: "You need to enter a password", regEx: /\w+/},
                 password2: {msg: "Enter your password", summary: "You need to enter a password", regEx: /\w+/},
             }, (props) => {
-                // let factors = {
-                //     factors: {
-                //         password: {
-                //             secret: props.password1
-                //         }
-                //     }
-                // };
-
-                saveRegistrationSession(this.props.dispatch, {password: props.password} );
+                saveRegistrationSession(this.props.dispatch, {password: props.password, level: "1"} );
                 // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: factors});
                 browserHistory.push("/register/your_auth_factors")
             })

@@ -7,6 +7,8 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import StoreHelper from '../../utils/store_helper'
 import Breadcrumb from '../../components/breadcrumb'
+import {saveAccountInteraction, findAccount} from '../../utils/helpdesk_db'
+import {saveHelpdeskSession} from '../../reducers/store_helpers'
 
 import {connect} from 'react-redux'
 
@@ -16,12 +18,32 @@ export default connect((state) => state) (
         constructor(props) {
             super(props)
         }
+
+        manage_account(log, account, id_proven) {
+            let session = this.props.session.helpdesk;
+            saveAccountInteraction(account.email, "helpdesk", log ).then( () => {
+                return findAccount(account.email)
+            }).then((a) => {
+                saveHelpdeskSession( this.props.dispatch, {account: a, id_proven});
+                browserHistory.push("/helpdesk/manage_account");
+            })
+        }
+
+        identityProved(id_proof) {
+            let account = this.props.session.helpdesk.account;
+            this.manage_account(id_proof, account, true);
+        }
+
+        componentDidMount() {
+            let session = this.props.session.helpdesk;
+            if( session.id_proven ) {
+                this.identityProved(session.id_proof);
+            }
+        }
         
         authFactors() {
-            
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount( store.helpdesk.selected_account );
-            let factors = account.factors || [];
+
+            let factors = this.props.session.helpdesk.account.factors;
 
             let handlers = {
                 google_authenticator: () => {
@@ -35,55 +57,40 @@ export default connect((state) => state) (
                             </td>
                         </tr>
                     )
-                },
-                password: () => {
-                    return(
-                        null
-                    )
-                },
-                device_fingerprint: () => {
-                    return(
-                        null
-                    )
                 }
             };
 
-            let list = [];
-
-            Object.keys(factors).forEach( (k) => {
-                let entry = handlers[k]();
-                if (entry) list.push(entry)
-            });
-
-            return list;
+            return Object.keys(factors).map( k => handlers[k] ? handlers[k]() : null ).filter( (h) => h != null);
         }
 
 
-        forceRetrust(e) {
+        doNotTrust(e) {
             e.preventDefault();
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount( store.helpdesk.selected_account );
-            let helpdesk = store.helpdesk;
-            helpdesk.trust_broken = true;
-            store.saveHelpdesk(helpdesk);
-            store.saveInteraction( "help_desk", "Forced retrust", account);
-            browserHistory.push("/helpdesk/manage_account");
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+
+            let actions = session.actions;
+            actions.push("trust_id reset");
+            account.trust_id = this.trust_id();
+
+            saveHelpdeskSession(this.props.dispatch, {actions: actions});
+            this.manage_account("unable to prove identity", account, false);
         }
 
-        continueWithReason(e) {
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
-            store.saveInteraction( "help_desk", `Proved identity by other means: ${this.refs.how.value}`, account);
-            browserHistory.push("/helpdesk/manage_account");
-        }
+        trustWithReason(e) {
+            e.preventDefault();
+            let session = this.props.session.helpdesk;
+            let account = session.account;
 
+            // saveHelpdeskSession(this.props.dispatch, {account: account, id_proof: true});
+            this.manage_account(`Proved identity by other means: ${this.refs.how.value}`, account, true);
+        }
 
 
         render() {
 
             let factors = this.authFactors();
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
+            let account = this.props.session.helpdesk.account;
 
             return(
                 <Govuk title="Helpdesk">
@@ -100,19 +107,6 @@ export default connect((state) => state) (
                         </thead>
                         <tbody>
                         {factors}
-
-                        <tr>
-                            <td>Shared Secrets</td>
-                            <td>These are facts that the user entered when they setup the gateway account<br/>
-                            </td>
-                            <td></td>
-                            <td className="change-link">
-                                <Link to="/helpdesk/prove_google_authenticator">Issue Challenge</Link>
-                            </td>
-                        </tr>
-
-
-
                         </tbody>
                     </table>
 
@@ -127,7 +121,7 @@ export default connect((state) => state) (
                                     If you continue on, then you will break their trust between any of their enrolled services.
                                 </p>
 
-                                <a href="#" className="button" onClick={(e) => this.forceRetrust(e)}>Manage their account</a>
+                                <a href="#" className="button" onClick={(e) => this.doNotTrust(e)}>Manage their account</a>
 
                             </div>
 
@@ -148,7 +142,7 @@ export default connect((state) => state) (
                                 <br/>
                                 <br/>
 
-                                <a href="#" className="button" onClick={(e) => this.continueWithReason(e)}>Manage their account</a>
+                                <a href="#" className="button" onClick={(e) => this.trustWithReason(e)}>Manage their account</a>
 
                             </div>
 

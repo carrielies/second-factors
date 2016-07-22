@@ -16,7 +16,6 @@ export default connect((state) => state) (
     class extends QuestionPage {
 
         createAccount() {
-
             let session = this.props.session.registration;
 
             let factors = {
@@ -35,8 +34,8 @@ export default connect((state) => state) (
                 factors.device_fingerprint = {
                     devices: [
                         {
-                            device: props.deviceName,
-                            fingerprint: this.refs.fp.secret()
+                            device: session.device_fingerprint.device,
+                            fingerprint: session.device_fingerprint.fingerprint
                         }
 
                     ]
@@ -56,12 +55,13 @@ export default connect((state) => state) (
         onNext(e) {
             e.preventDefault();
             let account = this.createAccount();
+            let session = this.props.session.registration;
             saveAccount(account).then( () => {
                 return saveInteraction( account.email, "registration", `Account created with factors: ${this.authFactors()}` );
             }).then( () => {
                 return findAccount(account.email)
             }).then( (a) => {
-                saveGG3Session(this.props.dispatch, {account: a, signed_in: true});
+                saveGG3Session(this.props.dispatch, {account: a, signed_in: true, level: session.level });
                 browserHistory.push( "/logged_in")
             });
 

@@ -3,12 +3,10 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import Question from '../../components/question'
 import QuestionPage from '../../utils/question_page'
-import StoreHelper from '../../utils/store_helper'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
-import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
-import BehindTheScenes from '../../components/service_behind_the_scenes'
+import {findEnrolment, updateEnrolment} from '../../utils/spacegov_db'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -19,27 +17,22 @@ export default connect((state) => state) (
                 secret: {msg: "You need to enter an amount", summary: "Enter your station tax bill", regEx: /\w+/},
             }, (props) => {
 
-                let store = new StoreHelper(this.props);
-                let service = store.service;
-                let resp = service.response_from_gw;
-                let enrolment = service.enrolled_users[resp.email];
-                enrolment.trust_id = resp.trust_id;
-                service.enrolled_users[resp.email] = enrolment;
-                store.saveService( service );
-                browserHistory.push("/service/landing_page")
+                let resp = this.props.session.gg3.response;
+                findEnrolment(resp.email).then( (enrolment) => {
+                    enrolment.trust_id = resp.trust_id;
+                    return updateEnrolment(enrolment)
+                }).then( () => {
+                    browserHistory.push("/service/landing_page")
+                });
             })
         }
 
         render() {
-            console.dir(this.props.cookie);
-            console.dir(this.props.service);
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-            let request = service.request;
-            let enrolment = service.enrolled_users[resp.email];
+
+            let resp = this.props.session.gg3.response;
 
             return(
-                <Govuk title={service.request.name} hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
                     <Question title={`Hello ${resp.name}`} errors={this.state.errors}>
                         <p>We need to check that it really is you.</p>

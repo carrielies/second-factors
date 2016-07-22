@@ -23,27 +23,14 @@ export default connect((state) => state) (
                 deviceName: {msg: "Enter a name for your device", summary: "You need to enter a device name", regEx: /\w+/}
             }, (props) => {
 
-
-                // let factors = { ...this.props.account.factors,
-                //     device_fingerprint: {
-                //         devices: [
-                //             {
-                //                 device: props.deviceName,
-                //                 fingerprint: this.refs.fp.secret()
-                //             }
-                //
-                //         ]
-                //     }
-                // };
-
                 saveRegistrationSession(this.props.dispatch, {
                     device_fingerprint: {
                         device: props.deviceName,
                         fingerprint: this.refs.fp.secret()
-                    }
+                    },
+                    level: "2"
                 });
 
-                // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {factors: factors, two_fa_passed: true} })
                 browserHistory.push("/register/your_auth_factors");
             })
         }

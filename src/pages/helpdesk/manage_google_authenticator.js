@@ -7,6 +7,7 @@ import Field from '../../components/field'
 import Ga from '../../components/ga'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
+import {saveHelpdeskSession} from '../../reducers/store_helpers'
 
 import {connect} from 'react-redux'
 
@@ -18,33 +19,22 @@ export default connect((state) => state) (
             e.preventDefault();
 
             if( this.refs.yes.checked ) {
-                let store = new StoreHelper(this.props);
-                let account = store.serverAccount(store.helpdesk.selected_account);
+                let session = this.props.session.helpdesk;
+                let actions = session.actions;
+                let account = session.account;
                 delete( account.factors.google_authenticator );
-                store.saveInteraction( "help_desk", "Removed Google authenticator", account);
-                store.saveServerAccount(account);
+                actions.push("Removed Google authenticator");
+                saveHelpdeskSession(this.props.dispatch, {actions, account, account_changed: true, actions});
             }
 
             browserHistory.push("/helpdesk/manage_account")
 
         }
 
-        forceRetrust() {
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount( store.helpdesk.selected_account );
-
-            let helpdesk = store.helpdesk;
-
-            if( helpdesk.trust_broken == true ) {
-                store.saveInteraction( "help_desk", "Forced retrust", account);
-                store.saveServerAccount(account.breakTrust());
-            }
-        }
-
         render() {
             let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
-            
+            let account = this.props.session.helpdesk.account;
+
             return(
                 <Govuk title="Helpdesk">
                     <Breadcrumb text={`${account.name}`}/>

@@ -3,12 +3,11 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
-import Question from '../../components/question'
-import Field from '../../components/field'
-import Server from '../../components/server'
 import StoreHelper from '../../utils/store_helper'
 import Breadcrumb from '../../components/breadcrumb'
-
+import {} from '../../utils/helpdesk_db'
+import {saveHelpdeskSession} from '../../reducers/store_helpers'
+import {findAccount} from '../../utils/helpdesk_db'
 
 import {connect} from 'react-redux'
 
@@ -18,28 +17,26 @@ export default connect((state) => state) (
 
         select(e, email) {
             e.preventDefault();
-            (new StoreHelper(this.props)).saveHelpdesk( {selected_account: email} );
-            browserHistory.push("/helpdesk/prove_identity")
+            findAccount(email).then( (account) => {
+                saveHelpdeskSession(this.props.dispatch, {account, account_changed: false, id_proven: false, id_proof: null, actions: []} );
+                browserHistory.push("/helpdesk/prove_identity")
+            });
         }
 
         render() {
-
-
             let server = this.props.server;
+            let session = this.props.session.helpdesk;
 
-            let res = Object.keys(server).map( (k) => {
-                let account = server[k];
+            let res = session.search_results.map( (account) => {
                 return (
                     <tr>
                         <td>{account.name}</td>
                         <td>{account.email}</td>
-                        <td>-</td>
-                        <td>{account.cred_id}</td>
                         <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.email)}>Prove Identity</a></td>
                     </tr>
 
                 )
-            })
+            });
 
             return(
                 <Govuk title="Helpdesk">
@@ -50,8 +47,6 @@ export default connect((state) => state) (
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Date of birth</th>
-                            <th>Gateway Id</th>
                             <th></th>
                         </tr>
                         </thead>

@@ -3,8 +3,6 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
-import Question from '../../components/question'
-import Field from '../../components/field'
 
 import {connect} from 'react-redux'
 
@@ -13,7 +11,7 @@ export default connect((state) => state) (
         render() {
 
             let service = this.props.service;
-            let resp = service.response_from_gw;
+            let resp = this.props.session.gg3.response;
 
             return(
                 <Govuk title="Helpdesk">

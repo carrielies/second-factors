@@ -43,7 +43,8 @@ export default connect((state) => state) (
             saveRegistrationSession(this.props.dispatch, {
                 google_authenticator: {
                     secret: this.refs.ga.secret()
-                }
+                },
+                level: "2"
             });
 
             browserHistory.push("/register/your_auth_factors")

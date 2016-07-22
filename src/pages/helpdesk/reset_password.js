@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
 import generatePassword from 'password-generator'
+import {saveHelpdeskSession} from '../../reducers/store_helpers'
     
 export default connect((state) => state) (
     class extends React.Component {
@@ -15,26 +16,14 @@ export default connect((state) => state) (
             super(props);
             let new_password = generatePassword();
             this.state = { new_password };
-
-            let store = new StoreHelper(this.props);
-
-            let account = store.serverAccount(store.helpdesk.selected_account);
+            let session = this.props.session.helpdesk;
+            let account = session.account;
             account.factors.password.secret = new_password;
-            props.dispatch( { type: 'SAVE_HELPDESK', data: {account}})
-            store.saveInteraction( "help_desk", "Password reset", account);
-            this.forceRetrust();
-        }
 
-        forceRetrust() {
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount( store.helpdesk.selected_account );
+            let actions = session.actions;
+            actions.push("Password reset");
 
-            let helpdesk = store.helpdesk;
-
-            if( helpdesk.trust_broken == true ) {
-                store.saveInteraction( "help_desk", "Forced retrust", account);
-                store.saveServerAccount(account.breakTrust());
-            }
+            saveHelpdeskSession(props.dispatch, {account, account_changed: true, actions});
         }
 
 
@@ -51,8 +40,6 @@ export default connect((state) => state) (
                         <br/>
                         <br/>
                         <Link to="/helpdesk/manage_account" className="button">Continue</Link>
-
-
 
                     </Content>
                 </Govuk>

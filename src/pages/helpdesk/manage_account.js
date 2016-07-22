@@ -3,33 +3,51 @@ import Govuk from '../../components/govuk'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
-import Question from '../../components/question'
-import Field from '../../components/field'
 import StoreHelper from '../../utils/store_helper'
 import Breadcrumb from '../../components/breadcrumb'
+import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/helpdesk_db'
+import {saveHelpdeskSession} from '../../reducers/store_helpers'
 
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
     class extends QuestionPage{
 
-        forceRetrust(e) {
+        constructor(props) {
+            super(props);
+            let session = props.session.helpdesk;
+            let account = session.account;
+            this.state = {account};
+        }
+
+        resetChanges(e) {
+            if(e) e.preventDefault();
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+
+            findAccount(account.email).then( (a) => {
+                this.setState( {account: a} );
+                saveHelpdeskSession(this.props.dispatch, {a, account_changed: false})
+            })
+        }
+
+        saveChanges(e) {
             e.preventDefault();
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount( store.helpdesk.selected_account );
-            store.saveServerAccount(account.breakTrust());
-            let helpdesk = store.helpdesk;
-            helpdesk.trust_broken = true;
-            store.saveHelpdesk(helpdesk);
-            store.saveInteraction( "help_desk", "Forced retrust", account);
+            let session = this.props.session.helpdesk;
+            let account = this.props.session.helpdesk.account;
+
+            updateAccount(account).then(() => {
+                return saveAccountInteraction(account.email, "helpdesk", session.actions.join(", ") );
+            }).then( () => {
+                browserHistory.push("/helpdesk/search")
+            });
         }
 
 
-        authFactors() {
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
 
-            let factors = account.factors || [];
+        authFactors() {
+            let account = this.props.session.helpdesk.account;
+            let factors = account.factors;
 
             let handlers = {
                 google_authenticator: () => {
@@ -73,31 +91,89 @@ export default connect((state) => state) (
             return list;
         }
 
-        render() {
+        eventLog() {
 
-            let service = this.props.service;
-            let resp = service.response_from_gw;
-
-            let store = new StoreHelper(this.props);
-            let account = store.serverAccount(store.helpdesk.selected_account);
-            let helpdesk = store.helpdesk;
+            let session = this.props.session.helpdesk;
+            let account = session.account;
 
             let interactions = account.interactions || [];
             let logs = interactions.map( (e) => {
-               return(
-                   <tr>
-                       <td>{e.origin}</td>
-                       <td>{e.event}</td>
-                       <td>{e.time}</td>
-                   </tr>
-               )
+                return(
+                    <tr>
+                        <td>{e.origin}</td>
+                        <td>{e.event}</td>
+                        <td>{e.time}</td>
+                    </tr>
+                )
             });
 
             return(
-                <Govuk title="Helpdesk">
-                    <Breadcrumb text={`${account.name}`} back="/helpdesk/prove_identity"/>
 
-                    <h1 className="heading-medium">{`${account.name}`}</h1>
+                <div>
+                    <details>
+                        <summary><span className="summary">View their event log</span></summary>
+                        <div className="panel panel-border-narrow">
+                            <table className="table-font-xsmall" >
+                                <thead>
+                                <tr>
+                                <th>Origin</th>
+                                <th>Event</th>
+                                <th>Time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {logs}
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            )
+        }
+
+        pendingChanges() {
+
+            let session = this.props.session.helpdesk;
+            let actions = session.actions;
+            if ( !session.account_changed) return null;
+
+            let a = actions.map( (a) => <tr><td>{a}</td></tr>);
+
+            let button_name = "Save changes";
+            if( !session.id_proven ) {
+                button_name = "Save changes and break trust";
+            }
+
+            return (
+                <div>
+                    {session.account_changed ? <a href="#" className="button" onClick={(e) => this.saveChanges(e)}>{button_name}</a> : null }
+                    <br/>
+                    <br/>
+                    <details>
+                        <summary><span className="summary">View pending changes</span></summary>
+                        <div className="panel panel-border-narrow">
+                            <table className="table-font-xsmall" >
+                                <tbody>
+                                    {a}
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            )
+        }
+
+        render() {
+
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+
+            return(
+                <Govuk title="Helpdesk">
+                    <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/search_results"/>
+
+
+
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
@@ -105,12 +181,6 @@ export default connect((state) => state) (
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <td>Credential Id</td>
-                            <td>{`${account.cred_id}`}</td>
-                            <td className="change-link"></td>
-                        </tr>
 
                         <tr>
                             <td>Name</td>
@@ -128,22 +198,20 @@ export default connect((state) => state) (
                         <tr>
                             <td>Trust Id</td>
                             <td>{account.trust_id}</td>
-                            <td> {helpdesk.trust_broken ? "Any changes will break trust" : ""}</td>
+                            <td></td>
                         </tr>
 
                         </tbody>
                     </table>
-
                     <br/>
 
-                    <h1 className="heading-medium">Their authentication factors</h1>
-                    <a href="#" onClick={(e) => this.forceRetrust(e)} >Force services to re-trust user by asking for known facts</a>
-                    <br/>
+
+
                     <br/>
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
-                            <th colSpan="4">Authentication Factors</th>
+                            <th colSpan="4">Their authentication Factors</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -153,22 +221,12 @@ export default connect((state) => state) (
                     </table>
                     <br/>
 
-                    <h1 className="heading-medium">Their event log</h1>
-                    <table className="table-font-xsmall summary" >
-                        <thead>
-                        <tr>
-                            <th>Origin</th>
-                            <th>Event</th>
-                            <th>Time</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {logs}
-                        </tbody>
-                    </table>
+                    {this.pendingChanges()}
+                    {this.eventLog()}
 
+                    <br/>
 
-
+                    <a href="#" onClick={(e) => this.forceRetrust(e)} >Force services to re-trust user by asking for known facts</a>
 
 
                 </Govuk>

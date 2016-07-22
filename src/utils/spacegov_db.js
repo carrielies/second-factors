@@ -14,3 +14,7 @@ export function findEnrolment(email ) {
         return enrolments[0];
     });
 }
+
+export function updateEnrolment(enrolment) {
+    return db.updateAsync( {email: enrolment.email}, enrolment, {});
+}

@@ -31,8 +31,17 @@ export function saveInteraction(email, origin, event) {
     return db.updateAsync( {email: email}, {$push: {interactions: {origin, event, time} }}, {});
 }
 
+export function updateAccount(account) {
+    delete(account._id);
+    return db.updateAsync( {email: account.email}, {$set: account}, {});
+}
+
 export function allAccounts() {
     return db.findAsync({})
+}
+
+export function serachForAccounts(email, name) {
+    return db.findAsync( {email: new RegExp(email, "i"), name: new RegExp(name, "i")} )
 }
 
 
@@ -41,7 +50,6 @@ saveAccount({
     email: "average@joe.com",
     name: "Average Joe",
     always_use_2fa: false,
-    two_fa_passed: false,
     cred_id: "765875675786",
     trust_id: "875678687GJHGH343",
     interactions: [],
@@ -59,7 +67,6 @@ saveAccount({
     email: "security@simon.com",
     name: "Security Simon",
     always_use_2fa: true,
-    two_fa_passed: false,
     cred_id: "1234SIMON",
     trust_id: "875678687GJHGH343",
     interactions: [],
@@ -90,7 +97,6 @@ saveAccount({
     email: "lapse@larry.com",
     name: "Lapse Larry",
     always_use_2fa: false,
-    two_fa_passed: false,
     cred_id: "1234LARRY",
     trust_id: "875678687GJHGH343",
     interactions: [],
