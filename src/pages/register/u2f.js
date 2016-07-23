@@ -6,7 +6,7 @@ import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import {saveRegistrationSession} from '../../reducers/helpers'
 import u2f from 'u2f-api'
 import 'whatwg-fetch';
@@ -21,8 +21,7 @@ export default connect((state) => state) (
             this.state = { errors: {} }
         }
 
-        register(e) {
-            e.preventDefault();
+        componentDidMount() {
 
             fetch("/svr/u2f/register").then((resp) => resp.json())
                 .then((reg) => u2f.register( reg ))
@@ -36,20 +35,22 @@ export default connect((state) => state) (
                 })
                 .then((resp) => resp.json())
                 .then((res) => {
-                    saveRegistrationSession(this.props.dispatch, {
-                        u2f_key: {
-                            keyHandle: res.keyHandle,
-                            publicKey: res.publicKey
-                        },
-                        level: "2"
-                    });
-                });
-        }
-
-
-        onNext(e) {
-            e.preventDefault();
-            browserHistory.push("/register/your_auth_factors");
+                    if( res.successful ) {
+                        saveRegistrationSession(this.props.dispatch, {
+                            u2f_key: {
+                                keyHandle: res.keyHandle,
+                                publicKey: res.publicKey
+                            },
+                            level: "2"
+                        });
+                    }
+                    else {
+                        this.setState({error: true})
+                    }
+                })
+                .catch((err) => {
+                    this.setState({error: true})
+                })
         }
 
         registerPage() {
@@ -61,17 +62,9 @@ export default connect((state) => state) (
 
                     <Breadcrumb text={`Register for ${request.name}`}/>
 
-                    <Question title="Register a U2F device?" para="" errors={this.state.errors}>
-                        <Content>
-                            <p>Press button on U2F device
-                            </p>
-                        </Content>
-                    </Question>
-
-                    <br/>
-                    <a href="#" className="button" onClick={(e) => this.register(e)}>Register U2F device</a>
-                    <br/>
-                    <br/>
+                    <Content title="Press the button on your U2F device">
+                        <img src="/public/images/security_key.jpg"/>
+                    </Content>
                 </Govuk>
             )
         }
@@ -85,15 +78,11 @@ export default connect((state) => state) (
 
                     <Breadcrumb text={`Register for ${request.name}`}/>
 
-                    <Question title="Register a U2F device?" para="" errors={this.state.errors}>
-                        <Content>
-                            <p>U2F device registered.
-                            </p>
-                        </Content>
-                    </Question>
+                    <Content title="U2F device registered">
+                    </Content>
 
                     <br/>
-                    <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
+                    <Link to="/register/your_auth_factors" className="button">Continue</Link>
                     <br/>
                     <br/>
                 </Govuk>
@@ -103,6 +92,26 @@ export default connect((state) => state) (
 
         render() {
             let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
+
+            if( this.state.error ) {
+                return(
+                    <Govuk>
+
+                        <Breadcrumb text={`Register for ${request.name}`}/>
+
+                        <Content title="Unable to register your U2F device">
+                        </Content>
+
+                        <br/>
+                        <Link to="/register/your_auth_factors" className="button">Continue</Link>
+                        <br/>
+                        <br/>
+                    </Govuk>
+
+                )
+            }
+
             if( session.u2f_key) {
                 return this.successPage();
             }

@@ -76,6 +76,8 @@ export default connect((state) => state) (
 
             };
 
+
+
             return Object.keys(handlers).map( (f) => handlers[f]());
         }
 
@@ -92,8 +94,8 @@ export default connect((state) => state) (
                     <Question title="Setup two step verification?" para="Adding additional authentication methods helps to protect you online. Choose how you would like us to athenticate you from the list below:">
                         {this.availableFactors()}
 
-                        <label className="block-label" for="radio-2">
-                            <input ref="none" id="radio-2" type="radio" name="radio-group"/>I'm done
+                        <label className="block-label" for="radio-4">
+                            <input ref="none" id="radio-4" type="radio" name="radio-group"/>I'm done
                         </label>
                         
                     </Question>
