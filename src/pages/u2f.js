@@ -1,11 +1,8 @@
 import React from 'react'
 import GovUk from '../components/govuk'
-// import { browserHistory, Link } from 'react-router'
-// var u2fServer  = require( '../utils/u2fserver' );
 import {connect} from 'react-redux'
-// import 'u2f-api-polyfill'
-// var Datastore = require('nedb')
-// import {saveUser, findUser} from '../utils/database'
+import u2f from 'u2f-api'
+import 'whatwg-fetch';
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -15,59 +12,69 @@ export default connect((state) => state) (
             this.state = {};
         }
 
-        // onClick(e) {
+        register(e) {
+            e.preventDefault();
 
 
-            // let req = {
-            //     version: "U2F_V2",
-            //     appId: "https://localhost:3000",
-            //     challenge: "bAwnaQ0EPaV1u1L7ySA7rB4rKwAffHO2yCb2H31CQPA"
-            // };
-            //
-            // let resp = {
-            //     appId: "https://localhost:3000",
-            //     challenge: "bAwnaQ0EPaV1u1L7ySA7rB4rKwAffHO2yCb2H31CQPA",
-            //     clientData: "eyJ0eXAiOiJuYXZpZ2F0b3IuaWQuZmluaXNoRW5yb2xsbWVudCIsImNoYWxsZW5nZSI6ImJBd25hUTBFUGFWMXUxTDd5U0E3ckI0ckt3QWZmSE8yeUNiMkgzMUNRUEEiLCJvcmlnaW4iOiJodHRwczovL2xvY2FsaG9zdDozMDAwIiwiY2lkX3B1YmtleSI6InVudXNlZCJ9",
-            //     registrationData: "BQQ_d9TcfNN-xIrUVU-OyERntMhKoGDb_jAgvcxzJSBsU_8vRpvRDoguvehSJjo6ZKhf50dzSmhrEVTe1EpgVSlNQKXhUG1bFp1jjAJNh-rJg6jbEG1daxpzFJBWSF0T8QGiZbnCKvbLa4m7PkruXjujZzA_YI5BqeY15DVQZMc5bfMwggE8MIHkoAMCAQICChlFiGBmRWaIdkgwCgYIKoZIzj0EAwIwFzEVMBMGA1UEAxMMRlQgRklETyAwMTAwMB4XDTE0MDgxNDE4MjkzMloXDTI0MDgxNDE4MjkzMlowMTEvMC0GA1UEAxMmUGlsb3RHbnViYnktMC40LjEtMTk0NTg4NjA2NjQ1NjY4ODc2NDgwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQ_d9TcfNN-xIrUVU-OyERntMhKoGDb_jAgvcxzJSBsU_8vRpvRDoguvehSJjo6ZKhf50dzSmhrEVTe1EpgVSlNMAoGCCqGSM49BAMCA0cAMEQCIPTBC8-APrDgbgraKiMBZ4LbJGHvXmZoYBSCKpPqeeF4AiAfdmXHjzzpqmQ1ogzATdjZI4r0jxqVEsCnNocEPKPnezBEAiAe9FwrOJ42-4FSNmjbnbQVmBSyVUF69EKhRW1ZhgawhAIgVIBYyr-jnIV5LJ961N9Ok-CcRIH9OMTb5n3FmQMQpX4",
-            //     version: "U2F_V2"
-            // };
+            fetch("/svr/u2f/register").then((resp) => resp.json())
+            .then((reg) => u2f.register( reg ))
+            .then((resp) => {
+                this.setState({resp: resp});
+                return fetch('/svr/u2f/register', {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'},
+                    body: JSON.stringify(resp)
+                });
+            })
+            .then((resp) => resp.json())
+            .then((res) => {
+                console.log(res);
+                console.log("keyhandle: " + res.keyHandle)
+                console.log("pubkey: " + res.publicKey)
+            });
+        }
 
-            // u2fServer.checkRegistration(req, resp);
 
-            // let appId = "https://localhost:3000";
-            // let req = u2fServer.request(appId);
-            // debugger
-            // this.setState( {resp: "running..."});
-            // u2f.register( appId, [req], [], (resp) => {
-            //     if ( resp.errorMessage ) {
-            //         this.setState({resp: resp.errorMessage});
-            //     }
-            //     else {
-            //         this.setState({resp: resp});
-            //     }
-            //     debugger
-            //     console.log(u2fServer.checkRegistration(req, resp));
-            //     debugger
-            //
-            //     console.log(resp);
-            //     console.log(req);
-            //     debugger
-            // },10)
-        // }
+        authenticate(e) {
+            e.preventDefault();
 
-        // render() {
-        //
-        //     return(
-        //         <GovUk title="Home">
-        //             <br/>
-        //             <a href="#" className="button" onClick={(e) => this.onClick(e)}>Click me</a>
-        //             <br/>
-        //             <br/>
-        //             <br/>
-        //
-        //             <textarea cols="60" value={this.state.resp}/>
-        //         </GovUk>
-        //     )
-        // }
+            let keyHandle = "Lhme0_tMwLTlMRbslq6ejejGFn3zVeK4HBVwdMVhUbhKnZYN2WpPkylzCtGoUZfBuv_z9tTlw7NNQhpS2_1t-Q";
+            let publicKey = "BLSPGmLciSMT4-cOJPKvWUKHHjGA-JRvnKz-9FrzsDxJ0AsSvP6vrDQvpRIZzFBQDtUn1AvfJE6X_amefBY2ZDs";
+
+            fetch("/svr/u2f/challenge", {
+                method: 'POST',
+                headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                body: JSON.stringify({keyHandle, publicKey})
+            }).then((resp) => resp.json())
+                .then((req) => u2f.sign(req))
+                .then((res) => {
+                    return fetch("/svr/u2f/challenge_response", {
+                        method: 'POST',
+                        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+                        body: JSON.stringify(res)
+                    })
+                }).then((resp) => resp.json())
+                .then((res) => {
+                    console.log(res);
+                })
+        }
+
+
+        render() {
+
+            return(
+                <GovUk title="Home">
+                    <br/>
+                    <a href="#" className="button" onClick={(e) => this.register(e)}>Register</a>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <a href="#" className="button" onClick={(e) => this.authenticate(e)}>Authenticate</a>
+
+
+                    <textarea cols="60" value={this.state.resp}/>
+                </GovUk>
+            )
+        }
     }
 )

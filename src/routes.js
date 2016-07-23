@@ -3,8 +3,10 @@ import { Router, Route, Link, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import SignIn from './pages/sign_in/sign_in'
 import GoogleAuthenticator from './pages/sign_in/google_authenticator'
+import U2F from './pages/sign_in/u2f'
 import SetupGa from './pages/register/setup_ga'
 import SetupDevice from './pages/register/setup_device'
+import SetupU2F from './pages/register/u2f'
 import YourName from './pages/register/your_name'
 import YourEmail from './pages/register/your_email'
 import ConfirmEmail from './pages/register/confirm_email'
@@ -25,7 +27,6 @@ import HelpDeskResetPassword from './pages/helpdesk/reset_password'
 import HelpDeskManageGoogleAuthenticator from './pages/helpdesk/manage_google_authenticator'
 import Summary from './pages/register/summary'
 import Home from './pages/home'
-import U2f from './pages/u2f'
 import CheckDevice from './pages/sign_in/check_device'
 import LandingPage from './pages/service/landing_page'
 import AsteroidGovLandingPage from './pages/service/asteroid_gov_landing_page'
@@ -47,11 +48,13 @@ export default function(props) {
         <Router history={history}>
             <Route path="/signin" component={SignIn}/>
             <Route path="/ga" component={GoogleAuthenticator}/>
+            <Route path="/u2f" component={U2F}/>
             <Route path="/your_auth_factors" component={YourAuthFactors}/>
             <Route path="/service_redirect" component={ServiceRedirect}/>
             <Route path="/sso" component={Sso}/>
             <Route path="/logged_in" component={LoggedIn}/>
             <Route path="/register/ga" component={SetupGa}/>
+            <Route path="/register/u2f" component={SetupU2F}/>
             <Route path="/register/device" component={SetupDevice}/>
             <Route path="/register" component={YourName}/>
             <Route path="/register/your_name" component={YourName}/>
@@ -84,7 +87,6 @@ export default function(props) {
             <Route path="/helpdesk/manage_google_authenticator" component={HelpDeskManageGoogleAuthenticator}/>
             <Route path="/helpdesk/reset_password" component={HelpDeskResetPassword}/>
             <Route path="/check_device" component={CheckDevice}/>
-            <Route path="/u2f" component={U2f}/>
             <Route path="/" component={Home}/>
         </Router>
         

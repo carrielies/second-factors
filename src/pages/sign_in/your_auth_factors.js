@@ -24,6 +24,10 @@ export default connect((state) => state) (
                 browserHistory.push("/check_device")
             }
 
+            if( this.refs.u2f && this.refs.u2f.checked ) {
+                browserHistory.push("/u2f")
+            }
+
             if( this.refs.none && this.refs.none.checked ) {
                 browserHistory.push("/logged_in")
             }
@@ -53,7 +57,15 @@ export default connect((state) => state) (
                             <input ref="df" id="radio-2" type="radio" name="radio-group"/>Device fingerprint
                         </label>
                     )
+                },
+                u2f_key: () => {
+                    return(
+                        <label className="block-label" for="radio-3" key="radio-3">
+                            <input ref="u2f" id="radio-3" type="radio" name="radio-group"/>U2F key
+                        </label>
+                    )
                 }
+
             };
 
             let session = this.props.session.gg3;

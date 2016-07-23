@@ -89,6 +89,10 @@ saveAccount({
                 }
 
             ]
+        },
+        u2f_key: {
+            keyHandle: "LRkki3ijnpibGgHAt26-7AUlnwaE5x46GEng0Ecqx0hBObTBAjX5NpaLZxjIZeL3swiXhsQHEUYP1JH7sJlt-A",
+            publicKey: "BLePoDpfZn0_ncwZCNNveSNq_bj7jyaTHqiiZP5x-6q5268wcCXwGpGQXX_QrGQlONzQsHvPxpxivz8V1Wl3gt4"
         }
     }
 });

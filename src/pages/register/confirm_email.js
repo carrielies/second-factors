@@ -24,11 +24,13 @@ export default connect((state) => state) (
 
         render() {
 
-            let para = `We've sent an email to ${this.props.account.email} with a special code. `
+            let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
+            let para = `We've sent an email to ${session.email} with a special code. `
 
             return (
                 <Govuk>
-                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
+                    <Breadcrumb text={`Register for ${request.name}`}/>
                     {this.props.breadcrumb}
 
                     <Question title="Confirm email code?" errors={this.state.errors} para={para}>

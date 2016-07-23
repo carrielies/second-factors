@@ -18,15 +18,17 @@ export default connect((state) => state) (
                 name: {msg: "Enter your full name", summary: "You need to enter your full name", regEx: /\w+/},
             }, (props) => {
                 saveRegistrationSession(this.props.dispatch, {name: props.name} );
-                // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: {name: props.name, trust_id: this.guid(), signed_in: true, cred_id: this.cred_id(), interactions: [] }})
                 browserHistory.push("/register/your_email")
             })
         }
 
         render() {
+            let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
+
             return (
                 <Govuk phaseBanner="true">
-                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
+                    <Breadcrumb text={`Register for ${request.name}`}/>
 
                     <Question title="What's your name ?" para="Enter all your names in full" errors={this.state.errors}>
                         <Field ref="name" name="name" errors={this.state.errors} labelText="Name"/>

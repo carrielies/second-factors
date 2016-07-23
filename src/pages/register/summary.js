@@ -29,6 +29,14 @@ export default connect((state) => state) (
                 }
             }
 
+            if( session.u2f_key ) {
+                factors.u2f_key = {
+                    keyHandle: session.u2f_key.keyHandle,
+                    publicKey: session.u2f_key.publicKey
+                }
+            }
+
+
             if( session.device_fingerprint ) {
                 factors.device_fingerprint = {
                     devices: [
@@ -73,17 +81,19 @@ export default connect((state) => state) (
 
             if( session.google_authenticator ) factors.push( "Google authenticator");
             if( session.device_fingerprint ) factors.push( "Device fingerprint");
+            if( session.u2f_key ) factors.push( "U2F Key");
             return factors.join(", ");
         }
 
         render() {
 
             let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
 
             return (
                 <Govuk phaseBanner="true">
 
-                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
+                    <Breadcrumb text={`Register for ${request.name}`}/>
                     <Question title="Your government gateway account has been created">
                     </Question>
 

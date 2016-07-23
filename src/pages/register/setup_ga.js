@@ -54,12 +54,14 @@ export default connect((state) => state) (
     
             let errors = this.state.errors;
             let hint = this.state.token;
-    
+            let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
+
             return (
     
                 <Govuk phaseBanner="true">
 
-                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
+                    <Breadcrumb text={`Register for ${request.name}`}/>
 
                     <Content title="Setup google authenticator">
                         <div className="grid-row">

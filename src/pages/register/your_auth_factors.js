@@ -22,6 +22,9 @@ export default connect((state) => state) (
             if( this.refs.df && this.refs.df.checked ) {
                 browserHistory.push("/register/device")
             }
+            if( this.refs.u2f && this.refs.u2f.checked ) {
+                browserHistory.push("/register/u2f")
+            }
 
             if( this.refs.none.checked ) {
                 browserHistory.push("/register/summary")
@@ -57,7 +60,20 @@ export default connect((state) => state) (
                             <input ref="df" id="radio-2" type="radio" name="radio-group"/>Device fingerprint
                         </label>
                     )
+                },
+                u2f_key: () => {
+                    if ( session.u2f_key ) {
+                        return(
+                            <span className="second_factor_already_setup">U2F Key - [Already setup]</span>
+                        )
+                    }
+                    else return(
+                        <label className="block-label" for="radio-3" key="radio-3">
+                            <input ref="u2f" id="radio-3" type="radio" name="radio-group"/>U2F Key
+                        </label>
+                    )
                 }
+
             };
 
             return Object.keys(handlers).map( (f) => handlers[f]());
@@ -65,9 +81,13 @@ export default connect((state) => state) (
 
         render() {
 
+            let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
+            console.log(session);
+
             return (
                 <Govuk>
-                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
+                    <Breadcrumb text={`Register for ${request.name}`}/>
 
                     <Question title="Setup two step verification?" para="Adding additional authentication methods helps to protect you online. Choose how you would like us to athenticate you from the list below:">
                         {this.availableFactors()}

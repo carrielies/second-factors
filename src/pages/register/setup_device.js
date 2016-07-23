@@ -37,11 +37,14 @@ export default connect((state) => state) (
 
 
         render() {
+            let session = this.props.session.registration;
+            let request = this.props.session.gg3.request;
+
             return (
 
                 <Govuk>
 
-                    <Breadcrumb text={`Register for ${this.props.service.request.name}`}/>
+                    <Breadcrumb text={`Register for ${request.name}`}/>
 
                     <Question title="Trust this device?" para="" errors={this.state.errors}>
                         <Fingerprint ref="fp" qrcodeSize={128}/>
