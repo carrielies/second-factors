@@ -61,6 +61,7 @@
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "express-session": "^1.14.0",
     "fecha": "^2.1.0",
     "govuk-elements-sass": "^1.1.4",
     "govuk_frontend_toolkit": "^4.9.1",
