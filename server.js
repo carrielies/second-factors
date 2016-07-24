@@ -9,6 +9,8 @@ var config = require('./config');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+console.log(config.appId);
+
 app.get('/svr/u2f/register', function(req, res) {
   var u2f_req = u2f.request(config.appId);
   session.authRequest = u2f_req;
