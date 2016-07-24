@@ -4,7 +4,8 @@
   "description": "GG3 react alpha prototype",
   "scripts": {
     "start": "node server-prod.js",
-    "webpack": "node server.js",
+    "dev": "node server-dev.js",
+    "prod": "node server-prod.js",
     "postinstall": "webpack --progress --colors --config webpack-prod.config.js",
     "lint": "eslint src"
   },

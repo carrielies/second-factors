@@ -21,10 +21,10 @@
     git clone git@github.tools.tax.service.gov.uk:mark-middleton/gg3-alpha.git
     cd gg3-alpha
     npm install
-    npm start
+    npm run dev
 ```
 
-This will start an express server listening on http://localhost:3000
+This will start an express server listening on https://localhost:3000
 
 
 ### Deploying to heroku
