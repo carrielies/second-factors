@@ -122,4 +122,19 @@ app.post('/svr/crypto_verify', function(req, response) {
 
 
 
+app.get('/svr/requestbin', function(req, response) {
+
+  var code = req.query.code;
+
+  fetch("http://requestb.in/" + code, {
+    method: 'POST',
+    body: "fizz=buzz"
+  });
+
+  response.send("ok")
+
+});
+
+
+
 module.exports = app;
