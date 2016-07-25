@@ -9,14 +9,21 @@ export function saveAccount(account) {
     return db.insertAsync(account);
 }
 
-export function findAccount(email ) {
+export function findAccount(gg_id ) {
+    return db.findAsync({gg_id}).then((accounts) => {
+        return accounts[0];
+    });
+}
+
+export function findAccountByEmail(email ) {
     return db.findAsync({email}).then((accounts) => {
         return accounts[0];
     });
 }
 
+
 export function findAccountByEmailAndPassword(email, password ) {
-    return findAccount(email).then( (account) => {
+    return findAccountByEmail(email).then( (account) => {
         if ( !account || account.password !== password.password ) {
             return null;
         }
@@ -26,14 +33,14 @@ export function findAccountByEmailAndPassword(email, password ) {
     });
 }
 
-export function saveInteraction(email, origin, event) {
+export function saveInteraction(gg_id, origin, event) {
     let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
-    return db.updateAsync( {email: email}, {$push: {interactions: {origin, event, time} }}, {});
+    return db.updateAsync( {gg_id: gg_id}, {$push: {interactions: {origin, event, time} }}, {});
 }
 
 export function updateAccount(account) {
     delete(account._id);
-    return db.updateAsync( {email: account.email}, {$set: account}, {});
+    return db.updateAsync( {gg_id: account.gg_id}, {$set: account}, {});
 }
 
 export function allAccounts() {
@@ -50,7 +57,7 @@ saveAccount({
     email: "average@joe.com",
     name: "Average Joe",
     always_use_2fa: false,
-    cred_id: "765875675786",
+    gg_id: "765875675786",
     trust_id: "875678687GJHGH343",
     interactions: [],
     factors: {
@@ -67,7 +74,7 @@ saveAccount({
     email: "security@simon.com",
     name: "Security Simon",
     always_use_2fa: true,
-    cred_id: "1234SIMON",
+    gg_id: "1234SIMON",
     trust_id: "875678687GJHGH343",
     interactions: [],
     factors: {
@@ -104,7 +111,7 @@ saveAccount({
     email: "lapse@larry.com",
     name: "Lapse Larry",
     always_use_2fa: false,
-    cred_id: "1234LARRY",
+    gg_id: "1234LARRY",
     trust_id: "875678687GJHGH343",
     interactions: [],
     factors: {

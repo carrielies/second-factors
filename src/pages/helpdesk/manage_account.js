@@ -24,7 +24,7 @@ export default connect((state) => state) (
             let session = this.props.session.helpdesk;
             let account = session.account;
 
-            findAccount(account.email).then( (a) => {
+            findAccount(account.gg_id).then( (a) => {
                 this.setState( {account: a} );
                 saveHelpdeskSession(this.props.dispatch, {a, account_changed: false})
             })

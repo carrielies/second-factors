@@ -14,9 +14,9 @@ export default connect((state) => state) (
     class extends QuestionPage{
 
 
-        select(e, email) {
+        select(e, gg_id) {
             e.preventDefault();
-            findAccount(email).then( (account) => {
+            findAccount(gg_id).then( (account) => {
                 saveHelpdeskSession(this.props.dispatch, {account, account_changed: false, id_proven: false, id_proof: null, actions: []} );
                 browserHistory.push("/helpdesk/prove_identity")
             });
@@ -31,7 +31,7 @@ export default connect((state) => state) (
                     <tr>
                         <td>{account.name}</td>
                         <td>{account.email}</td>
-                        <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.email)}>Prove Identity</a></td>
+                        <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.gg_id)}>Prove Identity</a></td>
                     </tr>
 
                 )

@@ -22,10 +22,11 @@ export default connect((state) => state) (
                     trust_id: account.trust_id,
                     name: account.name,
                     email: account.email,
+                    gg_id: account.gg_id,
                     last_logged_in: time
             };
             saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: request.name});
-            saveInteraction(account.email, "sign_in", request.name);
+            saveInteraction(account.gg_id, "sign_in", request.name);
 
             if ( this.props.debug ) {
                 setTimeout(() => {

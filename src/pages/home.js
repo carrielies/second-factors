@@ -1,7 +1,7 @@
 import React from 'react'
 import GovUk from '../components/govuk'
 import { browserHistory, Link } from 'react-router'
-import {allAccounts, findAccount} from '../utils/database'
+import {allAccounts, findAccountByEmail} from '../utils/database'
 import {saveGG3Session,clearAllSessions} from '../reducers/helpers'
 
 import {connect} from 'react-redux'
@@ -29,7 +29,7 @@ export default connect((state) => state) (
         }
 
         selectUser(user) {
-            findAccount(user).then( (account) => {
+            findAccountByEmail(user).then( (account) => {
                 saveGG3Session(this.props.dispatch, {email: user, password: account.factors.password.secret});
             });
         }
@@ -49,6 +49,9 @@ export default connect((state) => state) (
                     <br/>
                     <br/>
                     <Link to="/service">Spacegov</Link>
+                    <br/>
+                    <br/>
+                    <Link to="/credential">Credential Management</Link>
                     <br/>
                     <br/>
 

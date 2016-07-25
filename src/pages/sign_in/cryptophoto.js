@@ -58,7 +58,7 @@ export default connect((state) => state) (
                 token_response_field_col: document.getElementById("token_response_field_col").value,
                 cp_selector: document.getElementById("cp_selector").value,
                 token_phc: document.getElementById("token_phc").value,
-                email: account.email
+                email: account.gg_id
             };
 
             fetch("/svr/crypto_verify", {

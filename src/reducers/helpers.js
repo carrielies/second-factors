@@ -14,6 +14,14 @@ export function saveSpacegovSession(dispatchFn, data) {
     saveSession(dispatchFn, "spacegov", data);
 }
 
+export function saveCredentialSession(dispatchFn, data) {
+    saveSession(dispatchFn, "credential", data);
+}
+
+
+export function clearCredentialSession(dispatchFn) {
+    clearSession(dispatchFn, "credential");
+}
 
 export function clearRegistrationSession(dispatchFn) {
     clearSession(dispatchFn, "registration");
@@ -36,6 +44,7 @@ export function clearAllSessions(dispatchFn) {
     clearHelpdeskSession(dispatchFn);
     clearGG3Session(dispatchFn);
     clearSpacegovSession(dispatchFn);
+    clearCredentialSession(dispatchFn);
 }
 
 

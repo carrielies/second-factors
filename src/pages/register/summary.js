@@ -56,6 +56,7 @@ export default connect((state) => state) (
 
 
             let account = {
+                gg_id: this.cred_id(),
                 email: session.email,
                 name: session.name,
                 trust_id: this.trust_id(),
@@ -70,9 +71,9 @@ export default connect((state) => state) (
             let account = this.createAccount();
             let session = this.props.session.registration;
             saveAccount(account).then( () => {
-                return saveInteraction( account.email, "registration", `Account created with factors: ${this.authFactors()}` );
+                return saveInteraction( account.gg_id, "registration", `Account created with factors: ${this.authFactors()}` );
             }).then( () => {
-                return findAccount(account.email)
+                return findAccount(account.gg_id)
             }).then( (a) => {
                 saveGG3Session(this.props.dispatch, {account: a, signed_in: true, level: session.level });
                 browserHistory.push( "/logged_in")

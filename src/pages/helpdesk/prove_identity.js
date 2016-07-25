@@ -20,8 +20,8 @@ export default connect((state) => state) (
 
         manage_account(log, account, id_proven) {
             let session = this.props.session.helpdesk;
-            saveAccountInteraction(account.email, "helpdesk", log ).then( () => {
-                return findAccount(account.email)
+            saveAccountInteraction(account.gg_id, "helpdesk", log ).then( () => {
+                return findAccount(account.gg_id)
             }).then((a) => {
                 saveHelpdeskSession( this.props.dispatch, {account: a, id_proven});
                 browserHistory.push("/helpdesk/manage_account");

@@ -40,6 +40,8 @@ import ServiceCleaningGrant from './pages/service/apply_for_cleaning_grant'
 import ServiceStationGrant from './pages/service/apply_for_station_grant'
 import ServiceGrantConfirmed from './pages/service/grant_confirmed'
 
+import CredentialHome from './pages/credential/index'
+
 export default function(props) {
     
     const history = syncHistoryWithStore(browserHistory, props.store);
@@ -93,6 +95,7 @@ export default function(props) {
             <Route path="/helpdesk/reset_password" component={HelpDeskResetPassword}/>
             <Route path="/check_device" component={CheckDevice}/>
             <Route path="/" component={Home}/>
+            <Route path="/credential" component={CredentialHome}/>
         </Router>
         
     )
