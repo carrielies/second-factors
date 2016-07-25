@@ -28,6 +28,10 @@ export default connect((state) => state) (
                 browserHistory.push("/u2f")
             }
 
+            if( this.refs.cryptophoto && this.refs.cryptophoto.checked ) {
+                browserHistory.push("/cryptophoto")
+            }
+
             if( this.refs.none && this.refs.none.checked ) {
                 browserHistory.push("/logged_in")
             }
@@ -62,6 +66,13 @@ export default connect((state) => state) (
                     return(
                         <label className="block-label" for="radio-3" key="radio-3">
                             <input ref="u2f" id="radio-3" type="radio" name="radio-group"/>U2F key
+                        </label>
+                    )
+                },
+                cryptophoto: () => {
+                    return(
+                        <label className="block-label" for="radio-4" key="radio-4">
+                            <input ref="cryptophoto" id="radio-4" type="radio" name="radio-group"/>Cryptophoto
                         </label>
                     )
                 }
@@ -155,8 +166,8 @@ export default connect((state) => state) (
             }
             else if ( request.auth_level_required === "1"  && request.auth_level_desired === "2" ) {
                 factors.push(
-                    <label className="block-label" for="radio-2">
-                        <input ref="none" id="radio-2" type="radio" name="radio-group"/>Don't use two step verification
+                    <label className="block-label" for="radio-200">
+                        <input ref="none" id="radio-200" type="radio" name="radio-group"/>Don't use two step verification
                     </label>
                 );
 

@@ -25,6 +25,9 @@ export default connect((state) => state) (
             if( this.refs.u2f && this.refs.u2f.checked ) {
                 browserHistory.push("/register/u2f")
             }
+            if( this.refs.cryptophoto && this.refs.cryptophoto.checked ) {
+                browserHistory.push("/register/cryptophoto")
+            }
 
             if( this.refs.none.checked ) {
                 browserHistory.push("/register/summary")
@@ -48,6 +51,10 @@ export default connect((state) => state) (
 
             if ( session.u2f_key ) {
                 res.push(<div><span className="second_factor_already_setup">U2F key - setup</span><br/></div>)
+            }
+
+            if ( session.cryptophoto ) {
+                res.push(<div><span className="second_factor_already_setup">Cryptophoto - setup</span><br/></div>)
             }
 
 
@@ -75,6 +82,14 @@ export default connect((state) => state) (
                 )
             }
 
+            if ( !session.cryptophoto ) {
+                res.push(
+                    <label className="block-label" for="radio-4" key="radio-4">
+                        <input ref="cryptophoto" id="radio-4" type="radio" name="radio-group"/>Cryptophoto
+                    </label>
+                )
+            }
+
             return res;
 
         }
@@ -92,8 +107,8 @@ export default connect((state) => state) (
                     <Question title="Setup two step verification?" para="Adding additional authentication methods helps to protect you online. Choose how you would like us to athenticate you from the list below:">
                         {this.availableFactors()}
 
-                        <label className="block-label" for="radio-4">
-                            <input ref="none" id="radio-4" type="radio" name="radio-group"/>I'm done
+                        <label className="block-label" for="radio-400">
+                            <input ref="none" id="radio-400" type="radio" name="radio-group"/>I'm done
                         </label>
                         
                     </Question>

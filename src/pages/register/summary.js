@@ -49,6 +49,12 @@ export default connect((state) => state) (
                 }
             }
 
+            if( session.cryptophoto ) {
+                factors.cryptophoto = {
+                }
+            }
+
+
             let account = {
                 email: session.email,
                 name: session.name,
@@ -82,6 +88,7 @@ export default connect((state) => state) (
             if( session.google_authenticator ) factors.push( "Google authenticator");
             if( session.device_fingerprint ) factors.push( "Device fingerprint");
             if( session.u2f_key ) factors.push( "U2F Key");
+            if( session.cryptophoto ) factors.push( "Cryptophoto");
             return factors.join(", ");
         }
 

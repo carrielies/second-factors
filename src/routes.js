@@ -2,9 +2,11 @@ import React from 'react'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import SignIn from './pages/sign_in/sign_in'
+import CryptoPhoto from './pages/sign_in/cryptophoto'
 import GoogleAuthenticator from './pages/sign_in/google_authenticator'
 import U2F from './pages/sign_in/u2f'
 import SetupGa from './pages/register/setup_ga'
+import SetupCryptoPhoto from './pages/register/setup_cryptophoto'
 import SetupDevice from './pages/register/setup_device'
 import SetupU2F from './pages/register/u2f'
 import YourName from './pages/register/your_name'
@@ -38,7 +40,6 @@ import ServiceCleaningGrant from './pages/service/apply_for_cleaning_grant'
 import ServiceStationGrant from './pages/service/apply_for_station_grant'
 import ServiceGrantConfirmed from './pages/service/grant_confirmed'
 
-
 export default function(props) {
     
     const history = syncHistoryWithStore(browserHistory, props.store);
@@ -46,7 +47,10 @@ export default function(props) {
 
     return (
         <Router history={history}>
+
+
             <Route path="/signin" component={SignIn}/>
+            <Route path="/cryptophoto" component={CryptoPhoto}/>
             <Route path="/ga" component={GoogleAuthenticator}/>
             <Route path="/u2f" component={U2F}/>
             <Route path="/your_auth_factors" component={YourAuthFactors}/>
@@ -55,6 +59,7 @@ export default function(props) {
             <Route path="/logged_in" component={LoggedIn}/>
             <Route path="/register/ga" component={SetupGa}/>
             <Route path="/register/u2f" component={SetupU2F}/>
+            <Route path="/register/cryptophoto" component={SetupCryptoPhoto}/>
             <Route path="/register/device" component={SetupDevice}/>
             <Route path="/register" component={YourName}/>
             <Route path="/register/your_name" component={YourName}/>

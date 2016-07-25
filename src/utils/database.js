@@ -93,6 +93,9 @@ saveAccount({
         u2f_key: {
             keyHandle: "OlluWKhE2N22pAk3aeEsMTdON_pjzNZ8bE7Bld3m0_YqCX4FHjAAuld-3Rs_GBjwIYzvv_-ypxElKTF0jvht9Q",
             publicKey: "BKDP6umPgTt6sHIR_w3g6_5YlhAHaA1bWNylRbvrN74HsJ_6tDn14x1RqMXTWxnfP05UyEL0cyo1lcK1WtKRyFs"
+        },
+        cryptophoto: {
+
         }
     }
 });
