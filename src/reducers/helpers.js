@@ -48,6 +48,9 @@ export function clearAllSessions(dispatchFn) {
 }
 
 
+export function importSession(dispatchFn, data) {
+    dispatchFn( {type: 'IMPORT_SESSION', data})
+}
 
 
 function saveSession(dispatchFn, name, data) {
@@ -57,3 +60,4 @@ function saveSession(dispatchFn, name, data) {
 function clearSession(dispatchFn, name) {
     dispatchFn( {type: 'CLEAR_SESSION', name})
 }
+

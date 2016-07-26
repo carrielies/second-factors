@@ -16,7 +16,7 @@ export default connect((state) => state) (
         }
 
         onNext(e) {
-            e.preventDefault();
+            if(e) e.preventDefault();
 
             saveRegistrationSession(this.props.dispatch, {
                 cryptophoto: {
@@ -35,7 +35,7 @@ export default connect((state) => state) (
             fetch("/svr/crypto", {
                 method: 'POST',
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'},
-                body: JSON.stringify({email: session.email})
+                body: JSON.stringify({gg_id: session.gg_id})
             }).then((resp) => resp.json())
             .then( (res) => {
                 if ( res.is_valid ) {
@@ -50,12 +50,11 @@ export default connect((state) => state) (
             });
 
             let interval = setInterval( () => {
-                if ( document.getElementsByClassName( "cp-box" ) )  {
+                if ( document.getElementById('cp-sw-if') )  {
                     this.setState({cryptophoto_visible: true});
                     clearInterval(interval)
                 }
             }, 200)
-
         }
 
 

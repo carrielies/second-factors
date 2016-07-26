@@ -34,6 +34,7 @@ export default connect((state) => state) (
                 let enrolment = {
                     email: resp.email,
                     name: resp.name,
+                    gg_id: resp.gg_id,
                     trust_id: resp.trust_id,
                     space_trading_license_number: licenseNumber,
                     org_name: props.org,

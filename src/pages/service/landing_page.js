@@ -22,7 +22,7 @@ export default connect((state) => state) (
             this.state = {enrolment: {}};
             let resp = props.session.gg3.response;
 
-            findEnrolment(resp.email).then( (enrolment) =>{
+            findEnrolment(resp.gg_id).then( (enrolment) =>{
                 if ( !enrolment ) {
                     browserHistory.push("/service/enrol");
                     return;

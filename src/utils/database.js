@@ -5,6 +5,10 @@ import fecha from 'fecha'
 
 let db = new Datastore();
 
+export function reset() {
+    db = new Datastore();
+}
+
 export function saveAccount(account) {
     return db.insertAsync(account);
 }
@@ -51,7 +55,9 @@ export function serachForAccounts(email, name) {
     return db.findAsync( {email: new RegExp(email, "i"), name: new RegExp(name, "i")} )
 }
 
-
+export function rawDb() {
+    return db;
+}
 
 saveAccount({
     email: "average@joe.com",
@@ -74,7 +80,7 @@ saveAccount({
     email: "security@simon.com",
     name: "Security Simon",
     always_use_2fa: true,
-    gg_id: "1234SIMON",
+    gg_id: "GWed85d4c3",
     trust_id: "875678687GJHGH343",
     interactions: [],
     factors: {

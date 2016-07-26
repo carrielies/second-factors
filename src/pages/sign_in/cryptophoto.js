@@ -3,26 +3,52 @@ import GovUk from '../../components/govuk'
 import {connect} from 'react-redux'
 import 'whatwg-fetch';
 import { browserHistory, Link } from 'react-router'
-import {saveGG3Session} from '../../reducers/helpers'
+import {saveGG3Session, importSession} from '../../reducers/helpers'
+import {serialize, deserialize } from '../../utils/serialize'
 import Breadcrumb from '../../components/breadcrumb'
 
 
 export default connect((state) => state) (
     class extends React.Component {
 
-        constructor() {
-            super();
-            this.state = {cryptophoto_visible: false}
+        constructor(props) {
+            super(props);
+            this.state = {cryptophoto_visible: false, data: ""}
+
+            serialize(props.session).then( (data) => {
+                this.setState({ data})
+            })
+        }
+
+        getQueryParameter(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
 
         componentDidMount() {
+            let session_state = this.getQueryParameter("session_state");
+            if ( session_state ) {
+                deserialize(this.props.dispatch, session_state ).then( (session) => {
+                    this.onSubmit(session);
+                });
+                //
+                //
+                // let session = JSON.parse(window.atob(session_state));
+                // importSession( this.props.dispatch, session );
+            }
+
             let session = this.props.session.gg3;
             let account = session.account;
 
             fetch("/svr/crypto", {
                 method: 'POST',
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'},
-                body: JSON.stringify({email: account.email})
+                body: JSON.stringify({gg_id: account.gg_id})
             }).then((resp) => resp.json())
             .then( (res) => {
                 if ( res.is_valid ) {
@@ -43,22 +69,16 @@ export default connect((state) => state) (
                     clearInterval(interval)
                 }
             }, 200)
-
         }
 
-
-        onSubmit(e) {
-            e.preventDefault();
-
-            let session = this.props.session.gg3;
-            let account = session.account;
-
+        onSubmit(session) {
+            let account = session.gg3.account;
             let res = {
-                token_response_field_row: document.getElementById("token_response_field_row").value,
-                token_response_field_col: document.getElementById("token_response_field_col").value,
-                cp_selector: document.getElementById("cp_selector").value,
-                token_phc: document.getElementById("token_phc").value,
-                email: account.gg_id
+                token_response_field_row: this.getQueryParameter("token_response_field_row"),
+                token_response_field_col: this.getQueryParameter("token_response_field_col"),
+                cp_selector: this.getQueryParameter("token_selector"),
+                token_phc: this.getQueryParameter("cp_phc"),
+                gg_id: account.gg_id
             };
 
             fetch("/svr/crypto_verify", {
@@ -80,15 +100,16 @@ export default connect((state) => state) (
             let account = session.account;
             let request = session.request;
 
+            let connectingStr = this.getQueryParameter("session_state") ? "Checking..." : "Connecting to CryptoPhoto....";
+
             return(
                 <GovUk>
                     <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>
 
-                    <form onSubmit={(e) => this.onSubmit(e)}>
+                    <form id="myform" onSubmit={(e) => this.onSubmit(e)}>
                         <input type="hidden" id="cryptophoto"/>
-
-
-                        {!this.state.cryptophoto_visible ? <h1 className="heading-medium">Connecting to CryptoPhoto....</h1> : <h1 className="heading-medium">CryptoPhoto</h1> }
+                        <input type="hidden" name="session_state" value={this.state.data}/>
+                        {!this.state.cryptophoto_visible ? <h1 className="heading-medium">{connectingStr}</h1> : <h1 className="heading-medium">CryptoPhoto</h1> }
                         <div className="grid-row">
                             <div className="column-one-third">&nbsp;</div>
                             <div className="column-one-third cryptophoto"><div id="cp_widget"></div></div>
@@ -97,7 +118,7 @@ export default connect((state) => state) (
 
                         {this.state.cryptophoto_visible ?
                             <div>
-                                <a href="#" className="button" onClick={(e) => this.onSubmit(e)}>Continue</a>
+
 
                             </div>: null}
                     </form>

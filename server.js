@@ -43,7 +43,7 @@ var fetch = require('node-fetch');
 
 app.post('/svr/crypto', function(req, response) {
   var user = req.body;
-  var userId = user.email;
+  var userId = user.gg_id;
   var ip = "127.0.0.1";
   var time = Math.round( (new Date()).getTime() / 1000 );
   var publicKey = "3322626de9c215345fdc1f8c8103f2a2";
@@ -81,7 +81,7 @@ app.post('/svr/crypto', function(req, response) {
 app.post('/svr/crypto_verify', function(req, response) {
 
   var challenge_response = req.body;
-  var userId = challenge_response.email;
+  var userId = challenge_response.gg_id;
   var ip = "127.0.0.1";
   var time = Math.round( (new Date()).getTime() / 1000 );
   var publicKey = "3322626de9c215345fdc1f8c8103f2a2";

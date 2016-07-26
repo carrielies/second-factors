@@ -56,13 +56,14 @@ export default connect((state) => state) (
 
 
             let account = {
-                gg_id: this.cred_id(),
+                gg_id: session.gg_id,
                 email: session.email,
                 name: session.name,
                 trust_id: this.trust_id(),
                 factors: factors,
                 interactions: []
             };
+            console.log(account);
             return account;
         }
         

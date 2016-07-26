@@ -5,6 +5,8 @@ export default function(state={ gg3: { request: {}, response: {}}, helpdesk: {},
             return save(state, action.name, action.data);
         case 'CLEAR_SESSION':
             return clear(state, action.name );
+        case 'IMPORT_SESSION':
+            return importSession(state, action.data );
         default:
             return state
     }
@@ -22,4 +24,8 @@ function clear(state, name) {
     d[name] = {};
     let res = {...state, ...d}
     return res;
+}
+
+function importSession(state, data) {
+    return {...data}
 }
