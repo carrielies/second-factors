@@ -15,16 +15,9 @@ import {findEnrolment} from '../../utils/spacegov_db'
 export default connect((state) => state) (
     class extends QuestionPage {
 
-        constructor(props) {
-            super(props);
-            this.state = {enrolment: {}};
-            let gg3 = props.session.gg3;
-            findEnrolment(gg3.response.email).then( (enrolment) => this.setState({enrolment}));
-        }
-
         render() {
 
-            let enrolment = this.state.enrolment;
+            let enrolment = this.props.session.spacegov.enrolment;
 
             return(
 
