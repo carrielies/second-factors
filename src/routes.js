@@ -2,6 +2,8 @@ import React from 'react'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import SignIn from './pages/sign_in/sign_in'
+import ForgotPassword from './pages/forgot/forgot_password'
+import ForgotPasswordConfirm from './pages/forgot/forgot_password_confirm'
 import CryptoPhoto from './pages/sign_in/cryptophoto'
 import GoogleAuthenticator from './pages/sign_in/google_authenticator'
 import U2F from './pages/sign_in/u2f'
@@ -52,6 +54,8 @@ export default function(props) {
 
 
             <Route path="/signin" component={SignIn}/>
+            <Route path="/forgot_password" component={ForgotPassword}/>
+            <Route path="/forgot_password_confirm" component={ForgotPasswordConfirm}/>
             <Route path="/cryptophoto" component={CryptoPhoto}/>
             <Route path="/ga" component={GoogleAuthenticator}/>
             <Route path="/u2f" component={U2F}/>
