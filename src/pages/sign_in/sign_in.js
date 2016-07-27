@@ -80,7 +80,7 @@ export default connect((state) => state) (
                         <summary><span className="summary">Forgotten your password?</span></summary>
                         <div className="panel panel-border-narrow">
                             <p>
-                                <a href="#" onClick={(e) => this.next(e)}>Recover your user password online or by post</a>
+                                <Link to="/forgot/password">Recover your user password online or by post</Link>
                             </p>
                         </div>
                     </details>
