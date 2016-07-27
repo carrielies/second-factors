@@ -52,13 +52,6 @@ export default connect((state) => state) (
                             <li className={this.state.lowercase_uppercase ? "li-tick" : ""} >A lowercase letter and an uppercase letter</li>
                             <li className={this.state.special_char ? "li-tick" : ""} >At least one number and one special character</li>
                         </ul>
-                        <div>
-                            <div>
-                                <label className="form-label-bold">Email</label>
-                                <label>{account.email}</label>
-                            </div>
-                            <br/>
-                        </div>
                         <Field ref="password" name="password" errors={this.state.errors} labelText="Password" type="password"/>
                         <Field ref="password2" name="password2" errors={this.state.errors} labelText="Confirm Password" type="password"/>
                         <br/>

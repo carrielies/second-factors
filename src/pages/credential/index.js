@@ -16,7 +16,13 @@ export default connect((state) => state) (
                 name: "Credential Management",
                 auth_level_required: "1",
                 auth_level_desired: "2",
-                redirect_url: "/credential/landing_page"
+                redirect_url: "/credential/landing_page",
+                help_desk: {
+                    url_text: "Help using GOV.UK",
+                    url: "https://www.gov.uk/help",
+                    primary_phone: "0191 --- ---",
+                    primary_email: "admin@helpdesk.co.uk"
+                }
             };
             saveGG3Session( this.props.dispatch, {request} )
             browserHistory.push("/service_redirect")

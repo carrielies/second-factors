@@ -10,6 +10,11 @@ export default connect((state) => state) (
         render() {
 
             let session = this.props.session.gg3;
+            let request = session.request;
+            let feedback_url = "/#"
+            if (request.feedback_url) {
+                feedback_url = request.feedback_url
+            }
 
             let signedIn;
             if (session.signed_in) {
@@ -65,7 +70,7 @@ export default connect((state) => state) (
                             <div className="phase-banner">
                                 <p>
                                     <strong className="phase-tag">ALPHA</strong>
-                                    <span className="span">This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+                                    <span className="span">This is a new service – your <Link to={feedback_url}>feedback</Link> will help us to improve it.</span>
                                 </p>
                             </div> }
     

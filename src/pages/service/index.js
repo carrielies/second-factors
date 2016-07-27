@@ -15,7 +15,12 @@ export default connect((state) => state) (
                 name: "Spacegov",
                 auth_level_required: "1",
                 auth_level_desired: "1",
-                redirect_url: "/service/landing_page"
+                redirect_url: "/service/landing_page",
+                help_desk: {
+                    url_text: "Help using Spacegov",
+                    url: "/service/helpdesk"
+                },
+                feedback_url : "/service/feedback"
             };
 
             this.state = {request: JSON.stringify(request, null, 2)}
