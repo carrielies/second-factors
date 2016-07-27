@@ -24,7 +24,8 @@ export function findAccountByEmail(email ) {
 
 export function findAccountByEmailAndPassword(email, password ) {
     return findAccountByEmail(email).then( (account) => {
-        if ( !account || account.password !== password.password ) {
+        debugger
+        if ( !account || account.factors.password.secret !== password ) {
             return null;
         }
         else {

@@ -23,11 +23,11 @@ export default connect((state) => state) (
                     <div className="email">
                          <div className="banner"></div>
                          <p>
-                             Hello,<br/><br/>
+                             Hello {account.name},<br/><br/>
 
                              A request has been received to reset your password.  If you follow the link below you will be able to reset your password.
                              <br/><br/>
-                             <a href="#next">https://gg3.gov.uk/resetpassword?ref=876876868787</a>
+                             <Link to="/forgot/password_reset">https://gg3.gov.uk/resetpassword?ref=876876868787</Link>
                              <br/>
                              <br/>
                              The password reset request is valid for the next 24 hours.

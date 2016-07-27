@@ -23,11 +23,11 @@ export default connect((state) => state) (
 
                 findAccountByEmail(props.email).then( (account)=> {
                     if ( !account) {
-                        browserHistory.push("/forgot_password_confirm");
+                        browserHistory.push("/forgot/password_email_confirm");
                     }
                     else {
-                        saveGG3Session(this.props.dispatch, {account: account, level: "1"});
-                        browserHistory.push("/forgot_password_confirm");
+                        saveGG3Session(this.props.dispatch, {account: account});
+                        browserHistory.push("/forgot/password_email_confirm");
                     }
                 });
             })

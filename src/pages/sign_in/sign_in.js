@@ -80,7 +80,7 @@ export default connect((state) => state) (
                         <summary><span className="summary">Forgotten your password?</span></summary>
                         <div className="panel panel-border-narrow">
                             <p>
-                                <Link to="/forgot_password">Recover your user password online or by post</Link>
+                                <Link to="/forgot/password">Recover your user password online or by post</Link>
                             </p>
                         </div>
                     </details>
