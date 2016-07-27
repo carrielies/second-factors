@@ -60,7 +60,7 @@ export default connect((state) => state) (
 
             if ( !session.google_authenticator ) {
                 res.push(
-                    <label className="block-label" for="radio-1" key="radio-1">
+                    <label className="block-label" htmlFor="radio-1" key="radio-1">
                         <input ref="ga" id="radio-1" type="radio" name="radio-group"/>Google authenticator
                     </label>
                 )
@@ -68,7 +68,7 @@ export default connect((state) => state) (
 
             if ( !session.device_fingerprint ) {
                 res.push(
-                    <label className="block-label" for="radio-2" key="radio-2">
+                    <label className="block-label" htmlFor="radio-2" key="radio-2">
                         <input ref="df" id="radio-2" type="radio" name="radio-group"/>Device fingerprint
                     </label>
                 )
@@ -76,7 +76,7 @@ export default connect((state) => state) (
 
             if ( !session.u2f_key ) {
                 res.push(
-                    <label className="block-label" for="radio-3" key="radio-3">
+                    <label className="block-label" htmlFor="radio-3" key="radio-3">
                         <input ref="u2f" id="radio-3" type="radio" name="radio-group"/>U2F Key
                     </label>
                 )
@@ -84,7 +84,7 @@ export default connect((state) => state) (
 
             if ( !session.cryptophoto ) {
                 res.push(
-                    <label className="block-label" for="radio-4" key="radio-4">
+                    <label className="block-label" htmlFor="radio-4" key="radio-4">
                         <input ref="cryptophoto" id="radio-4" type="radio" name="radio-group"/>Cryptophoto
                     </label>
                 )
@@ -107,7 +107,7 @@ export default connect((state) => state) (
                     <Question title="Setup two step verification?" para="Adding additional authentication methods helps to protect you online. Choose how you would like us to athenticate you from the list below:">
                         {this.availableFactors()}
 
-                        <label className="block-label" for="radio-400">
+                        <label className="block-label" htmlFor="radio-400">
                             <input ref="none" id="radio-400" type="radio" name="radio-group"/>I'm done
                         </label>
                         

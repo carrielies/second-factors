@@ -46,6 +46,9 @@ import ServiceGrantConfirmed from './pages/service/grant_confirmed'
 import CredentialHome from './pages/credential/index'
 import CredentialManageAccount from './pages/credential/manage_account'
 import CredentialLandingPage from './pages/credential/landing_page'
+import CredentialChangeName from './pages/credential/change_name'
+import CredentialChangeEmail from './pages/credential/change_email'
+import CredentialChangeEmailCode from './pages/credential/change_email_code'
 
 export default function(props) {
     
@@ -106,6 +109,9 @@ export default function(props) {
             <Route path="/credential" component={CredentialHome}/>
             <Route path="/credential/landing_page" component={CredentialLandingPage}/>
             <Route path="/credential/manage_account" component={CredentialManageAccount}/>
+            <Route path="/credential/change_name" component={CredentialChangeName}/>
+            <Route path="/credential/change_email" component={CredentialChangeEmail}/>
+            <Route path="/credential/change_email_code" component={CredentialChangeEmailCode}/>
         </Router>
         
     )

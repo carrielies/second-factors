@@ -5,7 +5,7 @@ import JSONTree from 'react-json-tree'
 import {connect} from 'react-redux'
 import fecha from 'fecha'
 import {saveGG3Session} from '../../reducers/helpers'
-import {saveInteraction} from '../../utils/database'
+import {saveInteraction, findAccount} from '../../utils/database'
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -17,25 +17,29 @@ export default connect((state) => state) (
             let request = session.request;
 
             let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
-            let response = {
-                    level: session.level,
-                    trust_id: account.trust_id,
-                    name: account.name,
-                    email: account.email,
-                    gg_id: account.gg_id,
-                    last_logged_in: time
-            };
-            saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: request.name});
-            saveInteraction(account.gg_id, "sign_in", request.name);
 
-            if ( this.props.debug ) {
-                setTimeout(() => {
+            findAccount(account.gg_id).then( (a) => {
+                let response = {
+                        level: session.level,
+                        trust_id: a.trust_id,
+                        name: a.name,
+                        email: a.email,
+                        gg_id: a.gg_id,
+                        last_logged_in: time
+                };
+                saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: request.name});
+                saveInteraction(a.gg_id, "sign_in", request.name);
+
+                if ( this.props.debug ) {
+                    setTimeout(() => {
+                        browserHistory.push(request.redirect_url)
+                    }, 2)
+                }
+                else {
                     browserHistory.push(request.redirect_url)
-                }, 2)
-            }
-            else {
-                browserHistory.push(request.redirect_url)
-            }
+                }
+            });
+
         }
 
         render() {

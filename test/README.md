@@ -1,6 +1,6 @@
 # GG3alpha acceptance Tests
 
-Acceptance tests for the gg3alpha project
+Acceptance tests for the gg3alphaAdded  project
 
 ## Technologies:
 

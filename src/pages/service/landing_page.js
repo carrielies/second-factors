@@ -102,7 +102,7 @@ export default connect((state) => state) (
             return(
                     <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                         <div className="spacegov"></div>
-                        <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} hide_back="true"/>
+                        <Breadcrumb text={`${resp.name} (${enrolment.org_name})`} hide_back="true"/>
 
                         <div className="grid-row">
                             <div className="column-one-half">
