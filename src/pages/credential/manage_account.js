@@ -14,19 +14,19 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
+
             let session = props.session.credential;
             let account = session.account;
-            this.state = {account};
+            this.state = {account: {}};
         }
 
         componentDidMount() {
-            let request = this.props.session.gg3.request;
+            let response = this.props.session.gg3.response;
 
-            findAccount(request.gg_id)
-                .then((account) =>{
-                    saveCredentialSession( {account});
-                    browserHistory.push("/credential/manage_account");
-                })
+            findAccount(response.gg_id)
+            .then((account) => {
+                saveCredentialSession( this.props.dispath, {account});
+            })
         }
 
 
@@ -75,7 +75,7 @@ export default connect((state) => state) (
         render() {
 
             let session = this.props.session.credential;
-            let account = session.account;
+            let account = this.props.session.credential.account || {}
 
             return(
                 <Govuk title="Credential Management">

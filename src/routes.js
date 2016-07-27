@@ -44,6 +44,8 @@ import ServiceStationGrant from './pages/service/apply_for_station_grant'
 import ServiceGrantConfirmed from './pages/service/grant_confirmed'
 
 import CredentialHome from './pages/credential/index'
+import CredentialManageAccount from './pages/credential/manage_account'
+import CredentialLandingPage from './pages/credential/landing_page'
 
 export default function(props) {
     
@@ -102,6 +104,8 @@ export default function(props) {
             <Route path="/check_device" component={CheckDevice}/>
             <Route path="/" component={Home}/>
             <Route path="/credential" component={CredentialHome}/>
+            <Route path="/credential/landing_page" component={CredentialLandingPage}/>
+            <Route path="/credential/manage_account" component={CredentialManageAccount}/>
         </Router>
         
     )
