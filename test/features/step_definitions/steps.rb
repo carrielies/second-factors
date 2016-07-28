@@ -13,9 +13,18 @@ And /^I'm enroled onto Spacegov as (.*)$/ do |email|
   click_link "Continue"
 end
 
+Then /^I reset my spacegov password by entering my email: "(.*)"$/ do |email|
+  reset_spacegov_password email
+end
+
 Then /^I should be on the "(.*)" page$/ do |page_header|
   expect(page).to have_content(page_header)
 end
+
+Then /^I'm on the "(.*)" page$/ do |page_header|
+  expect(page).to have_content(page_header)
+end
+
 
 And /^I don't use two step verification$/ do
   choose("Don't use two step verification")
@@ -216,17 +225,15 @@ def search_helpdesk_for email
   click_link "Prove Identity"
 end
 
-
-
-#   And I should be on the "Setup two step verification" page
-#   And I use Google authenticator
-#   And I should be on the "Setup two step verification" page
-#   And I choose "I'm done"
-#   And I click "Continue"
-#   And I should be on the "Your government gateway account has been created" page
-#   And I should see:
-#   |	markymiddleton@gmail.com  |
-#   |	Mark Middleton  |
-#   |	Password, Google authenticator  |
-
-
+def reset_spacegov_password email
+  click_link "Spacegov"
+  click_link "Sign into Spacegov"
+  click_hint_link "Forgotten your password"
+  click_link "Recover your password"
+  # Recover password from Government Gateway account
+  fill_in "email", with: email
+  click_link "Reset password"
+  # Reset password
+  click_link "resetpassword"
+  # Two step verification?
+end

@@ -16,9 +16,8 @@ export default connect((state) => state) (
             this.validate(e, {
                 secret: {msg: "You need to enter an amount", summary: "Enter your station tax bill", regEx: /\w+/},
             }, (props) => {
-
                 let resp = this.props.session.gg3.response;
-                findEnrolment(resp.email).then( (enrolment) => {
+                findEnrolment(resp.gg_id).then( (enrolment) => {
                     enrolment.trust_id = resp.trust_id;
                     return updateEnrolment(enrolment)
                 }).then( () => {

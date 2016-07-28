@@ -119,7 +119,7 @@ export default connect((state) => state) (
                                     If you continue on, then you will break their trust between any of their enrolled services.
                                 </p>
 
-                                <a href="#" className="button" onClick={(e) => this.doNotTrust(e)}>Manage their account</a>
+                                <a href="#" id="manage_account_and_break_trust" className="button" onClick={(e) => this.doNotTrust(e)}>Manage their account</a>
 
                             </div>
 
@@ -140,7 +140,7 @@ export default connect((state) => state) (
                                 <br/>
                                 <br/>
 
-                                <a href="#" className="button" onClick={(e) => this.trustWithReason(e)}>Manage their account</a>
+                                <a href="#" id="manage_account" className="button" onClick={(e) => this.trustWithReason(e)}>Manage their account</a>
 
                             </div>
 

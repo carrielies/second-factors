@@ -33,7 +33,7 @@ export default connect((state) => state) (
 
                     <Question title="What is your email address?" errors={this.state.errors} para="Your email address will be needed whenever you sign in">
                         <Field ref="email" name="email" errors={this.state.errors} labelText="Email" />
-                        <Field ref="email" name="email" errors={this.state.errors} labelText="Confirm email"/>
+                        <Field ref="confirm_email" name="confirm_email" errors={this.state.errors} labelText="Confirm email"/>
                     </Question>
                     <br/>
                     <a href="#next" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
