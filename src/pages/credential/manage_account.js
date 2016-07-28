@@ -5,7 +5,7 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
-import {saveHelpdeskSession} from '../../reducers/helpers'
+import {saveCredentialSession, saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -14,19 +14,28 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
+
             let session = props.session.credential;
             let account = session.account;
-            this.state = {account};
+            this.state = {account: {}};
         }
 
         componentDidMount() {
-            let request = this.props.session.gg3.request;
+            let response = this.props.session.gg3.response;
 
-            findAccount(request.gg_id)
-                .then((account) =>{
-                    saveCredentialSession( {account});
-                    browserHistory.push("/credential/manage_account");
-                })
+            findAccount(response.gg_id)
+            .then((account) => {
+                saveCredentialSession( this.props.dispatch, {account});
+            })
+        }
+
+        goBack(e) {
+            e.preventDefault();
+            let request = this.props.session.gg3.request.calling_service_request;
+
+            saveGG3Session(this.props.dispatch, {request});
+            browserHistory.push("/service_redirect");
+
         }
 
 
@@ -74,8 +83,11 @@ export default connect((state) => state) (
 
         render() {
 
+            let gg3 = this.props.session.gg3;
             let session = this.props.session.credential;
-            let account = session.account;
+            let account = this.props.session.credential.account || {};
+
+            let callingService = gg3.request.calling_service_request || {};
 
             return(
                 <Govuk title="Credential Management">
@@ -94,14 +106,13 @@ export default connect((state) => state) (
                         <tr>
                             <td>Name</td>
                             <td>{`${account.name}`}</td>
-                            <td className="change-link"></td>
+                            <td className="change-link"><Link to="/credential/change_name">Change name</Link></td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>{`${account.email}`}</td>
-                            <td className="change-link">
+                            <td className="change-link"><Link to="/credential/change_email">Change email</Link></td>
 
-                            </td>
                         </tr>
 
                         </tbody>
@@ -123,6 +134,8 @@ export default connect((state) => state) (
                         </tbody>
                     </table>
                     <br/>
+                    {callingService ?
+                    <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {callingService.name}</a> : null}
 
                 </Govuk>
             )

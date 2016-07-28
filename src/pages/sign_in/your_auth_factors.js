@@ -45,7 +45,7 @@ export default connect((state) => state) (
             let handlers = {
                 google_authenticator: () => {
                     return(
-                        <label className="block-label" for="radio-1" key="radio-1">
+                        <label className="block-label" htmlFor="radio-1" key="radio-1">
                             <input ref="ga" id="radio-1" type="radio" name="radio-group"/>Google authenticator
                         </label>
                     )
@@ -57,21 +57,21 @@ export default connect((state) => state) (
                 },
                 device_fingerprint: () => {
                     return(
-                        <label className="block-label" for="radio-2" key="radio-2">
+                        <label className="block-label" htmlFor="radio-2" key="radio-2">
                             <input ref="df" id="radio-2" type="radio" name="radio-group"/>Device fingerprint
                         </label>
                     )
                 },
                 u2f_key: () => {
                     return(
-                        <label className="block-label" for="radio-3" key="radio-3">
+                        <label className="block-label" htmlFor="radio-3" key="radio-3">
                             <input ref="u2f" id="radio-3" type="radio" name="radio-group"/>U2F key
                         </label>
                     )
                 },
                 cryptophoto: () => {
                     return(
-                        <label className="block-label" for="radio-4" key="radio-4">
+                        <label className="block-label" htmlFor="radio-4" key="radio-4">
                             <input ref="cryptophoto" id="radio-4" type="radio" name="radio-group"/>Cryptophoto
                         </label>
                     )
@@ -166,7 +166,7 @@ export default connect((state) => state) (
             }
             else if ( request.auth_level_required === "1"  && request.auth_level_desired === "2" ) {
                 factors.push(
-                    <label className="block-label" for="radio-200">
+                    <label className="block-label" htmlFor="radio-200">
                         <input ref="none" id="radio-200" type="radio" name="radio-group"/>Don't use two step verification
                     </label>
                 );

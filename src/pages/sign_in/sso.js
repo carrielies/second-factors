@@ -10,8 +10,12 @@ export default connect((state) => state) (
 
     class extends QuestionPage {
 
+        componentDidMount() {
+            this.onNext();
+        }
+
         onNext(e) {
-            e.preventDefault();
+            if(e) e.preventDefault();
 
             let session = this.props.session.gg3;
             let request = session.request;

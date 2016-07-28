@@ -21,7 +21,7 @@ export default class extends React.Component {
         return (
             <div>
                 <div className={errors[this.props.name] ? "error" : ""}>
-                    <label className="form-label-bold">{this.props.labelText}
+                    <label className="form-label-bold" htmlFor={this.props.name}>{this.props.labelText}
                         <span className="form-hint">{this.props.labelHint}</span>
                         {errors[this.props.name] ? <span className="error-message"> {errors[this.props.name].msg} </span> : null}
                     </label>

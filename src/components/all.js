@@ -7,10 +7,9 @@ import FingerPrint from './fingerprint'
 import Ga from './ga'
 import Notice from './notice'
 import Question from './question'
-import Server from './server'
 import ServiceBehindTheScenes from './service_behind_the_scenes'
 
-export { Breadcrumb, Govuk, Content, ErrorSummary, Field, FingerPrint, Ga, Notice, Question, Server, ServiceBehindTheScenes }
+export { Breadcrumb, Govuk, Content, ErrorSummary, Field, FingerPrint, Ga, Notice, Question, ServiceBehindTheScenes }
 
 // import { Breadcrumb, Govuk, Content, ErrorSummary, Field, FingerPrint, Ga, Notice, Question, Server, ServiceBehindTheScenes } from '../components/all'
 // import { Breadcrumb, Govuk, Content, ErrorSummary, Field, FingerPrint, Ga, Notice, Question, Server, ServiceBehindTheScenes } from '../../components/all'
