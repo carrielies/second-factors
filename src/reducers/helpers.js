@@ -10,6 +10,10 @@ export function saveGG3Session(dispatchFn, data) {
     saveSession(dispatchFn, "gg3", data);
 }
 
+export function saveResetPasswordSession(dispatchFn, data) {
+    saveSession(dispatchFn, "reset_password", data);
+}
+
 export function saveSpacegovSession(dispatchFn, data) {
     saveSession(dispatchFn, "spacegov", data);
 }
@@ -35,6 +39,10 @@ export function clearGG3Session(dispatchFn) {
     clearSession(dispatchFn, "gg3");
 }
 
+export function clearResetPasswordSession(dispatchFn) {
+    clearSession(dispatchFn, "reset_password");
+}
+
 export function clearSpacegovSession(dispatchFn) {
     clearSession(dispatchFn, "spacegov");
 }
@@ -45,6 +53,7 @@ export function clearAllSessions(dispatchFn) {
     clearGG3Session(dispatchFn);
     clearSpacegovSession(dispatchFn);
     clearCredentialSession(dispatchFn);
+    clearResetPasswordSession(dispatchFn);
 }
 
 

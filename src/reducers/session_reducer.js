@@ -1,4 +1,4 @@
-export default function(state={ gg3: { request: {}, response: {}}, helpdesk: {}, registration: {}, spacegov: {} }, action ) {
+export default function(state={ gg3: { request: {}, response: {}}, helpdesk: {}, registration: {}, spacegov: {}, reset_password: {} }, action ) {
 
     switch(action.type) {
         case 'SAVE_SESSION':

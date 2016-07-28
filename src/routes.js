@@ -42,7 +42,8 @@ import ServiceMyDetails from './pages/service/my_details'
 import ServiceCleaningGrant from './pages/service/apply_for_cleaning_grant'
 import ServiceStationGrant from './pages/service/apply_for_station_grant'
 import ServiceGrantConfirmed from './pages/service/grant_confirmed'
-
+import ServiceFeedback from './pages/service/feedback'
+import ServiceHelpdesk from './pages/service/helpdesk'
 import CredentialHome from './pages/credential/index'
 import CredentialManageAccount from './pages/credential/manage_account'
 import CredentialLandingPage from './pages/credential/landing_page'
@@ -90,7 +91,8 @@ export default function(props) {
             <Route path="/service/apply_for_cleaning_grant" component={ServiceCleaningGrant}/>
             <Route path="/service/apply_for_station_grant" component={ServiceStationGrant}/>
             <Route path="/service/grant_confirmed" component={ServiceGrantConfirmed}/>
-
+            <Route path="/service/feedback" component={ServiceFeedback}/>
+            <Route path="/service/helpdesk" component={ServiceHelpdesk}/>
 
 
             <Route path="/service" component={ServiceHome}/>

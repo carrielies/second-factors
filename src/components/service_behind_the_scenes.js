@@ -29,6 +29,15 @@ export default connect((state) => state) (
                             </div>
 
                         </div>
+                        <h1 className="heading-small">GG3 session</h1>
+                        <div className="grid-row">
+                            <div className="column-two-thirds">
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(gg3, null, 2)}/>
+                            </div>
+                            <div className="column-one-third">
+                            </div>
+
+                        </div>
                         <h1 className="heading-small">Gateway Response</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
