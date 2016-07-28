@@ -4,6 +4,7 @@ import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
 import {updateAccount} from '../../utils/database'
 import {saveGG3Session} from '../../reducers/helpers'
+import {clearResetPasswordSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (
@@ -21,11 +22,23 @@ export default connect((state) => state) (
                 password: {msg: "Enter your password", summary: "You need to enter a password", regEx: /\w+/},
                 password2: {msg: "Enter your password", summary: "You need to enter a password", regEx: /\w+/}
             }, (props) => {
-                let session = this.props.session.gg3;
-                let account = session.account;
-                account.factors.password.secret = props.password
+
+                let session = this.props.session.reset_password
+                let gg3 = this.props.session.gg3;
+                let resp = gg3.response;
+
+                let account = gg3.account;
+                account.factors.password.secret = props.password;
+                if (resp.level != "2") {
+                   account.trust_id = this.trust_id();
+                }
+
+
+                saveGG3Session(this.props.dispatch, {request: session.originalRequest});
+                clearResetPasswordSession(this.props.dispatch);
+
                 updateAccount(account).then(() => {
-                    browserHistory.push("/signin");
+                    browserHistory.push("/logged_in");
                 }
                 );
 

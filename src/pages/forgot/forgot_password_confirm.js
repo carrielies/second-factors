@@ -4,11 +4,56 @@ import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
 import {findAccountByEmail} from '../../utils/database'
 import {saveGG3Session} from '../../reducers/helpers'
+import {saveResetPasswordSession} from '../../reducers/helpers'
+import fecha from 'fecha'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (
 
     class extends QuestionPage {
+        onClick(e) {
+            e.preventDefault();
+
+            let gg3 = this.props.session.gg3;
+            let account = gg3.account;
+
+            //save the original request so that we can recover it later
+            let originalRequest = gg3.request;
+            saveResetPasswordSession(this.props.dispatch, {originalRequest});
+
+            this.login_user(account, originalRequest)
+
+            if (this.has_factors(account)) {
+                let request = {
+                    name: originalRequest.name,
+                    auth_level_required: "1",
+                    auth_level_desired: "2",
+                    redirect_url: "/forgot/password_reset"
+                };
+                saveGG3Session(this.props.dispatch, {request});
+                browserHistory.push("/service_redirect");
+            } else {
+                browserHistory.push("/forgot/password_reset")
+            }
+        }
+
+        login_user(account, originalRequest) {
+            let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
+            let response = {
+                level: "1",
+                trust_id: account.trust_id,
+                name: account.name,
+                email: account.email,
+                gg_id: account.gg_id,
+                last_logged_in: time
+            };
+            saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: originalRequest.name});
+        }
+
+        has_factors(account) {
+            let factors = account.factors;
+            return (factors && (factors.google_authenticator || factors.device_fingerprint || factors.u2f_key || factors.cryptophoto))
+        }
 
         render() {
 
@@ -27,7 +72,7 @@ export default connect((state) => state) (
 
                              A request has been received to reset your password.  If you follow the link below you will be able to reset your password.
                              <br/><br/>
-                             <Link to="/forgot/password_reset">https://gg3.gov.uk/resetpassword?ref=876876868787</Link>
+                             <a href="#" onClick={(e) => this.onClick(e)}>https://gg3.gov.uk/resetpassword?ref=876876868787</a>
                              <br/>
                              <br/>
                              The password reset request is valid for the next 24 hours.

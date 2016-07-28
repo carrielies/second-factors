@@ -12,7 +12,7 @@ export default connect((state) => state) (
             let session = this.props.session.gg3;
             let request = session.request;
             let feedback_url = "/#"
-            if (request.feedback_url) {
+            if (request && request.feedback_url) {
                 feedback_url = request.feedback_url
             }
 
