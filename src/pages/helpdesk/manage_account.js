@@ -19,6 +19,15 @@ export default connect((state) => state) (
             this.state = {account};
         }
 
+        goBack(e) {
+            e.preventDefault();
+            let request = this.props.session.gg3.request.calling_service_request;
+
+            saveGG3Session(this.props.dispatch, {request});
+            browserHistory.push("/service_redirect");
+
+        }
+
         resetChanges(e) {
             if(e) e.preventDefault();
             let session = this.props.session.helpdesk;
@@ -170,6 +179,7 @@ export default connect((state) => state) (
 
             let session = this.props.session.helpdesk;
             let account = session.account;
+            let callingService = session.gg3.request.calling_service_request || {};
 
             return(
                 <Govuk title="Helpdesk">
@@ -230,7 +240,9 @@ export default connect((state) => state) (
                     <br/>
 
                     <a href="#" onClick={(e) => this.forceRetrust(e)} >Force services to re-trust user by asking for known facts</a>
-
+                    <br/>
+                    {callingService ?
+                    <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {callingService.name}</a> : null}
 
                 </Govuk>
             )
