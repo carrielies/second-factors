@@ -16,9 +16,9 @@ export default connect((state) => state) (
                 auth_level_required: "1",
                 auth_level_desired: "1",
                 redirect_url: "/service/landing_page",
-                help_desk: {
-                    url_text: "Help using Spacegov",
-                    url: "/service/helpdesk"
+                help: {
+                    url_text: "Help using SPACE.GOV",
+                    url_link: "/service/help"
                 },
                 feedback_url : "/service/feedback"
             };

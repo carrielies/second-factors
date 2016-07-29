@@ -13,15 +13,15 @@ export default connect((state) => state) (
             let request = session.request;
 
             let feedback_url = "/#"
-            let helpdesk_url = "https://www.gov.uk/help"
-            let helpdesk_url_text = "Help using GOV.UK"
+            let help_url_link = "https://www.gov.uk/help"
+            let help_url_text = "Help using GOV.UK"
             if (request) {
                 if (request.feedback_url) {
                     feedback_url = request.feedback_url
                 }
-                if (request.help_desk) {
-                    helpdesk_url = request.help_desk.url
-                    helpdesk_url_text = request.help_desk.url_text
+                if (request.help && request.help.url_link && request.help.url_text) {
+                    help_url_link = request.help.url_link
+                    help_url_text = request.help.url_text
                 }
             }
 
@@ -97,7 +97,7 @@ export default connect((state) => state) (
                                         <li><a href="https://www.tax.service.gov.uk/help/cookies" target="_blank" data-sso="false" data-journey-click="footer:Click:Cookies">Cookies</a></li>
                                         <li><a href="https://www.tax.service.gov.uk/help/privacy" target="_blank" data-sso="false" data-journey-click="footer:Click:Privacy policy">Privacy policy</a></li>
                                         <li><a href="https://www.tax.service.gov.uk/help/terms-and-conditions" target="_blank" data-sso="false" data-journey-click="footer:Click:Terms and conditions">Terms and conditions</a></li>
-                                        <li><a href={helpdesk_url} target="_blank" data-sso="false" data-journey-click="footer:Click:Help">{helpdesk_url_text}</a></li>
+                                        <li><a href={help_url_link} target="_blank" data-sso="false" data-journey-click="footer:Click:Help">{help_url_text}</a></li>
                                     </ul>
                                     <div className="open-government-licence">
                                         <p className="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>

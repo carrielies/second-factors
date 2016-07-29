@@ -12,9 +12,19 @@ export default connect((state) => state) (
             return(
                 <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
-                    <Content title="Your Space Portal Helpdesk">
+                    <Content title="Contact" para="">
                         <p>
+                            Contact your local SPACE.GOV representative.
+                            <br/>
+                            <br/>
+                            <ul>
+                                  <li>
+                                    Help Desk : <a href="/service/contact">0191 999 1234</a>
+                                    <p>Your help desk contact number</p>
+                                  </li>
+                              </ul>
                         </p>
+
                     </Content>
                     <br/>
 
