@@ -89,8 +89,8 @@ export default connect((state) => state) (
                         <summary><span className="summary">Forgotten your email?</span></summary>
                         <div className="panel panel-border-narrow">
                             <p>
-                                If you can't remember the email you registered with please contact the
-                                <Link to="/forgot/password">Recover your user password online or by post</Link>
+                                Help desk will be able to recover your email for you<br/>
+                                <Link to={request.help_desk.url}>{request.help_desk.url_text}</Link>
                             </p>
                         </div>
                     </details>

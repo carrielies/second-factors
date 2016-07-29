@@ -11,9 +11,18 @@ export default connect((state) => state) (
 
             let session = this.props.session.gg3;
             let request = session.request;
+
             let feedback_url = "/#"
-            if (request && request.feedback_url) {
-                feedback_url = request.feedback_url
+            let helpdesk_url = "https://www.gov.uk/help"
+            let helpdesk_url_text = "Help using GOV.UK"
+            if (request) {
+                if (request.feedback_url) {
+                    feedback_url = request.feedback_url
+                }
+                if (request.help_desk) {
+                    helpdesk_url = request.help_desk.url
+                    helpdesk_url_text = request.help_desk.url_text
+                }
             }
 
             let signedIn;
@@ -84,6 +93,12 @@ export default connect((state) => state) (
                         <div className="footer-wrapper">
                             <div className="footer-meta">
                                 <div className="footer-meta-inner">
+                                    <ul class="platform-help-links">
+                                        <li><a href="https://www.tax.service.gov.uk/help/cookies" target="_blank" data-sso="false" data-journey-click="footer:Click:Cookies">Cookies</a></li>
+                                        <li><a href="https://www.tax.service.gov.uk/help/privacy" target="_blank" data-sso="false" data-journey-click="footer:Click:Privacy policy">Privacy policy</a></li>
+                                        <li><a href="https://www.tax.service.gov.uk/help/terms-and-conditions" target="_blank" data-sso="false" data-journey-click="footer:Click:Terms and conditions">Terms and conditions</a></li>
+                                        <li><a href={helpdesk_url} target="_blank" data-sso="false" data-journey-click="footer:Click:Help">{helpdesk_url_text}</a></li>
+                                    </ul>
                                     <div className="open-government-licence">
                                         <p className="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
                                         <p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated</p>
