@@ -51,10 +51,21 @@ export default connect((state) => state) (
         authFactors() {
             let account = this.props.session.helpdesk.account;
             let factors = account.factors;
+            let list = [];
 
-            let handlers = {
-                google_authenticator: () => {
-                    return(
+            list.push(
+                <tr>
+                    <td>Password</td>
+                    <td>This is enabled by default.  </td>
+                    <td>Enabled</td>
+                    <td className="change-link">
+                        <Link to="/helpdesk/reset_password">Reset password</Link>
+                    </td>
+                </tr>
+            )
+
+            if ( factors.google_authenticator ) {
+                    list.push(
                         <tr>
                             <td>Google authenticator</td>
                             <td>This requires a special app installed on THEIR browser or a phone app which generates a new code every minute or so. </td>
@@ -64,32 +75,7 @@ export default connect((state) => state) (
                             </td>
                         </tr>
                     )
-                },
-                password: () => {
-                    return (
-                        <tr>
-                            <td>Password</td>
-                            <td>This is enabled by default.  </td>
-                            <td>Enabled</td>
-                            <td className="change-link">
-                                <Link to="/helpdesk/reset_password">Reset password</Link>
-                            </td>
-                        </tr>
-                    )
-                },
-                device_fingerprint: () => {
-                    return(
-                        null
-                    )
-                }
-            };
-
-            let list = [];
-
-            Object.keys(factors).forEach( (k) => {
-                let entry = handlers[k]();
-                if (entry) list.push(entry)
-            });
+            }
 
             return list;
         }
