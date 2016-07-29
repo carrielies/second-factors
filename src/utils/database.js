@@ -51,7 +51,7 @@ export function allAccounts() {
     return db.findAsync({})
 }
 
-export function serachForAccounts(email, name) {
+export function searchForAccounts(email, name) {
     return db.findAsync( {email: new RegExp(email, "i"), name: new RegExp(name, "i")} )
 }
 

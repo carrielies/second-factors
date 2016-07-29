@@ -54,6 +54,8 @@ import CredentialChangeEmailCode from './pages/credential/change_email_code'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
 import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
+import SpacegovTrustStoreSearch from './pages/spacegov_trust_store/search'
+import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results.js'
 
 export default function(props) {
     
@@ -99,8 +101,10 @@ export default function(props) {
             <Route path="/service/help" component={ServiceHelp}/>
             <Route path="/service/contact" component={ServiceContact}/>
 
-            <Route path="/spacegov/trust_store/landing_page" component={SpacegovTrustStoreLandingPage}/>
             <Route path="/spacegov/trust_store" component={SpacegovTrustStoreHome}/>
+            <Route path="/spacegov/trust_store/landing_page" component={SpacegovTrustStoreLandingPage}/>
+            <Route path="/spacegov/trust_store/search" component={SpacegovTrustStoreSearch}/>
+            <Route path="/spacegov/trust_store/search_results" component={SpacegovTrustStoreSearchResults}/>
 
             <Route path="/service" component={ServiceHome}/>
             <Route path="/helpdesk" component={HelpDeskIndex}/>

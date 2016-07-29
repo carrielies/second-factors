@@ -19,7 +19,7 @@ export default connect((state) => state) (
                             <br/>
                             <ul>
                                   <li>
-                                    Help Desk : <a href="/service/contact">0191 999 1234</a>
+                                    Help Desk : 0191 999 1234
                                     <p>Your help desk contact number</p>
                                   </li>
                               </ul>
