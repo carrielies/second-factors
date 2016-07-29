@@ -8,6 +8,7 @@ import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
 import {saveAccountInteraction, findAccount} from '../../utils/helpdesk_db'
 import {saveHelpdeskSession} from '../../reducers/helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -16,6 +17,15 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props)
+        }
+
+        goBack(e) {
+            e.preventDefault();
+            let request = this.props.session.gg3.request.calling_service_request;
+
+            saveGG3Session(this.props.dispatch, {request});
+            browserHistory.push("/service_redirect");
+
         }
 
         manage_account(log, account, id_proven) {
@@ -88,11 +98,19 @@ export default connect((state) => state) (
         render() {
 
             let factors = this.authFactors();
-            let account = this.props.session.helpdesk.account;
+            let session = this.props.session.helpdesk
+            let account = session.account;
+            let callingService = null
 
+            let gg3 = this.props.session.gg3
+            let backLink = "/helpdesk/search_results"
+            if (gg3 && gg3.request && gg3.request.calling_service_request){
+                callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
+                backLink = gg3.request.calling_service_request.redirect_url
+            }
             return(
                 <Govuk title="Helpdesk">
-                    <Breadcrumb text={`${account.name}`} back="/helpdesk/search_results"/>
+                    <Breadcrumb text={`${account.name}`} back={backLink}/>
                     <Content>
                         <h1 className="heading-medium">Prove their identity ?</h1>
                         <p>We need to trust the customer is who they say they are.  This can be done by issuing a challenge based on 2nd factors they have set up.</p>
@@ -145,7 +163,8 @@ export default connect((state) => state) (
                             </div>
 
                         </details>
-
+                        <br/>
+                        {callingService}
 
 
 

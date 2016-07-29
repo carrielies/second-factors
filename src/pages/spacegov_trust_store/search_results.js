@@ -28,7 +28,7 @@ export default connect((state) => state) (
                         name: "Spacegov Trust Store",
                         auth_level_required: "1",
                         auth_level_desired: "1",
-                        redirect_url: "/spacegov/trust_store/landing_page"
+                        redirect_url: "/spacegov/trust_store/search_results"
                     }
                 };
                 saveGG3Session(this.props.dispatch, {request});
