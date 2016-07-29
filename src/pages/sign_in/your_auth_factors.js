@@ -14,6 +14,15 @@ export default connect((state) => state) (
 
     class extends QuestionPage {
 
+        componentDidMount() {
+            let session = this.props.session.gg3;
+            let account = session.account;
+            let request = session.request;
+            if( request.auth_level_required === "1" && request.auth_level_desired === "1" && account.always_use_2fa != true) {
+                browserHistory.push("/logged_in")
+            }
+        }
+
         onNext(e) {
             e.preventDefault();
             if( this.refs.ga && this.refs.ga.checked ) {
@@ -150,7 +159,7 @@ export default connect((state) => state) (
                 )
             }
 
-            if ( request.auth_level_required === "1" && request.auth_level_desired === "1" && request.always_use_2fa != true) {
+            if ( request.auth_level_required === "1" && request.auth_level_desired === "1" && account.always_use_2fa != true) {
                 return (
                     <Govuk>
                         <Breadcrumb text={`Sign in to ${request.name} using your Government Gateway account`}/>

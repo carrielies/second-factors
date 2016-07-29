@@ -5,6 +5,7 @@ And /^I'm enroled onto Spacegov as (.*)$/ do |email|
   click_link "Sign into Spacegov"
   fill_in "email", with: email
   fill_in "password", with: "password"
+  #
   click_link "Continue"
   click_link "Continue"
   fill_in "Your organisation name", with: "Zaltek"
@@ -127,7 +128,6 @@ And /^I log into spacegov with email: "(.*)", password: "(.*)"$/ do |email,passw
   fill_in "email", with: email
   fill_in "password", with: password
   click_link "Continue"
-  click_link "Continue"
 end
 
 And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
@@ -135,7 +135,6 @@ And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
   click_link "Sign into Spacegov"
   fill_in "email", with: email
   fill_in "password", with: @new_password
-  click_link "Continue"
   click_link "Continue"
 end
 
@@ -215,7 +214,7 @@ def search_helpdesk_for email
   fill_in "password", with: "password"
   click_link "Continue"
   # two step verification
-  click_link "Continue"
+  # click_link "Continue"
   # Welcome back
   click_link "Search"
   # Search for user
