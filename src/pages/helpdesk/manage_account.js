@@ -6,6 +6,7 @@ import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/helpdesk_db'
 import {saveHelpdeskSession} from '../../reducers/helpers'
+import {saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -17,6 +18,19 @@ export default connect((state) => state) (
             let session = props.session.helpdesk;
             let account = session.account;
             this.state = {account};
+        }
+
+        goBack(e) {
+            let gg3 = this.props.session.gg3;
+            if (gg3 && gg3.request && gg3.request.calling_service_request) {
+                e.preventDefault();
+
+                let request = gg3.request.calling_service_request;
+
+                saveGG3Session(this.props.dispatch, {request});
+                browserHistory.push("/service_redirect");
+            }
+
         }
 
         resetChanges(e) {
@@ -155,8 +169,12 @@ export default connect((state) => state) (
         render() {
 
             let session = this.props.session.helpdesk;
+            let gg3 = this.props.session.gg3;
             let account = session.account;
-
+            let callingService = null
+            if (gg3 && gg3.request && gg3.request.calling_service_request){
+                callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
+            }
             return(
                 <Govuk title="Helpdesk">
                     <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/search_results"/>
@@ -216,7 +234,9 @@ export default connect((state) => state) (
                     <br/>
 
                     <a href="#" onClick={(e) => this.forceRetrust(e)} >Force services to re-trust user by asking for known facts</a>
-
+                    <br/>
+                    <br/>
+                    {callingService}
 
                 </Govuk>
             )
