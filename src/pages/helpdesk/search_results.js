@@ -31,6 +31,7 @@ export default connect((state) => state) (
                     <tr>
                         <td>{account.name}</td>
                         <td>{account.email}</td>
+                        <td>{account.gg_id}</td>
                         <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.gg_id)}>Prove Identity</a></td>
                     </tr>
 
@@ -46,6 +47,7 @@ export default connect((state) => state) (
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Gateway ID</th>
                             <th></th>
                         </tr>
                         </thead>

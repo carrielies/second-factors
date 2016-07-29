@@ -6,6 +6,10 @@ export function saveHelpdeskSession(dispatchFn, data) {
     saveSession(dispatchFn, "helpdesk", data);
 }
 
+export function saveTrustStoreSession(dispatchFn, data) {
+    saveSession(dispatchFn, "trust_store", data);
+}
+
 export function saveGG3Session(dispatchFn, data) {
     saveSession(dispatchFn, "gg3", data);
 }
@@ -35,6 +39,11 @@ export function clearHelpdeskSession(dispatchFn) {
     clearSession(dispatchFn, "helpdesk");
 }
 
+export function clearTrustStoreSession(dispatchFn) {
+    clearSession(dispatchFn, "trust_store");
+}
+
+
 export function clearGG3Session(dispatchFn) {
     clearSession(dispatchFn, "gg3");
 }
@@ -54,6 +63,7 @@ export function clearAllSessions(dispatchFn) {
     clearSpacegovSession(dispatchFn);
     clearCredentialSession(dispatchFn);
     clearResetPasswordSession(dispatchFn);
+    clearTrustStoreSession(dispatchFn);
 }
 
 

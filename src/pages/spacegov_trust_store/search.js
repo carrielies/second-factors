@@ -6,7 +6,7 @@ import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
 import {searchTrustStore} from '../../utils/spacegov_db'
-import {saveHelpdeskSession} from '../../reducers/helpers'
+import {saveTrustStoreSession} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -17,7 +17,7 @@ export default connect((state) => state) (
         search(e) {
             e.preventDefault();
             searchTrustStore(this.refs.email.value() || "", this.refs.name.value() ||  this.refs.license.value() ).then( (accounts) => {
-                saveHelpdeskSession(this.props.dispatch, {search_results: accounts} );
+                saveTrustStoreSession(this.props.dispatch, {search_results: accounts} );
                 browserHistory.push("/spacegov/trust_store/search_results")
             });
 
