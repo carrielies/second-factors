@@ -51,6 +51,9 @@ export default connect((state) => state) (
                     <Link to="/service">Spacegov</Link>
                     <br/>
                     <br/>
+                    <Link to="/spacegov/trust_store">Spacegov Helpdesk TrustStore Service</Link>
+                    <br/>
+                    <br/>
                     <Link to="/credential">Credential Management</Link>
                     <br/>
                     <br/>

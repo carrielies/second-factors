@@ -12,10 +12,10 @@ export default connect((state) => state) (
             super(props);
 
             let request = {
-                name: "Spacegov",
+                name: "Spacegov Trust Store",
                 auth_level_required: "1",
                 auth_level_desired: "1",
-                redirect_url: "/service/landing_page",
+                redirect_url: "/spacegov/trust_store/landing_page",
                 help: {
                     url_text: "Help using SPACE.GOV",
                     url_link: "/service/help"
@@ -46,14 +46,13 @@ export default connect((state) => state) (
             return(
                 <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
-                    <Content title="Your Space Portal">
+                    <Content title="Spacegov Trust Store Helpdesk Service">
                         <p>
-                            For your spacefaring adventures, aquisitions and licensing sign into Spacegov using your Government Gateway account.
-
+                            This can be used to lookup details from the Spacegov Trust Store
                         </p>
                     </Content>
                     <br/>
-                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov</a>
+                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov Trust Store Service</a>
                     <hr/>
 
                     <details>

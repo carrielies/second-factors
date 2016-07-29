@@ -1,4 +1,4 @@
-import {saveInteraction as interaction, serachForAccounts as search, findAccount as find,findByEmailAccount as findEmail, updateAccount as update} from './database'
+import {saveInteraction as interaction, searchForAccounts as search, findAccount as find,findByEmailAccount as findEmail, updateAccount as update} from './database'
 
 export function searchForAcounts(email, name) {
     return search(email, name)

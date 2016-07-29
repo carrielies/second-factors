@@ -43,13 +43,19 @@ import ServiceCleaningGrant from './pages/service/apply_for_cleaning_grant'
 import ServiceStationGrant from './pages/service/apply_for_station_grant'
 import ServiceGrantConfirmed from './pages/service/grant_confirmed'
 import ServiceFeedback from './pages/service/feedback'
-import ServiceHelpdesk from './pages/service/helpdesk'
+import ServiceHelp from './pages/service/help'
+import ServiceContact from './pages/service/contact'
 import CredentialHome from './pages/credential/index'
 import CredentialManageAccount from './pages/credential/manage_account'
 import CredentialLandingPage from './pages/credential/landing_page'
 import CredentialChangeName from './pages/credential/change_name'
 import CredentialChangeEmail from './pages/credential/change_email'
 import CredentialChangeEmailCode from './pages/credential/change_email_code'
+
+import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
+import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
+import SpacegovTrustStoreSearch from './pages/spacegov_trust_store/search'
+import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results.js'
 
 export default function(props) {
     
@@ -92,8 +98,13 @@ export default function(props) {
             <Route path="/service/apply_for_station_grant" component={ServiceStationGrant}/>
             <Route path="/service/grant_confirmed" component={ServiceGrantConfirmed}/>
             <Route path="/service/feedback" component={ServiceFeedback}/>
-            <Route path="/service/helpdesk" component={ServiceHelpdesk}/>
+            <Route path="/service/help" component={ServiceHelp}/>
+            <Route path="/service/contact" component={ServiceContact}/>
 
+            <Route path="/spacegov/trust_store" component={SpacegovTrustStoreHome}/>
+            <Route path="/spacegov/trust_store/landing_page" component={SpacegovTrustStoreLandingPage}/>
+            <Route path="/spacegov/trust_store/search" component={SpacegovTrustStoreSearch}/>
+            <Route path="/spacegov/trust_store/search_results" component={SpacegovTrustStoreSearchResults}/>
 
             <Route path="/service" component={ServiceHome}/>
             <Route path="/helpdesk" component={HelpDeskIndex}/>

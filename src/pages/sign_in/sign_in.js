@@ -58,6 +58,14 @@ export default connect((state) => state) (
             let session = this.props.session.gg3;
             let request = session.request;
 
+            let help_url_link = "https://www.gov.uk/help"
+            let help_url_text = "Help using GOV.UK"
+            if (request) {
+                if (request.help && request.help.url_link && request.help.url_text) {
+                    help_url_link = request.help.url_link
+                    help_url_text = request.help.url_text
+                }
+            }
             return (
 
                 <Govuk phaseBanner="true">
@@ -89,12 +97,11 @@ export default connect((state) => state) (
                         <summary><span className="summary">Forgotten your email?</span></summary>
                         <div className="panel panel-border-narrow">
                             <p>
-                                If you can't remember the email you registered with please contact the
-                                <Link to="/forgot/password">Recover your user password online or by post</Link>
+                                Help desk will be able to recover your email for you<br/>
+                                <Link to={help_url_link}>{help_url_text}</Link>
                             </p>
                         </div>
                     </details>
-
                     <details>
                         <summary><span className="summary">Create a new account?</span></summary>
                         <div className="panel panel-border-narrow">

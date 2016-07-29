@@ -264,6 +264,14 @@ input[type="search"]::-webkit-search-decoration {
     position: static;
     width: auto; }
 
+.label--inlineRadio--overhead, .label--inlineRadio--overhead-wide, .label--dateField-group {
+    float: left;
+    margin-bottom: 0.75em;
+    text-align: center;
+    width: 5.8em;
+    word-spacing: 5.8em;
+}
+
 /* Hide visually and from screenreaders, but maintain layout */
 .invisible {
   visibility: hidden; }
