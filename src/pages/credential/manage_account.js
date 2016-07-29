@@ -43,39 +43,57 @@ export default connect((state) => state) (
             let account = this.props.session.credential.account;
             let factors = account.factors;
 
-            let handlers = {
-                google_authenticator: () => {
-                    return(
-                        <tr>
-                            <td>Google authenticator</td>
-                            <td>This requires a special app installed on THEIR browser or a phone app which generates a new code every minute or so. </td>
-                            <td>Enabled</td>
-                            <td className="change-link">
-                                <Link to="/helpdesk/manage_google_authenticator">Manage</Link>
-                            </td>
-                        </tr>
-                    )
-                },
-                password: () => {
-                    return (
-                        <tr>
-                            <td>Password</td>
-                            <td>This is enabled by default.  </td>
-                            <td>Enabled</td>
-                            <td className="change-link">
-                                <Link to="/helpdesk/reset_password">Reset password</Link>
-                            </td>
-                        </tr>
-                    )
-                }
-            };
-
             let list = [];
 
-            Object.keys(factors).forEach( (k) => {
-                let entry = handlers[k]();
-                if (entry) list.push(entry)
-            });
+            list.push(
+                <tr>
+                    <td>Password</td>
+                    <td>This is enabled by default.  </td>
+                    <td>Enabled</td>
+                    <td className="change-link">
+                        <Link to="/helpdesk/reset_password">Change password</Link>
+                    </td>
+                </tr>
+            );
+
+            if ( factors.google_authenticator ) {
+                list.push(
+                    <tr>
+                        <td>Google authenticator</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/credential/remove_factor?factor_to_remove=google_authenticator">Remove Google authenticator</Link>
+                        </td>
+                    </tr>
+                )
+            }
+
+            if ( factors.u2f_key ) {
+                list.push(
+                    <tr>
+                        <td>U2F Key</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/credential/remove_factor?factor_to_remove=u2f_key">Remove U2F key</Link>
+                        </td>
+                    </tr>
+                )
+            }
+
+            if ( factors.cryptophoto ) {
+                list.push(
+                    <tr>
+                        <td>Cryptophoto</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/credential/remove_factor?factor_to_remove=cryptophoto">Remove CryptoPhoto</Link>
+                        </td>
+                    </tr>
+                )
+            }
 
             return list;
         }

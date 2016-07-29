@@ -1,7 +1,7 @@
 import {saveInteraction as interaction, searchForAccounts as search, findAccount as find,findByEmailAccount as findEmail, updateAccount as update} from './database'
 
-export function searchForAcounts(email, name) {
-    return search(email, name)
+export function searchForAcounts(email, name, gg_id) {
+    return search(email, name, gg_id)
 }
 
 export function findAccount(gg_id) {

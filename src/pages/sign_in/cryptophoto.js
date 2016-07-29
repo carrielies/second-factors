@@ -36,10 +36,7 @@ export default connect((state) => state) (
                 deserialize(this.props.dispatch, session_state ).then( (session) => {
                     this.onSubmit(session);
                 });
-                //
-                //
-                // let session = JSON.parse(window.atob(session_state));
-                // importSession( this.props.dispatch, session );
+
             }
 
             let session = this.props.session.gg3;

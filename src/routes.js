@@ -51,6 +51,7 @@ import CredentialLandingPage from './pages/credential/landing_page'
 import CredentialChangeName from './pages/credential/change_name'
 import CredentialChangeEmail from './pages/credential/change_email'
 import CredentialChangeEmailCode from './pages/credential/change_email_code'
+import CredentialRemoveFactor from './pages/credential/remove_factor'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
 import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
@@ -125,6 +126,9 @@ export default function(props) {
             <Route path="/credential/change_name" component={CredentialChangeName}/>
             <Route path="/credential/change_email" component={CredentialChangeEmail}/>
             <Route path="/credential/change_email_code" component={CredentialChangeEmailCode}/>
+            <Route path="/credential/remove_factor" component={CredentialRemoveFactor}/>
+
+
         </Router>
         
     )

@@ -16,7 +16,7 @@ export default connect((state) => state) (
 
         search(e) {
             e.preventDefault();
-            searchForAcounts(this.refs.email.value() || "", this.refs.name.value() || "" ).then( (accounts) => {
+            searchForAcounts(this.refs.email.value() || "", this.refs.name.value() || "", this.refs.gatewayId.value() || "" ).then( (accounts) => {
                 saveHelpdeskSession(this.props.dispatch, {search_results: accounts} );
                 browserHistory.push("/helpdesk/search_results")
             });
