@@ -42,7 +42,7 @@ export default connect((state) => state) (
             let gg3 = this.props.session.gg3;
             let session = this.props.session.credential;
             let account = this.props.session.credential.account || {};
-            let factor_to_remove = this.state.factor_to_remove;
+            let factor_to_remove = this.state.factor_to_remove.replace("_", " ");
 
             return(
                 <Govuk title="Credential Management">

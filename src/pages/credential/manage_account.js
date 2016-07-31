@@ -51,7 +51,7 @@ export default connect((state) => state) (
                     <td>This is enabled by default.  </td>
                     <td>Enabled</td>
                     <td className="change-link">
-                        <Link to="/helpdesk/reset_password">Change password</Link>
+                        <Link to="/credential/change_password">Change password</Link>
                     </td>
                 </tr>
             );
@@ -94,6 +94,32 @@ export default connect((state) => state) (
                     </tr>
                 )
             }
+
+            if ( factors.device_fingerprint ) {
+                list.push(
+                    <tr>
+                        <td>Device Fingerprint</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/credential/remove_factor?factor_to_remove=device_fingerprint">Remove Device Fingerprint</Link>
+                        </td>
+                    </tr>
+                )
+            }
+
+
+            list.push(
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className="change-link">
+                        <Link to="/credential/your_auth_factors">Add additional second factor</Link>
+                    </td>
+                </tr>
+
+            )
 
             return list;
         }

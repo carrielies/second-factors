@@ -52,6 +52,12 @@ import CredentialChangeName from './pages/credential/change_name'
 import CredentialChangeEmail from './pages/credential/change_email'
 import CredentialChangeEmailCode from './pages/credential/change_email_code'
 import CredentialRemoveFactor from './pages/credential/remove_factor'
+import CredentialYourAuthFactors from './pages/credential/your_auth_factors'
+import CredentialSetupGa from './pages/credential/setup_ga'
+import CredentialSetupDevice from './pages/credential/setup_device'
+import CredentialSetupCryptophoto from './pages/credential/setup_cryptophoto'
+import CredentialChangePassword from './pages/credential/change_password'
+import CredentialU2f from './pages/credential/u2f'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
 import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
@@ -127,6 +133,12 @@ export default function(props) {
             <Route path="/credential/change_email" component={CredentialChangeEmail}/>
             <Route path="/credential/change_email_code" component={CredentialChangeEmailCode}/>
             <Route path="/credential/remove_factor" component={CredentialRemoveFactor}/>
+            <Route path="/credential/ga" component={CredentialSetupGa}/>
+            <Route path="/credential/your_auth_factors" component={CredentialYourAuthFactors}/>
+            <Route path="/credential/u2f" component={CredentialU2f}/>
+            <Route path="/credential/device" component={CredentialSetupDevice}/>
+            <Route path="/credential/cryptophoto" component={CredentialSetupCryptophoto}/>
+            <Route path="/credential/change_password" component={CredentialChangePassword}/>
 
 
         </Router>
