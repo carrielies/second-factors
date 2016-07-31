@@ -51,40 +51,13 @@ export default connect((state) => state) (
 
         applyForCleaningGrant(e) {
             e.preventDefault();
-            let gg3 = this.props.session.gg3;
-            let resp = gg3.response;
-            let request = {
-                name: "Spacegov",
-                auth_level_required: "1",
-                auth_level_desired: "2",
-                redirect_url: "/service/apply_for_cleaning_grant"
-            };
-            saveGG3Session(this.props.dispatch, {request});
-            if ( resp.level != "2") {
-                browserHistory.push("/service_redirect");
-            }
-            else {
-                browserHistory.push("/service/apply_for_cleaning_grant");
-            }
+            browserHistory.push("/service/apply_for_cleaning_grant");
         }
 
 
         applyForStationGrant(e) {
             e.preventDefault();
-            let gg3 = this.props.session.gg3;
-            let resp = gg3.response;
-            if ( resp.level == "2") {
-                browserHistory.push("/service/apply_for_station_grant");
-                return;
-            }
-            let request = {
-                name: "Spacegov",
-                auth_level_required: "2",
-                auth_level_desired: "2",
-                redirect_url: "/service/apply_for_station_grant"
-            };
-            saveGG3Session(this.props.dispatch, {request});
-            browserHistory.push("/service_redirect");
+            browserHistory.push("/service/apply_for_station_grant");
         }
 
 

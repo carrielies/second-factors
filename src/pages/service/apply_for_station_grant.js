@@ -10,6 +10,7 @@ import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
 import {saveGG3Session} from '../../reducers/helpers'
+import Trust from '../../components/trust'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -33,6 +34,7 @@ export default connect((state) => state) (
 
             return (
                 <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
+                    <Trust required="2" desired="2"/>
                     <div className="spacegov"></div>
 
                     <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} back="/service/landing_page"/>

@@ -9,6 +9,7 @@ import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
+import Trust from '../../components/trust'
 
 
 export default connect((state) => state) (
@@ -19,6 +20,7 @@ export default connect((state) => state) (
 
             return(
                 <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
+                    <Trust required="1" desired="2"/>
                     <div className="spacegov"></div>
 
                     <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} back="/service/landing_page"/>
@@ -45,6 +47,9 @@ export default connect((state) => state) (
 
             return (
                 <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
+
+                    <Trust required="1" desired="2"/>
+
                     <div className="spacegov"></div>
 
                     <Breadcrumb text={`${enrolment.name} (${enrolment.org_name})`} back="/service/landing_page"/>

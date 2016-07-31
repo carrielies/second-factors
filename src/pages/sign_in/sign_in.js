@@ -2,7 +2,7 @@ import React from 'react'
 import {Breadcrumb, Govuk, Field, Question, Server } from '../../components/all'
 import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
-import {findAccountByEmailAndPassword} from '../../utils/database'
+import {findAccountByEmailAndPassword, findAccount} from '../../utils/database'
 import {saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
@@ -20,15 +20,18 @@ export default connect((state) => state) (
             let session = this.props.session.gg3;
             let request = session.request;
             if( session.signed_in  ) {
-                if ( session.service_name === request.name ) {
-                    saveGG3Session( this.props.dispatch, {level: "1"});
-                    browserHistory.push("/your_auth_factors");
-                }
-                else {
-                    browserHistory.push("/sso");
-                }
-            }
+                findAccount(session.account.gg_id).then( (account) => {
+                    saveGG3Session(this.props.dispatch, {account});
 
+                    if ( session.service_name === request.name ) {
+                        saveGG3Session( this.props.dispatch, {level: "1"});
+                        browserHistory.push("/your_auth_factors");
+                    }
+                    else {
+                        browserHistory.push("/sso");
+                    }
+                })
+            }
         }
 
         onNext(e) {

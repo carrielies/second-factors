@@ -7,6 +7,9 @@ import Breadcrumb from '../../components/breadcrumb'
 import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import Notice from '../../components/notice'
+import {saveGG3Session, saveSpacegovSession} from '../../reducers/helpers'
+import {findAccountByEmailAndPassword, findAccount} from '../../utils/database'
+
 
 import {connect} from 'react-redux'
 
@@ -21,6 +24,11 @@ export default connect((state) => state) (
             if( request.auth_level_required === "1" && request.auth_level_desired === "1" && account.always_use_2fa != true) {
                 browserHistory.push("/logged_in")
             }
+
+            findAccount(session.account.gg_id).then( (account) => {
+                saveGG3Session(this.props.dispatch, {account});
+            })
+
         }
 
         onNext(e) {
@@ -100,6 +108,22 @@ export default connect((state) => state) (
         }
 
 
+        manageAccount(e) {
+            e.preventDefault();
+
+            // let request = this.props.session.gg3.request;
+
+            let request = {
+                name: "Credential Management",
+                auth_level_required: "1",
+                auth_level_desired: "1",
+                redirect_url: "/credential/landing_page",
+                calling_service_request: this.props.session.gg3.request
+            };
+            saveGG3Session(this.props.dispatch, {request});
+            browserHistory.push("/service_redirect");
+        }
+
 
         render() {
 
@@ -114,7 +138,7 @@ export default connect((state) => state) (
                 factors_not_setup =
                     <div>
                         <h1 className="heading-small">You don't have a second factor set up</h1>
-                        <Link to="">Setup a second factor</Link>
+                        <a href="#" onClick={(e) => this.manageAccount(e) }>Setup a second factor</a>
                     </div>
 
             }
@@ -144,7 +168,7 @@ export default connect((state) => state) (
                             <summary><span className="summary">Having problems ?</span></summary>
                             <div className="panel panel-border-narrow">
                                 <p>
-                                    <Link to="/register">Setup two factor authentication</Link>
+                                    <a href="#" onClick={(e) => this.manageAccount(e) }>Setup a second factor</a>
                                     <br/>
                                     <br/>
                                     <Link to="/register">Cancel</Link>
@@ -202,7 +226,7 @@ export default connect((state) => state) (
                             <summary><span className="summary">Having problems ?</span></summary>
                             <div className="panel panel-border-narrow">
                                 <p>
-                                    <Link to="/register">Setup two factor authentication</Link>
+                                    <a href="#" onClick={(e) => this.manageAccount(e) }>Setup a second factor</a>
                                     <br/>
                                     <br/>
                                     <Link to="/register">Cancel</Link>
@@ -236,7 +260,7 @@ export default connect((state) => state) (
                             <summary><span className="summary">Having problems ?</span></summary>
                             <div className="panel panel-border-narrow">
                                 <p>
-                                    <Link to="/register">Setup two factor authentication</Link>
+                                    <a href="#" onClick={(e) => this.manageAccount(e) }>Setup a second factor</a>
                                     <br/>
                                     <br/>
                                     <Link to="/register">Cancel</Link>
