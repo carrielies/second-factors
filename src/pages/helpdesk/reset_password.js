@@ -9,7 +9,7 @@ import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
 import generatePassword from 'password-generator'
 import {saveHelpdeskSession} from '../../reducers/helpers'
-import {updateAccount, saveInteraction} from '../../utils/database'
+import {updateAccount, applyInteraction} from '../../utils/database'
 
     
 export default connect((state) => state) (
@@ -21,6 +21,7 @@ export default connect((state) => state) (
             let session = props.session.helpdesk;
             let account = session.account;
             account.factors.password.secret = new_password;
+            applyInteraction( account, "helpdesk", `Password reset` );
 
             if ( ! session.id_proven && !session.trust_id_changed) {
                 account.trust_id = this.trust_id();
@@ -38,6 +39,7 @@ export default connect((state) => state) (
 
             return(
                 <Govuk title="Helpdesk">
+                    <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/manage_account"/>
                     <Content title="Reset password">
                         <p>
                             The customer will be asked to change this password, the next time they sign in.

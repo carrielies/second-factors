@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
 import {saveRegistrationSession} from '../../reducers/helpers'
-import {updateAccount, saveInteraction} from '../../utils/database'
+import {updateAccount, applyInteraction} from '../../utils/database'
 
 export default connect((state) => state) (
 
@@ -33,6 +33,8 @@ export default connect((state) => state) (
                     account.trust_id = this.trust_id();
                     saveHelpdeskSession( this.props.dispatch, {trust_id_changed: true});
                 }
+
+                applyInteraction( account, "helpdesk", `Removed ${factor_to_remove}` );
 
                 updateAccount( account ).then( () => {
                     browserHistory.push("/helpdesk/manage_account")

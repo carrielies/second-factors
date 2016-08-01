@@ -30,6 +30,16 @@ export default connect((state) => state) (
             })
         }
 
+        forceRetrust(e) {
+            e.preventDefault();
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+            account.trust_id = this.trust_id();
+            updateAccount( account ).then( () => {
+                saveHelpdeskSession(this.props.dispatch, {trust_id_changed: true, account});
+            });
+        }
+
 
         goBack(e) {
             let gg3 = this.props.session.gg3;
@@ -54,8 +64,8 @@ export default connect((state) => state) (
             list.push(
                 <tr>
                     <td>Password</td>
-                    <td>This is enabled by default.  </td>
-                    <td>Enabled</td>
+                    <td></td>
+                    <td></td>
                     <td className="change-link">
                         <Link to="/helpdesk/reset_password">Reset password</Link>
                     </td>
