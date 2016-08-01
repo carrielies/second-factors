@@ -4,7 +4,8 @@ import Content from '../../components/content'
 import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
-import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/helpdesk_db'
+import {findAccount, updateAccount} from '../../utils/helpdesk_db'
+import {applyInteraction} from '../../utils/database'
 import {saveHelpdeskSession} from '../../reducers/helpers'
 import {saveGG3Session} from '../../reducers/helpers'
 
@@ -35,6 +36,7 @@ export default connect((state) => state) (
             let session = this.props.session.helpdesk;
             let account = session.account;
             account.trust_id = this.trust_id();
+            applyInteraction( account, "helpdesk", `Forced retrust` );
             updateAccount( account ).then( () => {
                 saveHelpdeskSession(this.props.dispatch, {trust_id_changed: true, account});
             });
