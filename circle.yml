@@ -18,7 +18,8 @@ test:
     - sleep 2
 
   override:
-    -  bundle exec cucumber
+    - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
+    - bundle exec cucumber --format pretty --format json --out $CIRCLE_TEST_REPORTS/cucumber/tests.cucumber
 deployment:
   staging:
     branch: master
