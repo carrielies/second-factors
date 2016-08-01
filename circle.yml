@@ -10,12 +10,12 @@ dependencies:
     - gem install bundler
   override:
     - npm install
-    - bundle install
+    - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
 test:
   pre:
     - npm run prod:
         background: true
-    - sleep 5
+    - sleep 2
 
   override:
     - cucumber
