@@ -1,0 +1,22 @@
+machine:
+  timezone:
+    Europe/London
+  node:
+    version: 5.11.1
+  ruby:
+    version: 2.2.3
+dependencies:
+  pre:
+    - gem install bundler
+  override:
+    - npm install
+    - bundle install
+test:
+  pre:
+    - npm run postinstall
+    - npm run prod:
+        background: true
+    - sleep 5
+
+  override:
+    - cucumber
