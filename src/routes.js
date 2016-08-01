@@ -25,6 +25,7 @@ import HelpDeskIndex from './pages/helpdesk/index'
 import HelpDeskLandingPage from './pages/helpdesk/landing_page'
 import HelpDeskSearch from './pages/helpdesk/search'
 import HelpDeskSearchResults from './pages/helpdesk/search_results.js'
+import HelpDeskExternalSelectAccount from './pages/helpdesk/external_select_account.js'
 import HelpDeskProveIdentity from './pages/helpdesk/prove_identity'
 import HelpDeskProveGoogleAuthenticator from './pages/helpdesk/prove_google_authenticator'
 import HelpDeskManageAccount from './pages/helpdesk/manage_account'
@@ -124,6 +125,9 @@ export default function(props) {
             <Route path="/helpdesk/manage_account" component={HelpDeskManageAccount}/>
             <Route path="/helpdesk/manage_google_authenticator" component={HelpDeskManageGoogleAuthenticator}/>
             <Route path="/helpdesk/reset_password" component={HelpDeskResetPassword}/>
+            <Route path="/helpdesk/external_select_account" component={HelpDeskExternalSelectAccount}/>
+
+
             <Route path="/check_device" component={CheckDevice}/>
             <Route path="/" component={Home}/>
             <Route path="/credential" component={CredentialHome}/>

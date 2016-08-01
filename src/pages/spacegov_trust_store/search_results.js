@@ -17,25 +17,22 @@ export default connect((state) => state) (
 
         select(e, gg_id) {
             e.preventDefault();
-            //This is all functionality that should be in the HelpDesk
-            //It's currently been stolen from there, but I forsee issues
-            findAccount(gg_id).then( (account) => {
-                saveHelpdeskSession(this.props.dispatch, {account, account_changed: false, id_proven: false, id_proof: null, actions: []} );
-                let request = {
-                    name: "Helpdesk",
+
+            let request = {
+                name: "Helpdesk",
+                auth_level_required: "1",
+                auth_level_desired: "1",
+                redirect_url: "/helpdesk/external_select_account?gg_id=" + gg_id,
+                calling_service_request: {
+                    name: "Spacegov Trust Store",
                     auth_level_required: "1",
                     auth_level_desired: "1",
-                    redirect_url: "/helpdesk/prove_identity",
-                    calling_service_request: {
-                        name: "Spacegov Trust Store",
-                        auth_level_required: "1",
-                        auth_level_desired: "1",
-                        redirect_url: "/spacegov/trust_store/search_results"
-                    }
-                };
-                saveGG3Session(this.props.dispatch, {request});
-                browserHistory.push("/service_redirect");
-            });
+                    redirect_url: "/spacegov/trust_store/search_results"
+                }
+            };
+            saveGG3Session(this.props.dispatch, {request});
+            browserHistory.push("/service_redirect");
+
         }
 
         render() {
