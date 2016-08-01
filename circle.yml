@@ -19,7 +19,7 @@ test:
 
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
-    - bundle exec cucumber --format pretty --format json --out $CIRCLE_TEST_REPORTS/cucumber/tests.cucumber
+    - bundle exec cucumber --format html --out $CIRCLE_TEST_REPORTS/cucumber/cucumber.html --format pretty --format json --out $CIRCLE_TEST_REPORTS/cucumber/tests.cucumber
 deployment:
   staging:
     branch: master
