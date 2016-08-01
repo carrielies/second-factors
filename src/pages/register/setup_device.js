@@ -8,6 +8,7 @@ import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 import {saveRegistrationSession} from '../../reducers/helpers'
+import {updateAccount, findAccount} from '../../utils/database'
 
 import {connect} from 'react-redux'
 export default connect((state) => state) (
@@ -18,20 +19,36 @@ export default connect((state) => state) (
             this.state = { errors: {} }
         }
 
+        componentDidMount() {
+            let session = this.props.session.registration;
+            findAccount(session.gg_id).then( (account) => {
+                saveRegistrationSession(this.props.dispatch, {account})
+            });
+        }
+
         onNext(e) {
             this.validate(e,{
                 deviceName: {msg: "Enter a name for your device", summary: "You need to enter a device name", regEx: /\w+/}
             }, (props) => {
 
-                saveRegistrationSession(this.props.dispatch, {
-                    device_fingerprint: {
-                        device: props.deviceName,
-                        fingerprint: this.refs.fp.secret()
-                    },
-                    level: "2"
+
+                let session = this.props.session.registration;
+                let account = session.account;
+
+                account.factors.device_fingerprint = {
+                    devices: [
+                        {
+                            device: props.deviceName,
+                            fingerprint: this.refs.fp.secret()
+                        }
+                    ]
+                };
+
+                updateAccount(account).then( () => {
+                    browserHistory.push("/register/your_auth_factors")
                 });
 
-                browserHistory.push("/register/your_auth_factors");
+                saveRegistrationSession(this.props.dispatch, {level: "2"});
             })
         }
 

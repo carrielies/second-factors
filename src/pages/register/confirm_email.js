@@ -8,17 +8,30 @@ import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
 import {saveRegistrationSession} from '../../reducers/helpers'
+import {updateAccount, findAccount} from '../../utils/database'
 
 export default connect((state) => state) (
 
     class extends QuestionPage {
 
+        componentDidMount() {
+            let session = this.props.session.registration;
+            findAccount(session.gg_id).then( (account) => {
+                saveRegistrationSession(this.props.dispatch, {account})
+            });
+        }
+
         onNext(e) {
             this.validate(e, {
                 code: {msg: "Enter your email code", summary: "You need to enter your email code", regEx: /\w+/},
             }, (props) => {
-                saveRegistrationSession(this.props.dispatch, {email_code: props.code} );
-                browserHistory.push("/register/your_password")
+                let session = this.props.session.registration;
+                let account = session.account;
+                account.email_code = props.code;
+
+                updateAccount( account ).then( () => {
+                    browserHistory.push("/register/your_password")
+                });
             })
         }
 

@@ -7,7 +7,8 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import {saveRegistrationSession} from '../../reducers/helpers'
+import {saveOrgSession} from '../../reducers/helpers'
+import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 import u2f from 'u2f-api'
 import 'whatwg-fetch';
 
@@ -18,7 +19,7 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
-            this.state = { errors: {} }
+            this.state = { errors: {}, success: false }
         }
 
         componentDidMount() {
@@ -36,13 +37,19 @@ export default connect((state) => state) (
                 .then((resp) => resp.json())
                 .then((res) => {
                     if( res.successful ) {
-                        saveRegistrationSession(this.props.dispatch, {
-                            u2f_key: {
-                                keyHandle: res.keyHandle,
-                                publicKey: res.publicKey
-                            },
-                            level: "2"
+
+                        let session = this.props.session.registration;
+                        let account = session.account;
+
+                        account.factors.u2f_key = {
+                            keyHandle: res.keyHandle,
+                            publicKey: res.publicKey
+                        };
+
+                        updateAccount(account).then( () => {
+                            this.setState( {success: true})
                         });
+
                     }
                     else {
                         this.setState({error: true})
@@ -55,6 +62,7 @@ export default connect((state) => state) (
 
         registerPage() {
             let session = this.props.session.registration;
+            let account = session.account;
             let request = this.props.session.gg3.request;
             return (
 
@@ -71,6 +79,7 @@ export default connect((state) => state) (
 
         successPage() {
             let session = this.props.session.registration;
+            let account = session.account;
             let request = this.props.session.gg3.request;
             return (
 
@@ -92,6 +101,7 @@ export default connect((state) => state) (
 
         render() {
             let session = this.props.session.registration;
+            let account = session.account;
             let request = this.props.session.gg3.request;
 
             if( this.state.error ) {
@@ -112,7 +122,7 @@ export default connect((state) => state) (
                 )
             }
 
-            if( session.u2f_key) {
+            if( this.state.success ) {
                 return this.successPage();
             }
             else {

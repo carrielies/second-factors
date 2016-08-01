@@ -7,19 +7,33 @@ import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 import {saveRegistrationSession} from '../../reducers/helpers'
 import {connect} from 'react-redux'
+import {updateAccount, findAccount} from '../../utils/database'
+
 
 export default connect((state) => state) (
 
     class extends QuestionPage {
+
+        componentDidMount() {
+            let session = this.props.session.registration;
+            findAccount(session.gg_id).then( (account) => {
+                saveRegistrationSession(this.props.dispatch, {account})
+            });
+        }
 
         onNext(e) {
             this.validate(e, {
                 password: {msg: "Enter your password", summary: "You need to enter a password", regEx: /\w+/},
                 password2: {msg: "Enter your password", summary: "You need to enter a password", regEx: /\w+/},
             }, (props) => {
-                saveRegistrationSession(this.props.dispatch, {password: props.password, level: "1"} );
-                // this.props.dispatch( {type: 'SAVE_ACCOUNT', data: factors});
-                browserHistory.push("/register/your_auth_factors")
+
+                let session = this.props.session.registration;
+                let account = session.account;
+                account.factors.password.secret = props.password;
+
+                updateAccount( account ).then( () => {
+                    browserHistory.push("/register/your_auth_factors")
+                });
             })
         }
 

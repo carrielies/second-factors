@@ -7,12 +7,21 @@ import Breadcrumb from '../../components/breadcrumb'
 import Content from '../../components/content'
 import { browserHistory } from 'react-router'
 import Notice from '../../components/notice'
-
+import {updateAccount, findAccount} from '../../utils/database'
+import {saveRegistrationSession} from '../../reducers/helpers'
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
 
     class extends QuestionPage {
+
+        componentDidMount() {
+            let session = this.props.session.registration;
+            findAccount(session.gg_id).then( (account) => {
+                saveRegistrationSession(this.props.dispatch, {account})
+            });
+        }
+
 
         onNext(e) {
             e.preventDefault();
@@ -38,27 +47,28 @@ export default connect((state) => state) (
         availableFactors() {
 
             let session = this.props.session.registration;
+            let account = session.account;
 
             let res = [];
 
-            if ( session.google_authenticator ) {
+            if ( account.factors.google_authenticator ) {
                 res.push(<div><span className="second_factor_already_setup">Google authenticator - setup</span><br/></div>)
             }
 
-            if ( session.device_fingerprint ) {
+            if ( account.factors.device_fingerprint ) {
                 res.push(<div><span className="second_factor_already_setup">Device fingerprint - setup</span><br/></div>)
             }
 
-            if ( session.u2f_key ) {
+            if ( account.factors.u2f_key ) {
                 res.push(<div><span className="second_factor_already_setup">U2F key - setup</span><br/></div>)
             }
 
-            if ( session.cryptophoto ) {
+            if ( account.factors.cryptophoto ) {
                 res.push(<div><span className="second_factor_already_setup">Cryptophoto - setup</span><br/></div>)
             }
 
 
-            if ( !session.google_authenticator ) {
+            if ( !account.factors.google_authenticator ) {
                 res.push(
                     <label className="block-label" htmlFor="radio-1" key="radio-1">
                         <input ref="ga" id="radio-1" type="radio" name="radio-group"/>Google authenticator
@@ -66,7 +76,7 @@ export default connect((state) => state) (
                 )
             }
 
-            if ( !session.device_fingerprint ) {
+            if ( !account.factors.device_fingerprint ) {
                 res.push(
                     <label className="block-label" htmlFor="radio-2" key="radio-2">
                         <input ref="df" id="radio-2" type="radio" name="radio-group"/>Device fingerprint
@@ -74,7 +84,7 @@ export default connect((state) => state) (
                 )
             }
 
-            if ( !session.u2f_key ) {
+            if ( !account.factors.u2f_key ) {
                 res.push(
                     <label className="block-label" htmlFor="radio-3" key="radio-3">
                         <input ref="u2f" id="radio-3" type="radio" name="radio-group"/>U2F Key
@@ -82,7 +92,7 @@ export default connect((state) => state) (
                 )
             }
 
-            if ( !session.cryptophoto ) {
+            if ( !account.factors.cryptophoto ) {
                 res.push(
                     <label className="block-label" htmlFor="radio-4" key="radio-4">
                         <input ref="cryptophoto" id="radio-4" type="radio" name="radio-group"/>Cryptophoto

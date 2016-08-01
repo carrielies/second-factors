@@ -6,6 +6,7 @@ import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 import {saveRegistrationSession} from '../../reducers/helpers'
+import {saveAccount} from '../../utils/database'
 
 import {connect} from 'react-redux'
 
@@ -17,8 +18,24 @@ export default connect((state) => state) (
             this.validate(e, {
                 name: {msg: "Enter your full name", summary: "You need to enter your full name", regEx: /\w+/},
             }, (props) => {
-                saveRegistrationSession(this.props.dispatch, {name: props.name, gg_id: this.cred_id()} );
-                browserHistory.push("/register/your_email")
+
+                let account = {
+                    name: props.name,
+                    gg_id: this.cred_id(),
+                    trust_id: this.trust_id(),
+                    group_id: this.group_id(),
+                    factors: {
+                        password: {
+                        }
+                    },
+                    interactions: []
+                };
+                saveRegistrationSession(this.props.dispatch, {gg_id: account.gg_id} );
+
+                saveAccount(account).then( () =>{
+                    browserHistory.push("/register/your_email")
+                })
+
             })
         }
 

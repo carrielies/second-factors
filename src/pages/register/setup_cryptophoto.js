@@ -4,8 +4,9 @@ import {connect} from 'react-redux'
 import 'whatwg-fetch';
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
-
 import {saveRegistrationSession} from '../../reducers/helpers'
+import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
+
 
 export default connect((state) => state) (
     class extends React.Component {
@@ -18,36 +19,39 @@ export default connect((state) => state) (
         onNext(e) {
             if(e) e.preventDefault();
 
-            saveRegistrationSession(this.props.dispatch, {
-                cryptophoto: {
-                    setup: true
-                },
-                level: "2"
+            let session = this.props.session.registration;
+            let account = session.account;
+
+            account.factors.cryptophoto = {};
+
+            updateAccount(account).then( () => {
+                browserHistory.push("/register/your_auth_factors")
             });
 
-            browserHistory.push("/register/your_auth_factors")
+            saveRegistrationSession(this.props.dispatch, { level: "2"});
         }
 
 
         componentDidMount() {
             let session = this.props.session.registration;
+            let account = session.account;
 
             fetch("/svr/crypto", {
                 method: 'POST',
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'},
-                body: JSON.stringify({gg_id: session.gg_id})
+                body: JSON.stringify({gg_id: account.gg_id})
             }).then((resp) => resp.json())
-            .then( (res) => {
-                if ( res.is_valid ) {
-                    (function(){
-                        var newscript = document.createElement('script');
-                        newscript.type = 'text/javascript';
-                        newscript.async = true;
-                        newscript.src = `https://cryptophoto.com/api/token?sd=${res.sid}`;
-                        (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(newscript);
-                    })();
-                }
-            });
+                .then( (res) => {
+                    if ( res.is_valid ) {
+                        (function(){
+                            var newscript = document.createElement('script');
+                            newscript.type = 'text/javascript';
+                            newscript.async = true;
+                            newscript.src = `https://cryptophoto.com/api/token?sd=${res.sid}`;
+                            (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(newscript);
+                        })();
+                    }
+                });
 
             let interval = setInterval( () => {
                 if ( document.getElementById('cp-sw-if') )  {
@@ -60,6 +64,7 @@ export default connect((state) => state) (
 
         render() {
             let session = this.props.session.registration;
+            let account = session.account;
             let request = this.props.session.gg3.request;
 
             return(

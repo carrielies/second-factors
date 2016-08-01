@@ -11,12 +11,19 @@ import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
 import {saveRegistrationSession} from '../../reducers/helpers'
-
+import {updateAccount, findAccount} from '../../utils/database'
 
 
 
 export default connect((state) => state) (
     class extends QuestionPage {
+
+        componentDidMount() {
+            let session = this.props.session.registration;
+            findAccount(session.gg_id).then( (account) => {
+                saveRegistrationSession(this.props.dispatch, {account})
+            });
+        }
 
         onTokenChange(token) {
             this.setState({token})
@@ -40,14 +47,17 @@ export default connect((state) => state) (
                 return;
             }
 
-            saveRegistrationSession(this.props.dispatch, {
-                google_authenticator: {
-                    secret: this.refs.ga.secret()
-                },
-                level: "2"
+            let session = this.props.session.registration;
+            let account = session.account;
+            account.factors.google_authenticator = {
+                secret: this.refs.ga.secret()
+            };
+
+            updateAccount( account ).then( () => {
+                browserHistory.push("/register/your_auth_factors")
             });
 
-            browserHistory.push("/register/your_auth_factors")
+            saveRegistrationSession(this.props.dispatch, { level: "2"});
         }
     
         render() {

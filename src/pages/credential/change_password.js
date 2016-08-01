@@ -6,6 +6,7 @@ import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 import {saveOrgSession} from '../../reducers/helpers'
+
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 
 import {connect} from 'react-redux'
