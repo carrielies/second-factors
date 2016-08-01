@@ -13,10 +13,14 @@ dependencies:
     - bundle install
 test:
   pre:
-    - npm run postinstall
     - npm run prod:
         background: true
     - sleep 5
 
   override:
     - cucumber
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: gg3alpha-stage

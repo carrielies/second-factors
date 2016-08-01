@@ -42,3 +42,8 @@ Download and install [heroku toolbelt](https://toolbelt.heroku.com/)
 ```
 
 Provide heroku username and password when prompted.
+
+You will need to add an env variable to heroku:
+```
+    NPM_CONFIG_PRODUCTION=false
+```
