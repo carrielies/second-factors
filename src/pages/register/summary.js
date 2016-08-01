@@ -60,6 +60,7 @@ export default connect((state) => state) (
                 email: session.email,
                 name: session.name,
                 trust_id: this.trust_id(),
+                group_id: this.group_id(),
                 factors: factors,
                 interactions: []
             };

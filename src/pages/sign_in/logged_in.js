@@ -25,6 +25,7 @@ export default connect((state) => state) (
                         name: a.name,
                         email: a.email,
                         gg_id: a.gg_id,
+                        group_id: a.group_id,
                         last_logged_in: time
                 };
                 saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: request.name});

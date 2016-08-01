@@ -5,7 +5,7 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
-import {saveCredentialSession} from '../../reducers/helpers'
+import {saveOrgSession} from '../../reducers/helpers'
 
 
 import {connect} from 'react-redux'
@@ -17,7 +17,7 @@ export default connect((state) => state) (
            let response = this.props.session.gg3.response;
            findAccount(response.gg_id)
            .then((account) => {
-               saveCredentialSession( this.props.dispatch, {account});
+               saveOrgSession( this.props.dispatch, {account});
                browserHistory.push("/credential/manage_account");
            })
         }

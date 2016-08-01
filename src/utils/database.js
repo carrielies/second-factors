@@ -67,12 +67,38 @@ export function rawDb() {
     return db;
 }
 
+export function getGroupAccounts( group_id ) {
+    return db.findAsync( {group_id: group_id } )
+}
+
 saveAccount({
     email: "average@joe.com",
     name: "Average Joe",
     always_use_2fa: false,
     gg_id: "765875675786",
     trust_id: "875678687GJHGH343",
+    group_id: "GR58757",
+    interactions: [],
+    factors: {
+        password: {
+            secret: "password"
+        },
+        google_authenticator: {
+            secret: "JM4VQTSGMQRSGRZEKJGSMUTNORUE63JS"
+        }
+    }
+});
+
+
+saveAccount({
+    email: "org@olive.com",
+    name: "Organised Olive",
+    always_use_2fa: false,
+    gg_id: "765875675786234",
+    trust_id: "875678687GJ234HGH343",
+    group_id: "GR58723457",
+    org_name: "Olive ltd",
+    is_org: true,
     interactions: [],
     factors: {
         password: {
@@ -90,6 +116,7 @@ saveAccount({
     always_use_2fa: true,
     gg_id: "GWed85d4c3",
     trust_id: "875678687GJHGH343",
+    group_id: "GR58877",
     interactions: [],
     factors: {
         password: {
@@ -127,6 +154,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "1234LARRY",
     trust_id: "875678687GJHGH343",
+    group_id: "GR511257",
     interactions: [],
     factors: {
         password: {

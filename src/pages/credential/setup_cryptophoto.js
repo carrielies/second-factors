@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import 'whatwg-fetch';
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
-import {saveCredentialSession} from '../../reducers/helpers'
+import {saveOrgSession} from '../../reducers/helpers'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 
 

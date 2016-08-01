@@ -26,6 +26,10 @@ export function saveCredentialSession(dispatchFn, data) {
     saveSession(dispatchFn, "credential", data);
 }
 
+export function saveOrgSession(dispatchFn, data) {
+    saveSession(dispatchFn, "org", data);
+}
+
 
 export function clearCredentialSession(dispatchFn) {
     clearSession(dispatchFn, "credential");
@@ -48,6 +52,11 @@ export function clearGG3Session(dispatchFn) {
     clearSession(dispatchFn, "gg3");
 }
 
+export function clearOrg(dispatchFn) {
+    clearSession(dispatchFn, "org");
+}
+
+
 export function clearResetPasswordSession(dispatchFn) {
     clearSession(dispatchFn, "reset_password");
 }
@@ -64,6 +73,7 @@ export function clearAllSessions(dispatchFn) {
     clearCredentialSession(dispatchFn);
     clearResetPasswordSession(dispatchFn);
     clearTrustStoreSession(dispatchFn);
+    clearOrg(dispatchFn);
 }
 
 

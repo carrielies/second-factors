@@ -10,7 +10,7 @@ import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
-import {saveCredentialSession} from '../../reducers/helpers'
+import {saveOrgSession} from '../../reducers/helpers'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 
 export default connect((state) => state) (

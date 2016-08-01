@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
 import {updateAccount, saveInteraction} from '../../utils/database'
-import {saveCredentialSession} from '../../reducers/helpers'
+import {saveOrgSession} from '../../reducers/helpers'
 
 export default connect((state) => state) (
 
@@ -19,7 +19,7 @@ export default connect((state) => state) (
                 email: {msg: "Enter your new email", summary: "You need to enter your new email", regEx: /\w+/},
             }, (props) => {
                 let session = this.props.session.credential;
-                saveCredentialSession(this.props.dispatch, {new_email: props.email, new_email_code: "1234"});
+                saveOrgSession(this.props.dispatch, {new_email: props.email, new_email_code: "1234"});
                 browserHistory.push("/credential/change_email_code");
             })
         }

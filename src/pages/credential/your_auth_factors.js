@@ -7,7 +7,7 @@ import Breadcrumb from '../../components/breadcrumb'
 import Content from '../../components/content'
 import { browserHistory } from 'react-router'
 import Notice from '../../components/notice'
-import {saveCredentialSession} from '../../reducers/helpers'
+import {saveOrgSession} from '../../reducers/helpers'
 
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 
@@ -26,7 +26,7 @@ export default connect((state) => state) (
 
             findAccount(response.gg_id)
             .then((account) => {
-                saveCredentialSession( this.props.dispatch, {account});
+                saveOrgSession( this.props.dispatch, {account});
             })
         }
 

@@ -5,7 +5,7 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
-import {saveCredentialSession, saveGG3Session} from '../../reducers/helpers'
+import {saveOrgSession, saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
 
@@ -17,29 +17,17 @@ export default connect((state) => state) (
         }
 
         componentDidMount() {
-            let response = this.props.session.gg3.response;
-
-            findAccount(response.gg_id)
+            let session = this.props.session.org;
+            let account = session.account;
+            findAccount(account.gg_id)
             .then((account) => {
-                saveCredentialSession( this.props.dispatch, {account});
+                saveOrgSession( this.props.dispatch, {account});
             })
-        }
-
-        goBack(e) {
-            e.preventDefault();
-            let request = this.props.session.gg3.request.calling_service_request;
-
-            saveGG3Session(this.props.dispatch, {request});
-            browserHistory.push("/service_redirect");
-
         }
 
 
         authFactors() {
-
-            let account = this.props.session.credential.account;
-
-            if ( !account  ) return [];
+            let account = this.props.session.org.account;
             let factors = account.factors;
 
             let list = [];
@@ -50,7 +38,7 @@ export default connect((state) => state) (
                     <td>This is enabled by default.  </td>
                     <td>Enabled</td>
                     <td className="change-link">
-                        <Link to="/credential/change_password">Change password</Link>
+                        <Link to="/org/change_password">Change password</Link>
                     </td>
                 </tr>
             );
@@ -62,7 +50,7 @@ export default connect((state) => state) (
                         <td></td>
                         <td>Enabled</td>
                         <td className="change-link">
-                            <Link to="/credential/remove_factor?factor_to_remove=google_authenticator">Remove Google authenticator</Link>
+                            <Link to="/org/remove_factor?factor_to_remove=google_authenticator">Remove Google authenticator</Link>
                         </td>
                     </tr>
                 )
@@ -75,7 +63,7 @@ export default connect((state) => state) (
                         <td></td>
                         <td>Enabled</td>
                         <td className="change-link">
-                            <Link to="/credential/remove_factor?factor_to_remove=u2f_key">Remove U2F key</Link>
+                            <Link to="/org/remove_factor?factor_to_remove=u2f_key">Remove U2F key</Link>
                         </td>
                     </tr>
                 )
@@ -88,7 +76,7 @@ export default connect((state) => state) (
                         <td></td>
                         <td>Enabled</td>
                         <td className="change-link">
-                            <Link to="/credential/remove_factor?factor_to_remove=cryptophoto">Remove CryptoPhoto</Link>
+                            <Link to="/org/remove_factor?factor_to_remove=cryptophoto">Remove CryptoPhoto</Link>
                         </td>
                     </tr>
                 )
@@ -101,7 +89,7 @@ export default connect((state) => state) (
                         <td></td>
                         <td>Enabled</td>
                         <td className="change-link">
-                            <Link to="/credential/remove_factor?factor_to_remove=device_fingerprint">Remove Device Fingerprint</Link>
+                            <Link to="/org/remove_factor?factor_to_remove=device_fingerprint">Remove Device Fingerprint</Link>
                         </td>
                     </tr>
                 )
@@ -113,7 +101,7 @@ export default connect((state) => state) (
                     <td></td>
                     <td></td>
                     <td className="change-link">
-                        <Link to="/credential/your_auth_factors">Add additional second factor</Link>
+                        <Link to="/org/your_auth_factors">Add additional second factor</Link>
                     </td>
                 </tr>
 
@@ -126,21 +114,18 @@ export default connect((state) => state) (
         render() {
 
             let gg3 = this.props.session.gg3;
-            let session = this.props.session.credential;
-            let account = session.account || {};
 
-            let callingService = gg3.request.calling_service_request || {};
+            let session = this.props.session.org;
+            let account = session.account;
 
             return(
                 <Govuk title="Credential Management">
-                    <Breadcrumb text={`${account.name}`} back="/helpdesk/search_results"/>
-
-
+                    <Breadcrumb text={`${account.name}`} back="/org/manage_org"/>
 
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
-                            <th colSpan="3">Your details</th>
+                            <th colSpan="3">{account.name} details</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -148,38 +133,13 @@ export default connect((state) => state) (
                         <tr>
                             <td>Name</td>
                             <td>{`${account.name}`}</td>
-                            <td className="change-link"><Link to="/credential/change_name">Change name</Link></td>
+                            <td className="change-link"></td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>{`${account.email}`}</td>
-                            <td className="change-link"><Link to="/credential/change_email">Change email</Link></td>
+                            <td className="change-link"></td>
                         </tr>
-
-
-
-                        { account.is_org ?
-                            [
-                                <tr>
-                                    <td>Organisation name</td>
-                                    <td>{account.org_name}</td>
-                                    <td className="change-link"><Link to="/org/manage_org">Manage Organisation</Link></td>
-                                </tr>,
-                                <tr>
-                                    <td>Group Id</td>
-                                    <td>{account.group_id}</td>
-                                    <td className="change-link"></td>
-                                </tr>
-                            ]
-
-                            :
-
-                            <tr>
-                                <td>Account type</td>
-                                <td>{`Individual`}</td>
-                                <td className="change-link"><Link to="/credential/convert_to_org">Convert to Organisation</Link></td>
-                            </tr>
-                        }
 
                         </tbody>
                     </table>
@@ -191,7 +151,7 @@ export default connect((state) => state) (
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
-                            <th colSpan="4">Your authentication Factors</th>
+                            <th colSpan="4">Their authentication Factors</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -201,9 +161,6 @@ export default connect((state) => state) (
                     </table>
                     <br/>
 
-
-                    {callingService ?
-                    <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {callingService.name}</a> : null}
 
                 </Govuk>
             )

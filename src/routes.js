@@ -58,12 +58,20 @@ import CredentialSetupGa from './pages/credential/setup_ga'
 import CredentialSetupDevice from './pages/credential/setup_device'
 import CredentialSetupCryptophoto from './pages/credential/setup_cryptophoto'
 import CredentialChangePassword from './pages/credential/change_password'
+import CredentialConvertToOrg from './pages/credential/convert_to_org'
 import CredentialU2f from './pages/credential/u2f'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
 import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
 import SpacegovTrustStoreSearch from './pages/spacegov_trust_store/search'
-import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results.js'
+import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results'
+
+
+import OrgManageOrg from './pages/org/manage_org'
+import OrgManageAccount from './pages/org/manage_account'
+import OrgRemoveFactor from './pages/org/remove_factor'
+
+
 
 export default function(props) {
     
@@ -143,6 +151,11 @@ export default function(props) {
             <Route path="/credential/device" component={CredentialSetupDevice}/>
             <Route path="/credential/cryptophoto" component={CredentialSetupCryptophoto}/>
             <Route path="/credential/change_password" component={CredentialChangePassword}/>
+            <Route path="/credential/convert_to_org" component={CredentialConvertToOrg}/>
+
+            <Route path="/org/manage_org" component={OrgManageOrg}/>
+            <Route path="/org/manage_account" component={OrgManageAccount}/>
+            <Route path="/org/remove_factor" component={OrgRemoveFactor}/>
 
 
         </Router>
