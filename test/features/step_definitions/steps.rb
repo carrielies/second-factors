@@ -152,7 +152,6 @@ And /^helpdesk agent unable to prove identity and breaks trust$/ do
   # reset password
   @new_password = find(:css, '.password_box').text
   click_link "Continue"
-  click_link "Save changes and break trust"
   click_link "Sign out"
 end
 
