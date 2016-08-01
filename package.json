@@ -6,7 +6,7 @@
     "start": "node server-prod.js",
     "dev": "node server-dev.js",
     "prod": "node server-prod.js",
-    "postinstall": "webpack --progress --colors --config webpack-prod.config.js",
+    "postinstall": "webpack --colors --config webpack-prod.config.js",
     "lint": "eslint src"
   },
   "repository": {

@@ -4,3 +4,6 @@ npm-debug.log
 dist
 .idea
 *.iml
+vendor
+mirage.log
+
