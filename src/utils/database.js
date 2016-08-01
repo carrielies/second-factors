@@ -37,6 +37,14 @@ export function findAccountByEmailAndPassword(email, password ) {
     });
 }
 
+
+export function applyInteraction(account, origin, event) {
+    let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
+    account.interactions.push( {origin, event, time} );
+    return account;
+}
+
+
 export function saveInteraction(gg_id, origin, event) {
     let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
     return db.updateAsync( {gg_id: gg_id}, {$push: {interactions: {origin, event, time} }}, {});
