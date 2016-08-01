@@ -38,6 +38,8 @@ export default connect((state) => state) (
         }
 
         login_user(account, originalRequest) {
+            //I don't like this code being here.
+            //This should be common code with the login code
             let time = fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
             let response = {
                 level: "1",

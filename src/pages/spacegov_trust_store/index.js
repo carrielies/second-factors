@@ -34,11 +34,6 @@ export default connect((state) => state) (
             e.preventDefault();
             let request = JSON.parse(this.state.request);
             saveGG3Session(this.props.dispatch, {request})
-            //
-            //
-            // this.props.dispatch( {type: 'SAVE_SERVICE', data: {
-            //     request
-            // }});
             browserHistory.push("/signin")
         }
 

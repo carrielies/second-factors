@@ -17,6 +17,8 @@ export default connect((state) => state) (
 
         select(e, gg_id) {
             e.preventDefault();
+            //This is all functionality that should be in the HelpDesk
+            //It's currently been stolen from there, but I forsee issues
             findAccount(gg_id).then( (account) => {
                 saveHelpdeskSession(this.props.dispatch, {account, account_changed: false, id_proven: false, id_proof: null, actions: []} );
                 let request = {
