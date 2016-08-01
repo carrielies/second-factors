@@ -24,29 +24,35 @@ export default connect((state) => state) (
 
             if ( this.refs.yes.checked ) {
                 let gg3 = this.props.session.gg3;
-                let session = this.props.session.credential;
+                let session = this.props.session.helpdesk;
                 let account = session.account;
                 let factor_to_remove = this.state.factor_to_remove;
                 delete account.factors[factor_to_remove];
+
+                if ( ! session.id_proven && !session.trust_id_changed) {
+                    account.trust_id = this.trust_id();
+                    saveHelpdeskSession( this.props.dispatch, {trust_id_changed: true});
+                }
+
                 updateAccount( account ).then( () => {
-                    browserHistory.push("/credential/manage_account")
+                    browserHistory.push("/helpdesk/manage_account")
                 })
             }
 
             if ( this.refs.no.checked ) {
-                browserHistory.push("/credential/manage_account")
+                browserHistory.push("/helpdesk/manage_account")
             }
         }
 
         render() {
             let gg3 = this.props.session.gg3;
-            let session = this.props.session.credential;
-            let account = this.props.session.credential.account || {};
+            let session = this.props.session.helpdesk;
+            let account = this.props.session.helpdesk.account || {};
             let factor_to_remove = this.state.factor_to_remove.replace("_", " ");
 
             return(
-                <Govuk title="Credential Management">
-                    <Breadcrumb text={`${account.name}`} back="/credential/manage_account"/>
+                <Govuk title="Helpdesk">
+                    <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/manage_account"/>
                     <Question title={`Remove ${factor_to_remove}?`}>
                         <fieldset className="inline">
                             <label className="block-label">
@@ -59,8 +65,6 @@ export default connect((state) => state) (
                     </Question>
                     <br/>
                     <a href="#" className="button" onClick={(e) => this.onClick(e)}>Continue</a>
-
-
                 </Govuk>
             )
         }

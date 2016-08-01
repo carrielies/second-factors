@@ -20,6 +20,17 @@ export default connect((state) => state) (
             this.state = {account};
         }
 
+        componentDidMount() {
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+
+            findAccount(account.gg_id)
+            .then((account) => {
+                saveHelpdeskSession( this.props.dispatch, {account});
+            })
+        }
+
+
         goBack(e) {
             let gg3 = this.props.session.gg3;
             if (gg3 && gg3.request && gg3.request.calling_service_request) {
@@ -33,38 +44,11 @@ export default connect((state) => state) (
 
         }
 
-        resetChanges(e) {
-            if(e) e.preventDefault();
-            let session = this.props.session.helpdesk;
-            let account = session.account;
-
-            findAccount(account.gg_id).then( (a) => {
-                this.setState( {account: a} );
-                saveHelpdeskSession(this.props.dispatch, {a, account_changed: false})
-            })
-        }
-
-        saveChanges(e) {
-            e.preventDefault();
-            let session = this.props.session.helpdesk;
-            let account = this.props.session.helpdesk.account;
-
-            if( !session.id_proven ) {
-                account.trust_id = this.trust_id();
-            }
-
-            updateAccount(account).then(() => {
-                return saveAccountInteraction(account.email, "helpdesk", session.actions.join(", ") );
-            }).then( () => {
-                browserHistory.push("/helpdesk/search")
-            });
-        }
-
-
 
         authFactors() {
             let account = this.props.session.helpdesk.account;
             let factors = account.factors;
+
             let list = [];
 
             list.push(
@@ -76,20 +60,72 @@ export default connect((state) => state) (
                         <Link to="/helpdesk/reset_password">Reset password</Link>
                     </td>
                 </tr>
-            )
+            );
 
             if ( factors.google_authenticator ) {
-                    list.push(
-                        <tr>
-                            <td>Google authenticator</td>
-                            <td>This requires a special app installed on THEIR browser or a phone app which generates a new code every minute or so. </td>
-                            <td>Enabled</td>
-                            <td className="change-link">
-                                <Link to="/helpdesk/manage_google_authenticator">Manage</Link>
-                            </td>
-                        </tr>
-                    )
+                list.push(
+                    <tr>
+                        <td>Google authenticator</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/helpdesk/remove_factor?factor_to_remove=google_authenticator">Remove Google authenticator</Link>
+                        </td>
+                    </tr>
+                )
             }
+
+            if ( factors.u2f_key ) {
+                list.push(
+                    <tr>
+                        <td>U2F Key</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/helpdesk/remove_factor?factor_to_remove=u2f_key">Remove U2F key</Link>
+                        </td>
+                    </tr>
+                )
+            }
+
+            if ( factors.cryptophoto ) {
+                list.push(
+                    <tr>
+                        <td>Cryptophoto</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/helpdesk/remove_factor?factor_to_remove=cryptophoto">Remove CryptoPhoto</Link>
+                        </td>
+                    </tr>
+                )
+            }
+
+            if ( factors.device_fingerprint ) {
+                list.push(
+                    <tr>
+                        <td>Device Fingerprint</td>
+                        <td></td>
+                        <td>Enabled</td>
+                        <td className="change-link">
+                            <Link to="/helpdesk/remove_factor?factor_to_remove=device_fingerprint">Remove Device Fingerprint</Link>
+                        </td>
+                    </tr>
+                )
+            }
+
+
+            list.push(
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className="change-link">
+                        <Link to="/helpdesk/your_auth_factors">Add additional second factor</Link>
+                    </td>
+                </tr>
+
+            )
 
             return list;
         }
@@ -134,44 +170,12 @@ export default connect((state) => state) (
             )
         }
 
-        pendingChanges() {
-
-            let session = this.props.session.helpdesk;
-            let actions = session.actions;
-            if ( !session.account_changed) return null;
-
-            let a = actions.map( (a) => <tr><td>{a}</td></tr>);
-
-            let button_name = "Save changes";
-            if( !session.id_proven ) {
-                button_name = "Save changes and break trust";
-            }
-
-            return (
-                <div>
-                    {session.account_changed ? <a href="#" className="button" onClick={(e) => this.saveChanges(e)}>{button_name}</a> : null }
-                    <br/>
-                    <br/>
-                    <details>
-                        <summary><span className="summary">View pending changes</span></summary>
-                        <div className="panel panel-border-narrow">
-                            <table className="table-font-xsmall" >
-                                <tbody>
-                                    {a}
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                </div>
-            )
-        }
-
         render() {
 
             let session = this.props.session.helpdesk;
             let gg3 = this.props.session.gg3;
             let account = session.account;
-            let callingService = null
+            let callingService = null;
             if (gg3 && gg3.request && gg3.request.calling_service_request){
                 callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
             }
@@ -205,7 +209,7 @@ export default connect((state) => state) (
                         <tr>
                             <td>Trust Id</td>
                             <td>{account.trust_id}</td>
-                            <td></td>
+                            <td>{session.trust_id_changed ? "Trust broken" : ""}</td>
                         </tr>
 
                         </tbody>
@@ -227,8 +231,6 @@ export default connect((state) => state) (
                         </tbody>
                     </table>
                     <br/>
-
-                    {this.pendingChanges()}
                     {this.eventLog()}
 
                     <br/>
