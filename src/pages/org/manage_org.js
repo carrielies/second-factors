@@ -25,7 +25,7 @@ export default connect((state) => state) (
             let account = credential.account;
 
             findAccount( account.gg_id ).then( (admin_account) => {
-                saveOrgSession( this.props.dispatch, {admin_account});
+                saveOrgSession( this.props.dispatch, {admin_account, org_name: admin_account.org_name, group_id: admin_account.group_id});
                 return admin_account;
             }).then( (admin_account) => {
                 getGroupAccounts(admin_account.group_id).then( (accounts) => {
@@ -75,6 +75,12 @@ export default connect((state) => state) (
                         </thead>
                         <tbody>
                         {account_list}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td className="change-link"><Link to="/org/create_account">Create Account</Link></td>
+                        </tr>
+
                         </tbody>
                     </table>
                 </Govuk>

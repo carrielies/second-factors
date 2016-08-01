@@ -70,6 +70,8 @@ import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search
 import OrgManageOrg from './pages/org/manage_org'
 import OrgManageAccount from './pages/org/manage_account'
 import OrgRemoveFactor from './pages/org/remove_factor'
+import OrgCreateAccount from './pages/org/create_account'
+import OrgCreateAccountSummary from './pages/org/create_account_summary'
 
 
 
@@ -156,6 +158,8 @@ export default function(props) {
             <Route path="/org/manage_org" component={OrgManageOrg}/>
             <Route path="/org/manage_account" component={OrgManageAccount}/>
             <Route path="/org/remove_factor" component={OrgRemoveFactor}/>
+            <Route path="/org/create_account" component={OrgCreateAccount}/>
+            <Route path="/org/create_account_summary" component={OrgCreateAccountSummary}/>
 
 
         </Router>
