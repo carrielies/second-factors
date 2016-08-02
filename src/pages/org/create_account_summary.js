@@ -14,96 +14,26 @@ export default connect((state) => state) (
 
     class extends QuestionPage {
 
-        createAccount() {
-            let session = this.props.session.registration;
-
-            let factors = {
-                password: {
-                    secret: session.password
-                }
-            };
-
-            if( session.google_authenticator ) {
-                factors.google_authenticator = {
-                    secret: session.google_authenticator.secret
-                }
-            }
-
-            if( session.u2f_key ) {
-                factors.u2f_key = {
-                    keyHandle: session.u2f_key.keyHandle,
-                    publicKey: session.u2f_key.publicKey
-                }
-            }
-
-
-            if( session.device_fingerprint ) {
-                factors.device_fingerprint = {
-                    devices: [
-                        {
-                            device: session.device_fingerprint.device,
-                            fingerprint: session.device_fingerprint.fingerprint
-                        }
-
-                    ]
-                }
-            }
-
-            if( session.cryptophoto ) {
-                factors.cryptophoto = {
-                }
-            }
-
-
-            let account = {
-                gg_id: session.gg_id,
-                email: session.email,
-                name: session.name,
-                trust_id: this.trust_id(),
-                group_id: this.group_id(),
-                factors: factors,
-                interactions: []
-            };
-            console.log(account);
-            return account;
-        }
 
         onNext(e) {
             e.preventDefault();
-            let account = this.createAccount();
-            let session = this.props.session.registration;
-            saveAccount(account).then( () => {
-                return saveInteraction( account.gg_id, "registration", `Account created with factors: ${this.authFactors()}` );
-            }).then( () => {
-                return findAccount(account.gg_id)
-            }).then( (a) => {
-                saveGG3Session(this.props.dispatch, {account: a, signed_in: true, level: session.level });
-                browserHistory.push( "/logged_in")
-            });
+            let session = this.props.session.org;
+            let account = session.account;
+            let request = this.props.session.gg3.request;
 
-        }
-
-        authFactors() {
-
-            let factors = ["Password"];
-            let session = this.props.session.registration;
-
-            if( session.google_authenticator ) factors.push( "Google authenticator");
-            if( session.device_fingerprint ) factors.push( "Device fingerprint");
-            if( session.u2f_key ) factors.push( "U2F Key");
-            if( session.cryptophoto ) factors.push( "Cryptophoto");
-            return factors.join(", ");
+            browserHistory.push( `/register/resume_registration?gg_id=${account.gg_id}`)
         }
 
         render() {
 
-            let session = this.props.session.registration;
+            let session = this.props.session.org;
+            let account = session.account;
             let request = this.props.session.gg3.request;
 
             return (
                 <Govuk phaseBanner="true">
 
-                    <Breadcrumb text={`Register for ${request.name}`}/>
+                    <Breadcrumb text={`Register for ${account.org_name}`}/>
                     <Question title="Your government gateway account has been created">
                     </Question>
 
@@ -116,23 +46,34 @@ export default connect((state) => state) (
                         <tbody>
                         <tr>
                             <td>Email</td>
-                            <td>{session.email}</td>
+                            <td>{account.email}</td>
                         </tr>
                         <tr>
                             <td>Name</td>
-                            <td>{session.name}</td>
+                            <td>{account.name}</td>
                         </tr>
-                        <tr>
-                            <td>Authentication Factors</td>
-                            <td>{this.authFactors()}</td>
-                        </tr>
-
                         </tbody>
                     </table>
                     <br/>
                     <br/>
-                    <a href="/signin" onClick={(e) => this.onNext(e)} className="button">Save and Sign in</a>
+                    <Link to="/org/manage_org" className="button">Finish</Link>
                     <br/>
+                    <br/>
+
+                    <div className="email">
+                        <div className="banner"></div>
+                        <p>
+                            Hello {account.name},<br/><br/>
+
+                            Please complete the registration for {account.org_name} by clicking the link below
+                            <br/><br/>
+                            <Link to={`/register/resume_registration?gg_id=${account.gg_id}`}>https://gg3.gov.uk/register/resume_registration</Link>
+                            <br/>
+                            <br/>
+                        </p>
+                    </div>
+
+
                     <br/>
 
                 </Govuk>

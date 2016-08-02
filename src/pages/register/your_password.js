@@ -16,6 +16,7 @@ export default connect((state) => state) (
 
         componentDidMount() {
             let session = this.props.session.registration;
+
             findAccount(session.gg_id).then( (account) => {
                 saveRegistrationSession(this.props.dispatch, {account})
             });

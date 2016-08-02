@@ -16,6 +16,7 @@ import YourName from './pages/register/your_name'
 import YourEmail from './pages/register/your_email'
 import ConfirmEmail from './pages/register/confirm_email'
 import YourPassword from './pages/register/your_password'
+import ResumeRegistration from './pages/register/resume_registration'
 import RegisterYourAuthFactors from './pages/register/your_auth_factors'
 import YourAuthFactors from './pages/sign_in/your_auth_factors'
 import LoggedIn from './pages/sign_in/logged_in'
@@ -106,6 +107,7 @@ export default function(props) {
             <Route path="/register/your_password" component={YourPassword}/>
             <Route path="/register/your_auth_factors" component={RegisterYourAuthFactors}/>
             <Route path="/register/summary" component={Summary}/>
+            <Route path="/register/resume_registration" component={ResumeRegistration}/>
             <Route path="/service/landing_page" component={LandingPage}/>
             <Route path="/service/we_dont_trust_you" component={WeDontTrustYou}/>
             <Route path="/service/enrol" component={ServiceEnrol}/>

@@ -6,6 +6,7 @@ import React from 'react'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory } from 'react-router'
 import {saveOrgSession} from '../../reducers/helpers'
+import {updateAccount, findAccount, saveAccount} from '../../utils/database'
 
 import {connect} from 'react-redux'
 
@@ -18,8 +19,20 @@ export default connect((state) => state) (
                 name: {msg: "Enter their full name", summary: "You need to enter their full name", regEx: /\w+/},
                 email: {msg: "Enter your their email", summary: "You need to enter their email", regEx: /\w+/},
             }, (props) => {
-                saveOrgSession(this.props.dispatch, {name: props.name, gg_id: this.cred_id()} );
-                browserHistory.push("/org/create_account_summary")
+
+                let session = this.props.session.org;
+                let account = {
+                    name: props.name,
+                    email: props.email,
+                    gg_id: this.cred_id(),
+                    group_id: session.group_id,
+                    org_name: session.org_name
+                };
+
+                saveAccount(account).then( ()=> {
+                    saveOrgSession(this.props.dispatch, {account} );
+                    browserHistory.push("/org/create_account_summary")
+                });
             })
         }
 
