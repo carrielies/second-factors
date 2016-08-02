@@ -182,7 +182,7 @@ def register_for_spacegov email,name,password
   choose "I'm done"
   click_link "Continue"
   # Your government gateway account has been created
-  click_link "Save and Sign in"
+  click_link "Continue to"
   # enrolment
   fill_in "org", with: "Zaltek"
   fill_in "mission", with: "To boldly go, where no man has gone before"
