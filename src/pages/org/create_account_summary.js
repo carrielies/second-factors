@@ -33,8 +33,8 @@ export default connect((state) => state) (
             return (
                 <Govuk phaseBanner="true" title="Organisation Management">
 
-                    <Breadcrumb text={`Register new user for ${account.org_name}`}/>
-                    <Question title="Your government gateway account has been created">
+                    <Breadcrumb text={`Register new user for ${account.org_name}`} hide_back={true}/>
+                    <Question title="An email has been sent for the new user to complete the registration">
                     </Question>
 
                     <table>
@@ -51,6 +51,10 @@ export default connect((state) => state) (
                         <tr>
                             <td>Name</td>
                             <td>{account.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Account Type</td>
+                            <td>{account.type === "admin" ? "Administrator" : "Assistant"}</td>
                         </tr>
                         </tbody>
                     </table>

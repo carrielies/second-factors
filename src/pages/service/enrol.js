@@ -79,9 +79,9 @@ export default connect((state) => state) (
                         <Question title={`Hello ${resp.name}`} errors={this.state.errors}>
                             <p>As this is the first time you have used this service, we need to get some details from
                                 you.</p>
-                            <Field ref="org" name="org" labelText="Your organisation name" errors={this.state.errors}/>
+                            <Field ref="org" name="org" labelText="Your station name" errors={this.state.errors}/>
                             <Field ref="mission" name="mission" labelText="Your mission statement"
-                                   errors={this.state.errors} labelHint="To boldy go, where no man has gone before"/>
+                                   errors={this.state.errors} labelHint="To boldly go, where no man has gone before"/>
                             <a href="#" className="button" onClick={(e) => this.enrollUser(e)}>Enrol for Spacegov</a>
                         </Question>
                         <hr/>

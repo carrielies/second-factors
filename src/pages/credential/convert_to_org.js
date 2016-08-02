@@ -24,6 +24,7 @@ export default connect((state) => state) (
                 let account = session.account;
                 account.org_name = props.org_name;
                 account.is_org = true;
+                account.type = "admin";
                 updateAccount( account ).then( () => {
                     browserHistory.push("/credential/manage_account")
                 })
@@ -31,14 +32,15 @@ export default connect((state) => state) (
         }
 
         render() {
-            let session = this.props.session.registration;
+            let session = this.props.session.credential;
             let request = this.props.session.gg3.request;
+            let account = session.account;
 
             return (
                 <Govuk phaseBanner="true">
-                    <Breadcrumb text={`Register for ${request.name}`}/>
+                    <Breadcrumb text={`${account.name}`}/>
 
-                    <Question title="What's your organisation name?" para="Enter your organisation name" errors={this.state.errors}>
+                    <Question title="What's your organisation name?" errors={this.state.errors}>
                         <Field ref="org_name" name="org_name" errors={this.state.errors} labelText="Organisation name"/>
                     </Question>
 

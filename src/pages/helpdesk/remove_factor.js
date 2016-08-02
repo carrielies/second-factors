@@ -7,7 +7,7 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
-import {saveRegistrationSession} from '../../reducers/helpers'
+import {saveHelpdeskSession} from '../../reducers/helpers'
 import {updateAccount, applyInteraction} from '../../utils/database'
 
 export default connect((state) => state) (

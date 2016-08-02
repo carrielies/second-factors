@@ -90,7 +90,7 @@ export default connect((state) => state) (
                     </table>
                     <br/>
                     <br/>
-                    <a href="/signin" onClick={(e) => this.onNext(e)} className="button">Save and Sign in</a>
+                    <a href="/signin" onClick={(e) => this.onNext(e)} className="button">Continue to {request.name}</a>
                     <br/>
                     <br/>
 

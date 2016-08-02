@@ -85,7 +85,7 @@ export default connect((state) => state) (
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
-                            <th colSpan="4">Your linked users</th>
+                            <th colSpan="4">Your linked accounts</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -21,10 +21,10 @@ export default connect((state) => state) (
             findAccount(gg_id).then((account) => {
 
                 let request = {
-                    name: `${account.org_name} registration`,
+                    name: `${account.org_name}`,
                     auth_level_required: "1",
-                    auth_level_desired: "2",
-                    redirect_url: "/credential/manage_account"
+                    auth_level_desired: "1",
+                    redirect_url: "/org/registration_complete"
                 };
 
                 account.factors = { password: {} };

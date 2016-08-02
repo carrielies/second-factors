@@ -16,8 +16,8 @@ export default connect((state) => state) (
 
         onNext(e) {
             this.validate(e, {
-                name: {msg: "Enter their full name", summary: "You need to enter their full name", regEx: /\w+/},
-                email: {msg: "Enter your their email", summary: "You need to enter their email", regEx: /\w+/},
+                name: {msg: "Enter their name", summary: "You need to enter their name", regEx: /\w+/},
+                email: {msg: "Enter their email", summary: "You need to enter their email", regEx: /\w+/},
             }, (props) => {
 
 
@@ -51,9 +51,9 @@ export default connect((state) => state) (
 
             return (
                 <Govuk phaseBanner="true" title="Organisation Management">
-                    <Breadcrumb text={`Register new user for ${session.org_name}`}/>
+                    <Breadcrumb text={`Register a new user for ${session.org_name}`}/>
 
-                    <Question title="What's their details ?" para="Enter all your names in full" errors={this.state.errors}>
+                    <Question title="Enter the new user's details" errors={this.state.errors}>
                         <Field ref="name" name="name" errors={this.state.errors} labelText="Name"/>
                         <Field ref="email" name="email" errors={this.state.errors} labelText="Email"/>
 
