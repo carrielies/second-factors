@@ -20,13 +20,22 @@ export default connect((state) => state) (
                 email: {msg: "Enter your their email", summary: "You need to enter their email", regEx: /\w+/},
             }, (props) => {
 
+
+                let type = "assistant";
+
+                if ( this.refs.admin.checked ) {
+                    type="admin";
+                }
+
                 let session = this.props.session.org;
                 let account = {
                     name: props.name,
                     email: props.email,
                     gg_id: this.cred_id(),
                     group_id: session.group_id,
-                    org_name: session.org_name
+                    org_name: session.org_name,
+                    is_org: true,
+                    type: type
                 };
 
                 saveAccount(account).then( ()=> {
@@ -41,8 +50,8 @@ export default connect((state) => state) (
 
 
             return (
-                <Govuk phaseBanner="true">
-                    <Breadcrumb text={`Register for ${session.org_name}`}/>
+                <Govuk phaseBanner="true" title="Organisation Management">
+                    <Breadcrumb text={`Register new user for ${session.org_name}`}/>
 
                     <Question title="What's their details ?" para="Enter all your names in full" errors={this.state.errors}>
                         <Field ref="name" name="name" errors={this.state.errors} labelText="Name"/>
@@ -51,10 +60,10 @@ export default connect((state) => state) (
                         <h1 className="heading-small">Account type</h1>
                         <fieldset className="inline">
                             <label className="block-label">
-                                <input id="yes" type="radio" name="radio-group" value="admin" ref="admin"/>Administrator
+                                <input id="admin" type="radio" name="radio-group" value="admin" ref="admin"/>Administrator
                             </label>
                             <label className="block-label">
-                                <input id="no" type="radio" name="radio-group" value="assistant" ref="assistant"/>Assistant
+                                <input id="assistant" type="radio" name="radio-group" value="assistant" ref="assistant"/>Assistant
                             </label>
                         </fieldset>
 

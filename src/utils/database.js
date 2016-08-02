@@ -55,6 +55,10 @@ export function updateAccount(account) {
     return db.updateAsync( {gg_id: account.gg_id}, {$set: account}, {});
 }
 
+export function deleteAccount(gg_id) {
+    return db.removeAsync( {gg_id: gg_id} )
+}
+
 export function allAccounts() {
     return db.findAsync({})
 }
@@ -78,6 +82,7 @@ saveAccount({
     gg_id: "765875675786",
     trust_id: "875678687GJHGH343",
     group_id: "GR58757",
+    type: "individual",
     interactions: [],
     factors: {
         password: {
@@ -98,6 +103,7 @@ saveAccount({
     trust_id: "875678687GJ234HGH343",
     group_id: "GR58723457",
     org_name: "Olive ltd",
+    type: "admin",
     is_org: true,
     interactions: [],
     factors: {
@@ -118,6 +124,7 @@ saveAccount({
     trust_id: "875678687GJHGH343",
     group_id: "GR58877",
     interactions: [],
+    type: "individual",
     factors: {
         password: {
             secret: "password"
@@ -155,6 +162,7 @@ saveAccount({
     gg_id: "1234LARRY",
     trust_id: "875678687GJHGH343",
     group_id: "GR511257",
+    type: "individual",
     interactions: [],
     factors: {
         password: {

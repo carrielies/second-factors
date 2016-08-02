@@ -24,6 +24,7 @@ export default connect((state) => state) (
                     gg_id: this.cred_id(),
                     trust_id: this.trust_id(),
                     group_id: this.group_id(),
+                    type: "individual",
                     factors: {
                         password: {
                         }

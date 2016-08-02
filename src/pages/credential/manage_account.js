@@ -129,11 +129,11 @@ export default connect((state) => state) (
             let session = this.props.session.credential;
             let account = session.account || {};
 
-            let callingService = gg3.request.calling_service_request || {};
+            let callingService = gg3.request.calling_service_request;
 
             return(
                 <Govuk title="Credential Management">
-                    <Breadcrumb text={`${account.name}`} back="/helpdesk/search_results"/>
+                    <Breadcrumb text={`${account.name}`} hide_back={true}/>
 
 
 
@@ -157,29 +157,44 @@ export default connect((state) => state) (
                         </tr>
 
 
-
-                        { account.is_org ?
-                            [
-                                <tr>
-                                    <td>Organisation name</td>
-                                    <td>{account.org_name}</td>
-                                    <td className="change-link"><Link to="/org/manage_org">Manage Organisation</Link></td>
-                                </tr>,
-                                <tr>
-                                    <td>Group Id</td>
-                                    <td>{account.group_id}</td>
-                                    <td className="change-link"></td>
-                                </tr>
-                            ]
-
-                            :
-
+                        { account.type === "individual" ?
                             <tr>
                                 <td>Account type</td>
-                                <td>{`Individual`}</td>
-                                <td className="change-link"><Link to="/credential/convert_to_org">Convert to Organisation</Link></td>
-                            </tr>
+                                <td>Individual</td>
+                                <td className="change-link"><Link to="/credential/convert_to_org">Convert to
+                                    Organisation</Link></td>
+                            </tr> : null
                         }
+
+                        { account.type === "admin" ?
+                            <tr>
+                                <td>Account type</td>
+                                <td>Administrator</td>
+                                <td className="change-link"></td>
+                            </tr> : null
+                        }
+
+                        { account.type === "assistant" ?
+                            <tr>
+                                <td>Account type</td>
+                                <td>Assistant</td>
+                                <td className="change-link"></td>
+                            </tr> : null
+                        }
+
+
+                        { account.is_org ?
+                            <tr>
+                                <td>Organisation name</td>
+                                <td>{account.org_name}</td>
+                                <td className="change-link">
+                                    { account.type === "admin" ?
+                                        <Link to="/org/manage_org">Manage Organisation</Link> : null
+                                    }
+                                </td>
+                            </tr> : null
+                        }
+
 
                         </tbody>
                     </table>

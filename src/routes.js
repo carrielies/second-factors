@@ -73,6 +73,7 @@ import OrgManageAccount from './pages/org/manage_account'
 import OrgRemoveFactor from './pages/org/remove_factor'
 import OrgCreateAccount from './pages/org/create_account'
 import OrgCreateAccountSummary from './pages/org/create_account_summary'
+import OrgDeleteAccount from './pages/org/delete_account'
 
 
 
@@ -162,7 +163,7 @@ export default function(props) {
             <Route path="/org/remove_factor" component={OrgRemoveFactor}/>
             <Route path="/org/create_account" component={OrgCreateAccount}/>
             <Route path="/org/create_account_summary" component={OrgCreateAccountSummary}/>
-
+            <Route path="/org/delete_account" component={OrgDeleteAccount}/>
 
         </Router>
         

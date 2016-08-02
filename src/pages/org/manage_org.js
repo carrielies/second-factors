@@ -29,7 +29,9 @@ export default connect((state) => state) (
                 return admin_account;
             }).then( (admin_account) => {
                 getGroupAccounts(admin_account.group_id).then( (accounts) => {
-                    this.setState( {accounts})
+                    console.log(accounts)
+                    let filteredAccounts = accounts.filter( (a) => a.gg_id != admin_account.gg_id );
+                    this.setState( { accounts: filteredAccounts })
                 })
             });
         }
@@ -37,7 +39,7 @@ export default connect((state) => state) (
         manageAccount(e, gg_id) {
             e.preventDefault();
             findAccount( gg_id ).then( (account) => {
-                saveOrgSession(this.props.dispatch, account);
+                saveOrgSession(this.props.dispatch, {account});
                 browserHistory.push("/org/manage_account");
             });
         }
@@ -52,30 +54,44 @@ export default connect((state) => state) (
             let org_name = admin_account ? admin_account.org_name : "";
 
             let account_list = accounts.map( (a) => {
+
+                if ( !a.factors ) {
+                    return(
+                        <tr>
+                            <td>{a.name}</td>
+                            <td>{a.email}</td>
+                            <td>{a.type == "admin" ? "Administrator" : "Assistant"}</td>
+                            <td className="change-link"><a href="#" onClick={(e) => e.preventDefault()}>Resend email</a></td>
+                        </tr>
+                    )
+                }
+
                 return(
                     <tr>
                         <td>{a.name}</td>
-                        <td>{a.is_org ? "Administrator" : "Assistant"}</td>
+                        <td>{a.email}</td>
+                        <td>{a.type == "admin" ? "Administrator" : "Assistant"}</td>
                         <td className="change-link"><a href="#" onClick={(e) => this.manageAccount(e, a.gg_id)}>Manage Account</a></td>
                     </tr>
                 )
             });
 
             return(
-                <Govuk title="Credential Management">
-                    <Breadcrumb text={`${org_name}`} back="/helpdesk/search_results"/>
+                <Govuk title="Organisation Management">
+                    <Breadcrumb text={`${org_name}`} back="/credential/manage_account"/>
 
 
 
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
-                            <th colSpan="3">Your linked users</th>
+                            <th colSpan="4">Your linked users</th>
                         </tr>
                         </thead>
                         <tbody>
                         {account_list}
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td className="change-link"><Link to="/org/create_account">Create Account</Link></td>

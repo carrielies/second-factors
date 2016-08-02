@@ -21,6 +21,7 @@ export default connect((state) => state) (
             let account = session.account;
             findAccount(account.gg_id)
             .then((account) => {
+                console.log(account);
                 saveOrgSession( this.props.dispatch, {account});
             })
         }
@@ -110,6 +111,31 @@ export default connect((state) => state) (
             return list;
         }
 
+        convertToAssistant(e) {
+            e.preventDefault();
+
+            let session = this.props.session.org;
+            let account = session.account;
+            account.type = "assistant";
+
+            updateAccount(account).then( () => {
+                saveOrgSession( this.props.dispatch, {account});
+            });
+        }
+
+        convertToAdmin(e) {
+            e.preventDefault();
+
+            let session = this.props.session.org;
+            let account = session.account;
+            account.type = "admin";
+
+            updateAccount(account).then( () => {
+                saveOrgSession( this.props.dispatch, {account});
+            });
+        }
+
+
 
         render() {
 
@@ -119,7 +145,7 @@ export default connect((state) => state) (
             let account = session.account;
 
             return(
-                <Govuk title="Credential Management">
+                <Govuk title="Organisation Management">
                     <Breadcrumb text={`${account.name}`} back="/org/manage_org"/>
 
                     <table className="table-font-xsmall summary" >
@@ -141,6 +167,22 @@ export default connect((state) => state) (
                             <td className="change-link"></td>
                         </tr>
 
+                        { account.type === "admin" ?
+                            <tr>
+                                <td>Type</td>
+                                <td>Adminstrator</td>
+                                <td className="change-link"><a href="#" onClick={(e) => this.convertToAssistant(e)}>Convert to assistant</a></td>
+                            </tr> :
+
+                            <tr>
+                                <td>Type</td>
+                                <td>Assistant</td>
+                                <td className="change-link"><a href="#" onClick={(e) => this.convertToAdmin(e)}>Convert to administrator</a></td>
+                            </tr>
+                        }
+
+
+
                         </tbody>
                     </table>
                     <br/>
@@ -160,7 +202,7 @@ export default connect((state) => state) (
                         </tbody>
                     </table>
                     <br/>
-
+                    <Link to="/org/delete_account" className="button-secondary">Delete acccount</Link>
 
                 </Govuk>
             )

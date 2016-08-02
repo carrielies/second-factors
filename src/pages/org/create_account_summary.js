@@ -31,9 +31,9 @@ export default connect((state) => state) (
             let request = this.props.session.gg3.request;
 
             return (
-                <Govuk phaseBanner="true">
+                <Govuk phaseBanner="true" title="Organisation Management">
 
-                    <Breadcrumb text={`Register for ${account.org_name}`}/>
+                    <Breadcrumb text={`Register new user for ${account.org_name}`}/>
                     <Question title="Your government gateway account has been created">
                     </Question>
 
