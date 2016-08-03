@@ -59,11 +59,13 @@ export default connect((state) => state) (
                     <Ga ref="ga" secret={account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>
 
                     <Question title="What's your 6 digit google authenticator code?" errors={errors}>
-                        <Field ref="code" name="code" labelText="Code" errors={errors} labelHint={hint}/>
+                        <Field ref="code" name="code" labelText="Code" errors={errors}/>
                     </Question>
 
                     <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     <br/>
+                    <br/>
+                    <strong className="ga_code_hidden">{hint}</strong>
                     <br/>
                     <details>
                         <summary><span className="summary">Having problems?</span></summary>
