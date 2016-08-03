@@ -85,10 +85,13 @@ export default connect((state) => state) (
                     </Content>
     
                     <Question title="" errors={errors}>
-                        <Field ref="code" name="code" labelText="What code is displayed?" errors={errors} labelHint={hint}/>
+                        <Field ref="code" name="code" labelText="What code is displayed?" errors={errors}/>
                     </Question>
     
                     <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
+                    <br/>
+                    <br/>
+                    <strong className="ga_code_hidden">{hint}</strong>
                     <br/>
                 </Govuk>
             )
