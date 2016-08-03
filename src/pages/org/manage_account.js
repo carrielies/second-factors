@@ -95,18 +95,6 @@ export default connect((state) => state) (
                 )
             }
 
-            list.push(
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td className="change-link">
-                        <Link to="/org/your_auth_factors">Add additional second factor</Link>
-                    </td>
-                </tr>
-
-            )
-
             return list;
         }
 
