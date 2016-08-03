@@ -24,6 +24,7 @@ export default connect((state) => state) (
 
 
         onNext(e) {
+
             e.preventDefault();
             if( this.refs.ga && this.refs.ga.checked ) {
                 browserHistory.push("/register/ga")
@@ -52,19 +53,19 @@ export default connect((state) => state) (
             let res = [];
 
             if ( account.factors.google_authenticator ) {
-                res.push(<div><span className="second_factor_already_setup">Google authenticator - setup</span><br/></div>)
+                res.push(<div key="f1"><span className="second_factor_already_setup">Google authenticator - setup</span><br/></div>)
             }
 
             if ( account.factors.device_fingerprint ) {
-                res.push(<div><span className="second_factor_already_setup">Device fingerprint - setup</span><br/></div>)
+                res.push(<div key="f2"><span className="second_factor_already_setup">Device fingerprint - setup</span><br/></div>)
             }
 
             if ( account.factors.u2f_key ) {
-                res.push(<div><span className="second_factor_already_setup">U2F key - setup</span><br/></div>)
+                res.push(<div key="f3"><span className="second_factor_already_setup">U2F key - setup</span><br/></div>)
             }
 
             if ( account.factors.cryptophoto ) {
-                res.push(<div><span className="second_factor_already_setup">Cryptophoto - setup</span><br/></div>)
+                res.push(<div key="f4"><span className="second_factor_already_setup">Cryptophoto - setup</span><br/></div>)
             }
 
 
@@ -108,7 +109,6 @@ export default connect((state) => state) (
 
             let session = this.props.session.registration;
             let request = this.props.session.gg3.request;
-            console.log(session);
 
             return (
                 <Govuk>

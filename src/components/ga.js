@@ -7,12 +7,15 @@ export default class extends React.Component{
 
     constructor(props) {
         super(props);
+        this.state = {};
         if( props.secret ) {
             this.state = {token: "", secret: props.secret}
         }
         else {
-            let secret = speakeasy.generateSecret({length: 20});
-            this.state = {token: "", secret: secret.base32, url: secret.otpauth_url}
+            fetch("/svr/ga/secret").then((resp) => resp.json()).then( (secret) => {
+                this.setState({token: "", secret: secret.base32, url: secret.otpauth_url})
+            } )
+
         }
     }
 
@@ -50,9 +53,10 @@ export default class extends React.Component{
 
 
     render() {
+        let url = this.state.url || "loading";
         if(this.props.qrcodeSize ) {
             return(
-                <QRCode value={this.state.url} size={this.props.qrcodeSize} />
+                <QRCode value={url} size={parseInt(this.props.qrcodeSize)} />
             )
         }
         else {

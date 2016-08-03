@@ -129,9 +129,9 @@ export default connect((state) => state) (
                     <br/>
                         <details>
 
-                            <summary><span class="summary">Customer unable to prove their identity</span></summary>
+                            <summary><span className="summary">Customer unable to prove their identity</span></summary>
 
-                            <div class="panel panel-border-narrow">
+                            <div className="panel panel-border-narrow">
 
                                 <p>
                                     If you continue on, then you will break their trust between any of their enrolled services.
@@ -146,9 +146,9 @@ export default connect((state) => state) (
 
                         <details>
 
-                            <summary><span class="summary">I've proved their identity by other means</span></summary>
+                            <summary><span className="summary">I've proved their identity by other means</span></summary>
 
-                            <div class="panel panel-border-narrow">
+                            <div className="panel panel-border-narrow">
 
                                 <h1 className="heading-small">
                                     How have you proved their identity ?

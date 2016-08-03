@@ -5,10 +5,17 @@ var app = express();
 var bodyParser = require('body-parser');
 var config = require('./config');
 var crypto = require('crypto');
+var speakeasy = require('speakeasy');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.get('/svr/ga/secret', function(req, res) {
+  var secret = speakeasy.generateSecret({length: 20});
+  res.json(secret);
+});
+
 
 app.get('/svr/u2f/register', function(req, res) {
   var u2f_req = u2f.request(config.appId);

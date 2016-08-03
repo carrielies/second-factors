@@ -16,14 +16,14 @@ export default connect((state) => state) (
             return(
                 <details>
 
-                    <summary><span class="summary">Behind the scenes stuff...</span></summary>
+                    <summary><span className="summary">Behind the scenes stuff...</span></summary>
 
-                    <div class="panel panel-border-narrow">
+                    <div className="panel panel-border-narrow">
 
                         <h1 className="heading-small">OpenId/SAML Request issued by service</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
-                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(request, null, 2)}/>
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(request, null, 2)} readOnly/>
                             </div>
                             <div className="column-one-third">
                             </div>
@@ -32,7 +32,7 @@ export default connect((state) => state) (
                         <h1 className="heading-small">GG3 session</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
-                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(gg3, null, 2)}/>
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(gg3, null, 2)} readOnly/>
                             </div>
                             <div className="column-one-third">
                             </div>
@@ -41,7 +41,7 @@ export default connect((state) => state) (
                         <h1 className="heading-small">Gateway Response</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
-                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(resp, null, 2)}/>
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(resp, null, 2)} readOnly/>
                             </div>
                             <div className="column-one-third">
                             </div>
@@ -50,7 +50,7 @@ export default connect((state) => state) (
                         <h1 className="heading-small">{request.name} trust store</h1>
                         <div className="grid-row">
                             <div className="column-two-thirds">
-                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(session, null, 2)}/>
+                                <textarea ref="request" cols="70" rows="6" value={JSON.stringify(session, null, 2)} readOnly/>
                             </div>
                             <div className="column-one-third">
                             </div>

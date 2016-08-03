@@ -58,9 +58,9 @@ export default connect((state) => state) (
 
                     <details>
 
-                        <summary><span class="summary">Behind the scenes stuff...</span></summary>
+                        <summary><span className="summary">Behind the scenes stuff...</span></summary>
 
-                        <div class="panel panel-border-narrow">
+                        <div className="panel panel-border-narrow">
 
                             <h1 className="heading-small">OpenId Request</h1>
                             <div className="grid-row">

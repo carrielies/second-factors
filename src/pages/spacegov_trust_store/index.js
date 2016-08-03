@@ -52,7 +52,7 @@ export default connect((state) => state) (
 
                     <details>
 
-                        <summary><span class="summary">Behind the scenes stuff...</span></summary>
+                        <summary><span className="summary">Behind the scenes stuff...</span></summary>
 
                         <div class="panel panel-border-narrow">
 

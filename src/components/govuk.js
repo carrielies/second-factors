@@ -93,7 +93,7 @@ export default connect((state) => state) (
                         <div className="footer-wrapper">
                             <div className="footer-meta">
                                 <div className="footer-meta-inner">
-                                    <ul class="platform-help-links">
+                                    <ul className="platform-help-links">
                                         <li><a href="https://www.tax.service.gov.uk/help/cookies" target="_blank" data-sso="false" data-journey-click="footer:Click:Cookies">Cookies</a></li>
                                         <li><a href="https://www.tax.service.gov.uk/help/privacy" target="_blank" data-sso="false" data-journey-click="footer:Click:Privacy policy">Privacy policy</a></li>
                                         <li><a href="https://www.tax.service.gov.uk/help/terms-and-conditions" target="_blank" data-sso="false" data-journey-click="footer:Click:Terms and conditions">Terms and conditions</a></li>

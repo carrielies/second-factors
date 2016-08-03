@@ -4,7 +4,7 @@ export default class extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {value: this.props.value}
+        this.state = {value: this.props.value || ""}
     }
 
     value() {

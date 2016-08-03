@@ -7,7 +7,6 @@ import Field from '../../components/field'
 import {connect} from 'react-redux'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import generatePassword from 'password-generator'
 import {saveHelpdeskSession} from '../../reducers/helpers'
 import {updateAccount, applyInteraction} from '../../utils/database'
 
@@ -16,7 +15,7 @@ export default connect((state) => state) (
     class extends QuestionPage {
         constructor(props) {
             super(props);
-            let new_password = generatePassword();
+            let new_password = "monday12";
             this.state = { new_password };
             let session = props.session.helpdesk;
             let account = session.account;

@@ -2,9 +2,28 @@ require 'capybara'
 require 'capybara/cucumber'
 require 'capybara/rspec'
 require 'mirage/client'
+require 'capybara/poltergeist'
+require 'phantomjs'
 
-Capybara.register_driver :selenium do |app|
- Capybara::Selenium::Driver.new(app, :browser => :chrome)
+if ENV['browser'] == "phantom"
+
+  Capybara.register_driver :poltergeist do |app|
+        options = {
+                  js_errors: false, # silences js errors
+                  timeout: 500, # adjusts timeout in ms
+                  debug: false
+                  }
+      Capybara::Poltergeist::Driver.new(app, options)
+    end
+
+  Capybara.default_driver = :poltergeist
+
+else
+
+  Capybara.register_driver :selenium do |app|
+   Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+  Capybara.default_driver = :selenium
 end
 
-Capybara.default_driver = :selenium
+

@@ -16,7 +16,7 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
-            this.state = {token: ""}
+            this.state = {}
         }
 
         onTokenChange(token) {
@@ -63,7 +63,8 @@ export default connect((state) => state) (
                     <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     <br/>
                     <br/>
-                    <strong className="ga_code_hidden">{hint}</strong>
+                    {this.state.token ?
+                        <strong className="ga_code_hidden">{hint}</strong> : null }
                     <br/>
                     <Link to="/helpdesk/prove_identity">They don't know the answer</Link>
                 </Govuk>

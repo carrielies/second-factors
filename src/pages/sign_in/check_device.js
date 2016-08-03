@@ -30,7 +30,6 @@ export default connect((state) => state) (
             });
 
             this.setState({current_fingerprint: res, matched: matched});
-            console.log(matched)
         }
 
         render() {

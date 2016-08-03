@@ -29,7 +29,6 @@ export default connect((state) => state) (
                 return admin_account;
             }).then( (admin_account) => {
                 getGroupAccounts(admin_account.group_id).then( (accounts) => {
-                    console.log(accounts)
                     let filteredAccounts = accounts.filter( (a) => a.gg_id != admin_account.gg_id );
                     this.setState( { accounts: filteredAccounts })
                 })

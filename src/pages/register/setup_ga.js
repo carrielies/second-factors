@@ -91,7 +91,8 @@ export default connect((state) => state) (
                     <a href="#" className="button" onClick={(e) => this.onNext(e)}>Continue</a>
                     <br/>
                     <br/>
-                    <strong className="ga_code_hidden">{hint}</strong>
+                    {this.state.token ?
+                        <strong className="ga_code_hidden">{hint}</strong> : null }
                     <br/>
                 </Govuk>
             )

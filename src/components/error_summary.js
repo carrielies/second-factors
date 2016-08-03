@@ -3,7 +3,7 @@ import React from 'react'
 export default function(props) {
 
     let errorProps = props.errors || {};
-    let errors = Object.keys(errorProps).map( (k) => <li><a href={`#${k}`}>{props.errors[k].summary}</a></li> )
+    let errors = Object.keys(errorProps).map( (k) => <li key={k}><a href={`#${k}`}>{props.errors[k].summary}</a></li> )
     let header = props.header || "Please fix the problems below";
 
     if( Object.keys(errorProps).length == 0 ) {

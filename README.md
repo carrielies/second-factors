@@ -47,3 +47,18 @@ You will need to add an env variable to heroku:
 ```
     NPM_CONFIG_PRODUCTION=false
 ```
+
+
+### Testing
+
+Install phantomjs with:
+
+```
+    brew install phantomjs
+```
+
+```
+    bundle exec cucumber browser=phantom
+    bundle exec cucumber  (chrome)
+    
+```

@@ -40,6 +40,7 @@ And /^I use Google authenticator$/ do
   choose("Google authenticator")
   click_link "Continue"
 
+
   code = find(:css, '.ga_code_hidden').text
   if code.is_a? Array
     code=code[0]
@@ -234,6 +235,7 @@ def register_for_spacegov email,name,password
   setup_google_authenticator
   choose "I'm done"
   click_link "Continue"
+  page.save_screenshot('/tmp/screenshot.png', full: true)
   # Your government gateway account has been created
   click_link "Continue to"
   # enrolment

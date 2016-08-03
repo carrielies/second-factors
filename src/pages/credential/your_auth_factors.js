@@ -116,7 +116,6 @@ export default connect((state) => state) (
             let session = this.props.session.credential;
             let request = this.props.session.gg3.request;
             let account = session.account;
-            console.log(session);
 
             return (
                 <Govuk>

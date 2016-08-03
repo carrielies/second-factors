@@ -21,7 +21,6 @@ export default connect((state) => state) (
             let account = session.account;
             findAccount(account.gg_id)
             .then((account) => {
-                console.log(account);
                 saveOrgSession( this.props.dispatch, {account});
             })
         }

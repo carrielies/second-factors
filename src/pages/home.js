@@ -61,7 +61,7 @@ export default connect((state) => state) (
         }
 
         render() {
-            let drop_down = this.state.accounts.map( (u) => <option value={u.email}>{u.email}</option> );
+            let drop_down = this.state.accounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
 
             return(
                 <GovUk title="Home">
@@ -84,7 +84,7 @@ export default connect((state) => state) (
                     <br/>
                     <br/>
                     <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>
-                    <input type="hidden"  valur={this.state.data} name="session_state"/>
+                    <input type="hidden"  value={this.state.data} name="session_state"/>
 
                 </GovUk>
             )
