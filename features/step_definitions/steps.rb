@@ -50,6 +50,7 @@ And /^I use Google authenticator$/ do
 end
 
 And /^I enter: (.*)$/ do |data|
+
   d = eval(data)
   d.each do |name, val|
     fill_in name, with: val
@@ -92,6 +93,10 @@ And /^I should see the "(.*)" link$/ do |link|
   expect(page).to have_link( link )
 end
 
+And /^I should not see the "(.*)" link$/ do |link|
+  expect(page).to have_no_link( link )
+end
+
 And /^I should still see the "(.*)" button$/ do |button_name|
   expect(page).to have_button( button_name )
 end
@@ -106,6 +111,14 @@ end
 
 Then /^I should see:$/ do |table|
   table.raw.flatten.each { |r| expect(page).to have_content(r) }
+end
+
+Then /^I should see content "(.*?)"$/ do |arg1|
+   expect(page).to have_content(arg1)
+end
+
+Then /^I should not see content "(.*?)"$/ do |arg1|
+   expect(page).to have_no_content(arg1)
 end
 
 When(/^I click the "(.*)" link$/) do |link|
