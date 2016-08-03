@@ -146,8 +146,8 @@ saveAccount({
             ]
         },
         u2f_key: {
-            keyHandle: "OlluWKhE2N22pAk3aeEsMTdON_pjzNZ8bE7Bld3m0_YqCX4FHjAAuld-3Rs_GBjwIYzvv_-ypxElKTF0jvht9Q",
-            publicKey: "BKDP6umPgTt6sHIR_w3g6_5YlhAHaA1bWNylRbvrN74HsJ_6tDn14x1RqMXTWxnfP05UyEL0cyo1lcK1WtKRyFs"
+            keyHandle: "zIdS3YuIc5lLQr9cusvGHLPCEGby_eTE83vOFgoQ7PzjTvrWNdVBz3GRxTEXHG6LrYWviCepe1XWilPwTONt8w",
+            publicKey: "BFYR1mysTZA-TZSnlN7KAdPcGjeb-Txp4EOQSjg8wYENedh-ZxIQomh3R935cx2pRMJdiHUsaPZxZmHX3vtO2Hs"
         },
         cryptophoto: {
 
