@@ -28,17 +28,17 @@ export default connect((state) => state) (
             if( this.refs.ga && this.refs.ga.checked ) {
                 browserHistory.push("/register/ga")
             }
-            if( this.refs.df && this.refs.df.checked ) {
+            else if( this.refs.df && this.refs.df.checked ) {
                 browserHistory.push("/register/device")
             }
-            if( this.refs.u2f && this.refs.u2f.checked ) {
+            else if( this.refs.u2f && this.refs.u2f.checked ) {
                 browserHistory.push("/register/u2f")
             }
-            if( this.refs.cryptophoto && this.refs.cryptophoto.checked ) {
+            else if( this.refs.cryptophoto && this.refs.cryptophoto.checked ) {
                 browserHistory.push("/register/cryptophoto")
             }
 
-            if( this.refs.none.checked ) {
+            else {
                 browserHistory.push("/register/summary")
             }
 
