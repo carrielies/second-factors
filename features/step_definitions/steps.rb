@@ -235,7 +235,7 @@ def setup_google_authenticator
   choose("Google authenticator")
   click_link "Continue"
 
-  code = find(:css, '.form-hint').text
+  code = find(:css, '.ga_code_hidden').text
   if code.is_a? Array
     code=code[0]
   end

@@ -49,7 +49,7 @@ export default connect((state) => state) (
             if( account.factors.google_authenticator ) factors.push( "Google authenticator");
             if( account.factors.device_fingerprint ) factors.push( "Device fingerprint");
             if( account.factors.u2f_key ) factors.push( "U2F Key");
-            if( account.factors.cryptophoto ) factors.push( "Cryptophoto");
+            if( account.factors.cryptophoto ) factors.push( "CryptoPhoto");
             return factors.join(", ");
         }
 

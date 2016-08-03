@@ -13,7 +13,7 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
-            this.state = {cryptophoto_visible: false, data: ""}
+            this.state = {cryptophoto_visible: false, data: "", service_name: ""}
 
             serialize(props.session).then( (data) => {
                 this.setState({ data})
@@ -34,9 +34,10 @@ export default connect((state) => state) (
             let session_state = this.getQueryParameter("session_state");
             if ( session_state ) {
                 deserialize(this.props.dispatch, session_state ).then( (session) => {
+                    this.setState({ service_name: session.gg3.request.name});
                     this.onSubmit(session);
                 });
-
+                return;
             }
 
             let session = this.props.session.gg3;
@@ -93,11 +94,19 @@ export default connect((state) => state) (
         }
 
         render() {
+
+            if ( this.getQueryParameter("session_state") ) {
+                return(
+                    <GovUk>
+                        <Breadcrumb text={`Sign in to ${this.state.service_name} using your Government Gateway account`}/>
+                        <h1 className="heading-medium">Checking...</h1>
+                    </GovUk>
+                )
+            }
+
             let session = this.props.session.gg3;
             let account = session.account;
             let request = session.request;
-
-            let connectingStr = this.getQueryParameter("session_state") ? "Checking..." : "Connecting to CryptoPhoto....";
 
             return(
                 <GovUk>
@@ -106,7 +115,7 @@ export default connect((state) => state) (
                     <form id="myform" onSubmit={(e) => this.onSubmit(e)}>
                         <input type="hidden" id="cryptophoto"/>
                         <input type="hidden" name="session_state" value={this.state.data}/>
-                        {!this.state.cryptophoto_visible ? <h1 className="heading-medium">{connectingStr}</h1> : <h1 className="heading-medium">CryptoPhoto</h1> }
+                        {!this.state.cryptophoto_visible ? <h1 className="heading-medium">Connecting to CryptoPhoto....</h1> : <h1 className="heading-medium">CryptoPhoto</h1> }
                         <div className="grid-row">
                             <div className="column-one-third">&nbsp;</div>
                             <div className="column-one-third cryptophoto"><div id="cp_widget"></div></div>

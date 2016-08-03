@@ -202,7 +202,7 @@ export default connect((state) => state) (
                         </tbody>
                     </table>
                     <br/>
-                    <Link to="/org/delete_account" className="button-secondary">Delete acccount</Link>
+                    <Link to="/org/delete_account" className="button-secondary">Delete account</Link>
 
                 </Govuk>
             )
