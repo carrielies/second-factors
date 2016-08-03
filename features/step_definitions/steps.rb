@@ -138,6 +138,17 @@ And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
   click_link "Continue"
 end
 
+And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do |email,password|
+  visit "https://localhost:3000"
+  login_to_credential_management email,password
+end
+
+And /^I log into organisation management with email: "(.*)", password: "(.*)"$/ do |email,password|
+  visit "https://localhost:3000"
+  login_to_credential_management email,password
+  click_link "Manage Organisation"
+end
+
 
 And /^helpdesk agent searches for "(.*)"$/ do |email|
   search_helpdesk_for email
@@ -156,6 +167,15 @@ And /^helpdesk agent unable to prove identity and breaks trust$/ do
 end
 
 
+def login_to_credential_management email, password
+  click_link "Credential Management"
+  click_link "Sign into Credential Management"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+  choose "Don't use two step verification"
+  click_link "Continue"
+end
 
 def register_for_spacegov email,name,password
   visit "https://localhost:3000"
