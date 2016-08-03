@@ -143,6 +143,10 @@ And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do
   login_to_credential_management email,password
 end
 
+And /^I return to credential management with email: "(.*)", password: "(.*)"$/ do |email,password|
+  login_to_credential_management email,password
+end
+
 And /^I log into organisation management with email: "(.*)", password: "(.*)"$/ do |email,password|
   visit "https://localhost:3000"
   login_to_credential_management email,password
@@ -166,6 +170,21 @@ And /^helpdesk agent unable to prove identity and breaks trust$/ do
   click_link "Sign out"
 end
 
+And /^I create an organisation user with name: "(.*)", email: "(.*)", type: "(.*)"$/ do |name,email,type|
+    click_link "Create Account"
+    fill_in "name", with: name
+    fill_in "email", with: email
+    choose type
+    click_link "Continue"
+    click_link "https://gg3.gov.uk/register/resume_registration"
+    fill_in "password", with: "password"
+    fill_in "password2", with: "password"
+    click_link "Continue"
+    choose "I'm done"
+    click_link "Continue"
+    click_link "Continue to Olive ltd"
+    click_link "Credential Management"
+end
 
 def login_to_credential_management email, password
   click_link "Credential Management"
@@ -176,6 +195,7 @@ def login_to_credential_management email, password
   choose "Don't use two step verification"
   click_link "Continue"
 end
+
 
 def register_for_spacegov email,name,password
   visit "https://localhost:3000"
