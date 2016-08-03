@@ -145,7 +145,7 @@ export default connect((state) => state) (
             let account = session.account;
 
             return(
-                <Govuk title="Organisation Management">
+                <Govuk title={session.org_name}>
                     <Breadcrumb text={`${account.name}`} back="/org/manage_org"/>
 
                     <table className="table-font-xsmall summary" >

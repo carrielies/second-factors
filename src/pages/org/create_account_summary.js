@@ -31,7 +31,7 @@ export default connect((state) => state) (
             let request = this.props.session.gg3.request;
 
             return (
-                <Govuk phaseBanner="true" title="Organisation Management">
+                <Govuk phaseBanner="true" title={session.org_name}>
 
                     <Breadcrumb text={`Register new user for ${account.org_name}`} hide_back={true}/>
                     <Question title="An email has been sent for the new user to complete the registration">

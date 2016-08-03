@@ -51,7 +51,7 @@ export default connect((state) => state) (
 
             let admin_account = session.admin_account;
             let accounts = this.state.accounts;
-            let org_name = admin_account ? admin_account.org_name : "";
+            // let org_name = admin_account ? admin_account.org_name : "";
 
             let account_list = accounts.map( (a) => {
 
@@ -77,8 +77,8 @@ export default connect((state) => state) (
             });
 
             return(
-                <Govuk title="Organisation Management">
-                    <Breadcrumb text={`${org_name}`} back="/credential/manage_account"/>
+                <Govuk title={session.org_name}>
+                    <Breadcrumb text={`${session.org_name}`} back="/credential/manage_account"/>
 
 
 

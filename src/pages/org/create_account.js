@@ -50,7 +50,7 @@ export default connect((state) => state) (
 
 
             return (
-                <Govuk phaseBanner="true" title="Organisation Management">
+                <Govuk phaseBanner="true" title={session.org_name}>
                     <Breadcrumb text={`Register a new user for ${session.org_name}`}/>
 
                     <Question title="Enter the new user's details" errors={this.state.errors}>

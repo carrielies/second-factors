@@ -40,7 +40,7 @@ export default connect((state) => state) (
             let account = session.account;
 
             return(
-                <Govuk title="Organisation Management">
+                <Govuk title={session.org_name}>
                     <Breadcrumb text={`${account.name}`} back="/org/manage_account"/>
                     <Question title={`Do you want to delete ${account.name}?`}>
                         <fieldset className="inline">

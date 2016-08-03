@@ -45,7 +45,7 @@ export default connect((state) => state) (
             let factor_to_remove = this.state.factor_to_remove.replace("_", " ");
 
             return(
-                <Govuk title="Organisation Management">
+                <Govuk title={session.org_name}>
                     <Breadcrumb text={`${account.name}`} back="/org/manage_account"/>
                     <Question title={`Remove ${factor_to_remove}?`}>
                         <fieldset className="inline">
