@@ -1,1 +1,1 @@
-module.exports = require('./conf/' + (process.env.NODE_ENV || 'development') + '.json');
+module.exports = require('./conf/' + (process.env.APP_ENV || 'development') + '.json');
