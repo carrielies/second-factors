@@ -7,7 +7,7 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
 import { browserHistory, Link } from 'react-router'
-import {saveOrgSession} from '../../reducers/helpers'
+import {saveRegistrationSession} from '../../reducers/helpers'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 import u2f from 'u2f-api'
 import 'whatwg-fetch';
@@ -47,7 +47,9 @@ export default connect((state) => state) (
                         };
 
                         updateAccount(account).then( () => {
-                            this.setState( {success: true})
+                            this.setState( {success: true});
+                            saveRegistrationSession(this.props.dispatch, { level: "2"});
+
                         });
 
                     }

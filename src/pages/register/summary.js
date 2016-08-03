@@ -34,7 +34,7 @@ export default connect((state) => state) (
             }).then( () => {
                 return findAccount(account.gg_id)
             }).then( (a) => {
-                saveGG3Session(this.props.dispatch, {account: a, signed_in: true, level: session.level });
+                saveGG3Session(this.props.dispatch, {account: a, signed_in: true, level: session.level || "1" });
                 browserHistory.push( "/logged_in")
             });
 
