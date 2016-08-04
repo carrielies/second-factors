@@ -1,9 +1,10 @@
 import React from 'react'
-import GovUk from '../components/govuk'
+import GovUk from '../../components/govuk'
 import { browserHistory, Link } from 'react-router'
-import {allAccounts, findAccountByEmail} from '../utils/database'
-import {saveGG3Session,clearAllSessions} from '../reducers/helpers'
-import {serialize, deserialize } from '../utils/serialize'
+import {allAccounts, findAccountByEmail} from '../../utils/database'
+import {exportGroupEnrolments} from '../../utils/helpdesk_db'
+import {saveGG3Session,clearAllSessions} from '../../reducers/helpers'
+import {serialize, deserialize } from '../../utils/serialize'
 
 import {connect} from 'react-redux'
 
@@ -12,7 +13,7 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
-            this.state = {accounts: [], data: ""};
+            this.state = {filteredAccounts: [], data: ""};
             let session_state = this.getQueryParameter("session_state");
 
             if (session_state) {
@@ -26,9 +27,14 @@ export default connect((state) => state) (
         }
 
         init(session) {
-            allAccounts().then((accounts) => {
-                this.setState({accounts} );
-                this.selectUser(accounts[0].email);
+            let allowedGroups = ["GR587HELP"]
+//            exportGroupEnrolments().then((groupEnrolments) => {
+//                allowedGroups = groupEnrolments.map( (u) => {u.group_id});
+//            });
+            allAccounts().then((allAccounts) => {
+                let filteredAccounts = allAccounts.filter( (a) => a.group_id == "GR587HELP")
+                this.setState({filteredAccounts} );
+                this.selectUser(filteredAccounts[0].email);
             });
 
             serialize(session).then( (data) => {
@@ -61,23 +67,24 @@ export default connect((state) => state) (
         }
 
         render() {
-            let drop_down = this.state.accounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
+
+            let drop_down = this.state.filteredAccounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
 
             return(
-                <GovUk title="Home">
+                <GovUk title="Helpdesk">
                     <br/>
                     <select onChange={(e) => this.onSelectUser(e)}>
                         {drop_down}
                     </select>
                     <br/>
                     <br/>
-                    <Link to="/helpdesk">Helpdesk</Link>
+                    <Link to="/helpdesk/index">Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/service">Spacegov</Link>
+                    <Link to="/spacegov/trust_store">Spacegov Helpdesk TrustStore Service</Link>
                     <br/>
                     <br/>
-                    <Link to="/credential">Credential Management</Link>
+                    <Link to="/org">Helpdesk Management</Link>
                     <br/>
                     <br/>
                     <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>

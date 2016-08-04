@@ -22,6 +22,7 @@ import YourAuthFactors from './pages/sign_in/your_auth_factors'
 import LoggedIn from './pages/sign_in/logged_in'
 import Sso from './pages/sign_in/sso'
 import ServiceRedirect from './pages/sign_in/service_redirect'
+import HelpDeskHome from './pages/helpdesk/home'
 import HelpDeskIndex from './pages/helpdesk/index'
 import HelpDeskLandingPage from './pages/helpdesk/landing_page'
 import HelpDeskSearch from './pages/helpdesk/search'
@@ -68,6 +69,7 @@ import SpacegovTrustStoreSearch from './pages/spacegov_trust_store/search'
 import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results'
 
 
+import OrgHome from './pages/org/index'
 import OrgManageOrg from './pages/org/manage_org'
 import OrgManageAccount from './pages/org/manage_account'
 import OrgRemoveFactor from './pages/org/remove_factor'
@@ -129,7 +131,7 @@ export default function(props) {
             <Route path="/spacegov/trust_store/search_results" component={SpacegovTrustStoreSearchResults}/>
 
             <Route path="/service" component={ServiceHome}/>
-            <Route path="/helpdesk" component={HelpDeskIndex}/>
+            <Route path="/helpdesk" component={HelpDeskHome}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>
             <Route path="/helpdesk/landing_page" component={HelpDeskLandingPage}/>
             <Route path="/helpdesk/search" component={HelpDeskSearch}/>
@@ -159,6 +161,7 @@ export default function(props) {
             <Route path="/credential/change_password" component={CredentialChangePassword}/>
             <Route path="/credential/convert_to_org" component={CredentialConvertToOrg}/>
 
+            <Route path="/org" component={OrgHome}/>
             <Route path="/org/manage_org" component={OrgManageOrg}/>
             <Route path="/org/manage_account" component={OrgManageAccount}/>
             <Route path="/org/remove_factor" component={OrgRemoveFactor}/>
