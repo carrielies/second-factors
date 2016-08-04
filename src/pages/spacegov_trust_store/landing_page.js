@@ -8,13 +8,23 @@ import {connect} from 'react-redux'
 import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import Breadcrumb from '../../components/breadcrumb'
-import {findEnrolment} from '../../utils/spacegov_db'
+import {findGroupEnrolment} from '../../utils/spacegov_helpdesk_db'
 import {saveGG3Session, saveSpacegovSession} from '../../reducers/helpers'
 
 
 export default connect((state) => state) (
     class extends QuestionPage {
+        constructor(props) {
+            super(props);
+            let resp = props.session.gg3.response;
 
+            findGroupEnrolment(resp.group_id).then( (groupEnrolment) =>{
+                if ( !groupEnrolment ) {
+                    browserHistory.push("/spacegov/trust_store/enrol");
+                    return;
+                }
+            })
+        }
         render() {
             let session = this.props.session.spacegov;
             let gg3 = this.props.session.gg3;

@@ -25,6 +25,7 @@ import ServiceRedirect from './pages/sign_in/service_redirect'
 import HelpDeskHome from './pages/helpdesk/home'
 import HelpDeskIndex from './pages/helpdesk/index'
 import HelpDeskLandingPage from './pages/helpdesk/landing_page'
+import HelpDeskEnrol from './pages/helpdesk/enrol'
 import HelpDeskSearch from './pages/helpdesk/search'
 import HelpDeskSearchResults from './pages/helpdesk/search_results.js'
 import HelpDeskExternalSelectAccount from './pages/helpdesk/external_select_account.js'
@@ -64,6 +65,7 @@ import CredentialConvertToOrg from './pages/credential/convert_to_org'
 import CredentialU2f from './pages/credential/u2f'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
+import SpacegovTrustStoreEnrol from './pages/spacegov_trust_store/enrol'
 import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
 import SpacegovTrustStoreSearch from './pages/spacegov_trust_store/search'
 import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results'
@@ -126,6 +128,7 @@ export default function(props) {
             <Route path="/service/contact" component={ServiceContact}/>
 
             <Route path="/spacegov/trust_store" component={SpacegovTrustStoreHome}/>
+            <Route path="/spacegov/trust_store/enrol" component={SpacegovTrustStoreEnrol}/>
             <Route path="/spacegov/trust_store/landing_page" component={SpacegovTrustStoreLandingPage}/>
             <Route path="/spacegov/trust_store/search" component={SpacegovTrustStoreSearch}/>
             <Route path="/spacegov/trust_store/search_results" component={SpacegovTrustStoreSearchResults}/>
@@ -134,6 +137,7 @@ export default function(props) {
             <Route path="/helpdesk" component={HelpDeskHome}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>
             <Route path="/helpdesk/landing_page" component={HelpDeskLandingPage}/>
+            <Route path="/helpdesk/enrol" component={HelpDeskEnrol}/>
             <Route path="/helpdesk/search" component={HelpDeskSearch}/>
             <Route path="/helpdesk/search_results" component={HelpDeskSearchResults}/>
             <Route path="/helpdesk/prove_identity" component={HelpDeskProveIdentity}/>

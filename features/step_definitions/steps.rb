@@ -262,9 +262,10 @@ end
 
 def search_helpdesk_for email
   click_link "Helpdesk"
+  click_link "Gateway Helpdesk"
   click_link "Sign into Helpdesk"
   # sign in
-  fill_in "email", with: "average@joe.com"
+  fill_in "email", with: "helen@spacegov-help.com"
   fill_in "password", with: "password"
   click_link "Continue"
   # two step verification

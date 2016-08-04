@@ -2,7 +2,7 @@ import React from 'react'
 import GovUk from '../../components/govuk'
 import { browserHistory, Link } from 'react-router'
 import {allAccounts, findAccountByEmail} from '../../utils/database'
-import {exportGroupEnrolments} from '../../utils/helpdesk_db'
+import {exportGroupEnrolments} from '../../utils/spacegov_helpdesk_db'
 import {saveGG3Session,clearAllSessions} from '../../reducers/helpers'
 import {serialize, deserialize } from '../../utils/serialize'
 
@@ -75,14 +75,14 @@ export default connect((state) => state) (
             let drop_down = this.state.filteredAccounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
 
             return(
-                <GovUk title="Helpdesk">
+                <GovUk title="Spacegov Helpdesk">
                     <br/>
                     <select onChange={(e) => this.onSelectUser(e)}>
                         {drop_down}
                     </select>
                     <br/>
                     <br/>
-                    <Link to="/helpdesk/index">Helpdesk</Link>
+                    <Link to="/helpdesk/index">Gateway Helpdesk</Link>
                     <br/>
                     <br/>
                     <Link to="/spacegov/trust_store">Spacegov Helpdesk TrustStore Service</Link>
