@@ -39,7 +39,7 @@ export default connect((state) => state) (
 
         render() {
             return(
-                <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov Trust Store" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
                     <Content title="Spacegov Trust Store Helpdesk Service">
                         <p>
@@ -47,7 +47,7 @@ export default connect((state) => state) (
                         </p>
                     </Content>
                     <br/>
-                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov Trust Store Service</a>
+                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov Trust Store Helpdesk</a>
                     <hr/>
 
                     <details>

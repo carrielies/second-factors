@@ -85,7 +85,7 @@ export default connect((state) => state) (
                     <Link to="/helpdesk/index">Gateway Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/spacegov/trust_store">Spacegov Helpdesk TrustStore Service</Link>
+                    <Link to="/spacegov/trust_store">Spacegov Trust Store Helpdesk</Link>
                     <br/>
                     <br/>
                     <Link to="/org">Helpdesk Management</Link>

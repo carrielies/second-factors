@@ -32,7 +32,7 @@ export default connect((state) => state) (
             let resp = gg3.response;
 
             return(
-                    <Govuk title="Spacegov" hidePhaseBanner={true} header="SPACE.GOV">
+                    <Govuk title="Spacegov Trust Store" hidePhaseBanner={true} header="SPACE.GOV">
                         <div className="spacegov"></div>
 
                         <div className="grid-row">
