@@ -18,9 +18,7 @@ export function saveGroupEnrolment(groupEnrolment) {
 
 
 export function exportGroupEnrolments() {
-    return db.findAsync({}).then((groupEnrolments) => {
-        return JSON.stringify({data: groupEnrolments})
-    });
+    return db.findAsync({})
 }
 
 export function rawDb() {

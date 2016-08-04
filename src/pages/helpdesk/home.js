@@ -26,13 +26,18 @@ export default connect((state) => state) (
             }
         }
 
+        inArray(account, allowedGroups) {
+            return (allowedGroups.find( (group) => group.group_id == account.group_id))
+        }
+
         init(session) {
-            let allowedGroups = ["GR587HELP"]
-//            exportGroupEnrolments().then((groupEnrolments) => {
-//                allowedGroups = groupEnrolments.map( (u) => {u.group_id});
-//            });
+            let allowedGroups = []
+            exportGroupEnrolments().then((groupEnrolments) => {
+                allowedGroups = groupEnrolments
+            });
+
             allAccounts().then((allAccounts) => {
-                let filteredAccounts = allAccounts.filter( (a) => a.group_id == "GR587HELP")
+                let filteredAccounts = allAccounts.filter( (a) => this.inArray(a, allowedGroups))
                 this.setState({filteredAccounts} );
                 this.selectUser(filteredAccounts[0].email);
             });
@@ -67,7 +72,6 @@ export default connect((state) => state) (
         }
 
         render() {
-
             let drop_down = this.state.filteredAccounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
 
             return(
