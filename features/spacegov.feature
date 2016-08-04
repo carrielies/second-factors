@@ -66,9 +66,4 @@ Feature: Trust and security level feature
     And I should be on the "We need to check that it really is you." page
 
 
-  Scenario: Manage my account
-    When I log into spacegov with email: "markymiddleton@gmail.com", password: "password"
-    And I click "View my details"
-    And I click hint link "Manage my account"
-    And I click "Manage my account"
-    Then I should be on the "Credential Management" page
+
