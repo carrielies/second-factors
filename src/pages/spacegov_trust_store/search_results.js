@@ -24,7 +24,7 @@ export default connect((state) => state) (
                 auth_level_desired: "1",
                 redirect_url: "/helpdesk/external_select_account?gg_id=" + gg_id,
                 calling_service_request: {
-                    name: "Spacegov Trust Store",
+                    name: "Spacegov Helpdesk",
                     auth_level_required: "1",
                     auth_level_desired: "1",
                     redirect_url: "/spacegov/trust_store/search_results"
@@ -46,14 +46,15 @@ export default connect((state) => state) (
                         <td>{account.gg_id}</td>
                         <td>{account.space_trading_license_number}</td>
                         <td>{account.org_name}</td>
-                        <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.gg_id)}>Helpdesk</a></td>
+                        <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.gg_id)}>Prove Identity</a></td>
                     </tr>
 
                 )
             });
 
             return(
-                <Govuk title="Spacegov Trust Store">
+                <Govuk title="Spacegov Helpdesk" hidePhaseBanner={true}>
+                    <div className="spacegov"></div>
                     <Breadcrumb text="" back="/spacegov/trust_store/search"/>
                     <h1 className="heading-medium">Results</h1>
                     <table className="table-font-xsmall summary" >

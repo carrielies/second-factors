@@ -23,28 +23,14 @@ export default connect((state) => state) (
                     browserHistory.push("/spacegov/trust_store/enrol");
                     return;
                 }
+                else {
+                    browserHistory.push("/spacegov/trust_store/search");
+                    return;
+                }
             })
         }
         render() {
-            let session = this.props.session.spacegov;
-            let gg3 = this.props.session.gg3;
-            let request = gg3.request;
-            let resp = gg3.response;
-
-            return(
-                    <Govuk title="Spacegov Trust Store" hidePhaseBanner={true} header="SPACE.GOV">
-                        <div className="spacegov"></div>
-
-                        <div className="grid-row">
-                            <div className="column-one-half">
-                                <h1 className="heading-medium">What would you like to do?</h1>
-                                <Link to="/spacegov/trust_store/search" className="button">Search for User</Link>
-                            </div>
-                        </div>
-
-                    </Govuk>
-            );
-
+            return null;
         }
     }
 )

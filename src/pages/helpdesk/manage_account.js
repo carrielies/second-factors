@@ -180,7 +180,7 @@ export default connect((state) => state) (
                 callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
             }
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
                     <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/search_results"/>
 
 

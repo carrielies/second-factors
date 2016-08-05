@@ -12,7 +12,7 @@ export default connect((state) => state) (
             super(props);
 
             let request = {
-                name: "Spacegov Trust Store",
+                name: "Spacegov Helpdesk",
                 auth_level_required: "1",
                 auth_level_desired: "1",
                 redirect_url: "/spacegov/trust_store/landing_page",
@@ -39,15 +39,15 @@ export default connect((state) => state) (
 
         render() {
             return(
-                <Govuk title="Spacegov Trust Store" hidePhaseBanner={true} header="SPACE.GOV">
+                <Govuk title="Spacegov Helpdesk" hidePhaseBanner={true} header="SPACE.GOV">
                     <div className="spacegov"></div>
-                    <Content title="Spacegov Trust Store Helpdesk Service">
+                    <Content title="Spacegov Helpdesk Service">
                         <p>
                             This can be used to lookup details from the Spacegov Trust Store
                         </p>
                     </Content>
                     <br/>
-                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov Trust Store Helpdesk</a>
+                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Spacegov Helpdesk</a>
                     <hr/>
 
                     <details>

@@ -53,7 +53,7 @@ export default connect((state) => state) (
             let factor_to_remove = this.state.factor_to_remove.replace("_", " ");
 
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
                     <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/manage_account"/>
                     <Question title={`Remove ${factor_to_remove}?`}>
                         <fieldset className="inline">

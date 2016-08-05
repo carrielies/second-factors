@@ -49,9 +49,10 @@ export default connect((state) => state) (
             let errors = this.state.errors;
             let hint = this.state.token;
             let account = this.props.session.helpdesk.account;
+            let session = this.props.session.helpdesk;
             return (
 
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
 
                     <Breadcrumb text={`${account.name}`}/>
                     <Ga ref="ga" secret={account.factors.google_authenticator.secret} onTokenChange={(token) => this.onTokenChange(token)}/>

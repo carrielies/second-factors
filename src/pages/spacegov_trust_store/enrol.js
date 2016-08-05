@@ -12,11 +12,11 @@ export default connect((state) => state) (
             let service = this.props.service;
             let resp = this.props.session.gg3.response;
             return (
-                    <Govuk title="Spacegov Trust Store" hidePhaseBanner={true} header="SPACE.GOV">
+                    <Govuk title="Spacegov helpdesk" hidePhaseBanner={true} header="SPACE.GOV">
                         <div className="spacegov"></div>
                         <Content title={`Welcome ${resp.name}`}>
                             <p>
-                                Sorry, but you don't have access to Spacegov Trust Store Helpdesk
+                                Sorry, but you don't have access to Spacegov Helpdesk
                             </p>
                         </Content>
                     </Govuk>

@@ -142,8 +142,8 @@ end
 
 And /^I log into spacegov truststore with email: "(.*)", password: "(.*)"$/ do |email,password|
   click_link "Helpdesk"
-  click_link "Spacegov Trust Store Helpdesk"
-  click_link "Sign into Spacegov Trust Store Helpdesk"
+  click_link "Spacegov Helpdesk"
+  click_link "Sign into Spacegov Helpdesk"
   fill_in "email", with: email
   fill_in "password", with: password
   click_link "Continue"

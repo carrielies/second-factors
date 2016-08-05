@@ -37,7 +37,8 @@ export default connect((state) => state) (
             });
 
             allAccounts().then((allAccounts) => {
-                let filteredAccounts = allAccounts.filter( (a) => this.inArray(a, allowedGroups))
+                let filteredAccounts = allAccounts.filter( (a) => allowedGroups.find( (g) => g.group_id == a.group_id) )
+
                 this.setState({filteredAccounts} );
                 this.selectUser(filteredAccounts[0].email);
             });
@@ -75,7 +76,7 @@ export default connect((state) => state) (
             let drop_down = this.state.filteredAccounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
 
             return(
-                <GovUk title="Spacegov Helpdesk">
+                <GovUk title="Helpdesk">
                     <br/>
                     <select onChange={(e) => this.onSelectUser(e)}>
                         {drop_down}
@@ -85,7 +86,7 @@ export default connect((state) => state) (
                     <Link to="/helpdesk/index">Gateway Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/spacegov/trust_store">Spacegov Trust Store Helpdesk</Link>
+                    <Link to="/spacegov/trust_store">Spacegov Helpdesk</Link>
                     <br/>
                     <br/>
                     <Link to="/org">Helpdesk Management</Link>

@@ -34,7 +34,7 @@ export default connect((state) => state) (
             let account = this.props.session.helpdesk.account;
 
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
                     <Breadcrumb text={`${account.name}`}/>
                     <Question title="Remove Google Authenticator?">
                         <p>

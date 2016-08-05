@@ -48,6 +48,16 @@ export default connect((state) => state) (
             if( session.id_proven ) {
                 this.identityProved(session.id_proof);
             }
+
+            let gg3 = this.props.session.gg3;
+            let title = "Helpdesk";
+            let back_to_service_url = "";
+
+            if (gg3 && gg3.request && gg3.request.calling_service_request){
+                title = gg3.request.calling_service_request.name;
+                back_to_service_url = gg3.request.calling_service_request.redirect_url
+            }
+            saveHelpdeskSession(this.props.dispatch, {title, back_to_service_url});
         }
         
         authFactors() {
@@ -109,7 +119,7 @@ export default connect((state) => state) (
                 backLink = gg3.request.calling_service_request.redirect_url
             }
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
                     <Breadcrumb text={`${account.name}`} back={backLink}/>
                     <Content>
                         <h1 className="heading-medium">Prove their identity ?</h1>

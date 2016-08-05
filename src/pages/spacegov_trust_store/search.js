@@ -26,8 +26,8 @@ export default connect((state) => state) (
         render() {
 
             return(
-                <Govuk title="Spacegov Trust Store">
-
+                <Govuk title="Spacegov Helpdesk" hidePhaseBanner={true}>
+                    <div className="spacegov"></div>
                     <Question title="Search for a user" para="" errors={this.state.errors}>
                         <Field ref="email" name="email" errors={this.state.errors} labelText="Email" labelHint=""/>
                         <Field ref="name" name="name" errors={this.state.errors} labelText="Name" labelHint=""/>

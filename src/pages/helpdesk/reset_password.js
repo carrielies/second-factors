@@ -37,7 +37,7 @@ export default connect((state) => state) (
             let account = session.account;
 
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
                     <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/manage_account"/>
                     <Content title="Reset password">
                         <p>
