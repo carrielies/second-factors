@@ -191,3 +191,24 @@ saveAccount({
         }
     }
 })
+
+saveAccount({
+    email: "Patty@fraud.com",
+    name: "Police Patty",
+    always_use_2fa: false,
+    gg_id: "765875671115523",
+    trust_id: "875678687G4FRAUDGL111",
+    group_id: "GR587FRAUD",
+    org_name: "Fraud Helpdesk",
+    type: "admin",
+    is_org: true,
+    interactions: [],
+    factors: {
+        password: {
+            secret: "password"
+        },
+        google_authenticator: {
+            secret: "JM4VQTSGMQRSGRZEKJGSMUTNORUE63JS"
+        }
+    }
+});

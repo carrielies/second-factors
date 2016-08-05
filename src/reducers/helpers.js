@@ -6,6 +6,10 @@ export function saveHelpdeskSession(dispatchFn, data) {
     saveSession(dispatchFn, "helpdesk", data);
 }
 
+export function saveFraudSession(dispatchFn, data) {
+    saveSession(dispatchFn, "fraud", data);
+}
+
 export function saveTrustStoreSession(dispatchFn, data) {
     saveSession(dispatchFn, "trust_store", data);
 }
@@ -43,6 +47,10 @@ export function clearHelpdeskSession(dispatchFn) {
     clearSession(dispatchFn, "helpdesk");
 }
 
+export function clearFraudSession(dispatchFn) {
+    clearSession(dispatchFn, "fraud");
+}
+
 export function clearTrustStoreSession(dispatchFn) {
     clearSession(dispatchFn, "trust_store");
 }
@@ -73,6 +81,7 @@ export function clearAllSessions(dispatchFn) {
     clearCredentialSession(dispatchFn);
     clearResetPasswordSession(dispatchFn);
     clearTrustStoreSession(dispatchFn);
+    clearFraudSession(dispatchFn);
     clearOrg(dispatchFn);
 }
 
