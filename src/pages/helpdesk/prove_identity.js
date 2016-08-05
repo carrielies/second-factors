@@ -110,17 +110,11 @@ export default connect((state) => state) (
             let factors = this.authFactors();
             let session = this.props.session.helpdesk
             let account = session.account;
-            let callingService = null
 
             let gg3 = this.props.session.gg3
-            let backLink = "/helpdesk/search_results"
-            if (gg3 && gg3.request && gg3.request.calling_service_request){
-                callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
-                backLink = gg3.request.calling_service_request.redirect_url
-            }
             return(
                 <Govuk title={session.title}>
-                    <Breadcrumb text={`${account.name}`} back={backLink}/>
+                    <Breadcrumb text={`${account.name}`} back={session.back_to_service_url}/>
                     <Content>
                         <h1 className="heading-medium">Prove their identity ?</h1>
                         <p>We need to trust the customer is who they say they are.  This can be done by issuing a challenge based on 2nd factors they have set up.</p>
@@ -174,9 +168,6 @@ export default connect((state) => state) (
 
                         </details>
                         <br/>
-                        {callingService}
-
-
 
                 </Govuk>
             )

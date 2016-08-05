@@ -39,7 +39,7 @@ export default connect((state) => state) (
             });
 
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
                     <Breadcrumb text="" back="/helpdesk/search"/>
                     <h1 className="heading-medium">Results</h1>
                     <table className="table-font-xsmall summary" >

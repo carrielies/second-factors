@@ -22,7 +22,7 @@ export default class extends React.Component {
                     <div className="text">{this.props.text}</div>
                 </div>
                 <div className="column-one-third align-right">
-                    {!this.props.hide_back ?
+                    {this.props.hide_back !== false ?
                         <div><a href="#back" onClick={(e) => this.back(e)} className="link-back space-right">Back</a></div> : null }
                 </div>
             </div>

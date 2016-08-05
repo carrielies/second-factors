@@ -83,17 +83,9 @@ export default connect((state) => state) (
                     </select>
                     <br/>
                     <br/>
-                    <Link to="/helpdesk/index">Gateway Helpdesk</Link>
-                    <br/>
-                    <br/>
                     <Link to="/spacegov/trust_store">Spacegov Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/org">Helpdesk Management</Link>
-                    <br/>
-                    <br/>
-                    <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>
-                    <input type="hidden"  value={this.state.data} name="session_state"/>
 
                 </GovUk>
             )

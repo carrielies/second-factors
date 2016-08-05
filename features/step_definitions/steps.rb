@@ -278,8 +278,8 @@ end
 
 def search_helpdesk_for email
   click_link "Helpdesk"
-  click_link "Gateway Helpdesk"
-  click_link "Sign into Helpdesk"
+  click_link "Spacegov Helpdesk"
+  click_link "Sign into Spacegov Helpdesk"
   # sign in
   fill_in "email", with: "helen@spacegov-help.com"
   fill_in "password", with: "password"
@@ -287,7 +287,7 @@ def search_helpdesk_for email
   # two step verification
   # click_link "Continue"
   # Welcome back
-  click_link "Search"
+  click_link "Search by email and name"
   # Search for user
   fill_in "email", with: email
   click_link "Search"

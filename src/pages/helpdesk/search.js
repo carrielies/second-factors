@@ -7,11 +7,26 @@ import Question from '../../components/question'
 import Field from '../../components/field'
 import {searchForAcounts} from '../../utils/helpdesk_db'
 import {saveHelpdeskSession} from '../../reducers/helpers'
+import Breadcrumb from '../../components/breadcrumb'
 
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
     class extends QuestionPage{
+
+        componentDidMount() {
+            let session = this.props.session.helpdesk;
+
+            let gg3 = this.props.session.gg3;
+            let title = "Helpdesk";
+            let back_to_service_url = "";
+
+            if (gg3 && gg3.request && gg3.request.calling_service_request){
+                title = gg3.request.calling_service_request.name;
+                back_to_service_url = gg3.request.calling_service_request.redirect_url
+            }
+            saveHelpdeskSession(this.props.dispatch, {title, back_to_service_url});
+        }
 
 
         search(e) {
@@ -24,9 +39,10 @@ export default connect((state) => state) (
         }
 
         render() {
-
+            let session = this.props.session.helpdesk;
             return(
-                <Govuk title="Helpdesk">
+                <Govuk title={session.title}>
+                    <Breadcrumb text="" back={session.back_to_service_url} hide_back={session.back_to_service_url}/>
 
                     <Question title="Search for a user" para="" errors={this.state.errors}>
                         <Field ref="email" name="email" errors={this.state.errors} labelText="Email" labelHint=""/>
