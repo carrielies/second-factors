@@ -165,6 +165,15 @@ And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
   click_link "Continue"
 end
 
+And /^I log into fraud helpdesk with email: "(.*)", password: "(.*)"$/ do |email,password|
+  click_link "Fraud"
+  click_link "Fraud Helpdesk"
+  click_link "Sign into Fraud Helpdesk"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+end
+
 And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do |email,password|
   login_to_credential_management email,password
 end

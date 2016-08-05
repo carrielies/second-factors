@@ -76,7 +76,7 @@ export default connect((state) => state) (
             let drop_down = this.state.filteredAccounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
 
             return(
-                <GovUk title="Fraud Helpdesk" hidePhaseBanner={true} header="FRAUD.GOV">
+                <GovUk title="Fraud" hidePhaseBanner={true} header="FRAUD.GOV">
                     <div className="fraud"></div>
                     <br/>
                     <select onChange={(e) => this.onSelectUser(e)}>

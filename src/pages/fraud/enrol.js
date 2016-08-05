@@ -16,7 +16,7 @@ export default connect((state) => state) (
                         <div className="fraud"></div>
                         <Content title={`Welcome ${resp.name}`}>
                             <p>
-                                Sorry, but you don't have access to Spacegov Helpdesk
+                                Sorry, but you don't have access to Fraud Helpdesk
                             </p>
                         </Content>
                     </Govuk>
