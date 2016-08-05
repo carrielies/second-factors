@@ -80,7 +80,13 @@ import OrgCreateAccountSummary from './pages/org/create_account_summary'
 import OrgDeleteAccount from './pages/org/delete_account'
 import OrgRegistrationComplete from './pages/org/registration_complete'
 
-
+import FraudHome from './pages/fraud/home'
+import FraudIndex from './pages/fraud/index'
+import FraudEnrol from './pages/fraud/enrol'
+import FraudLandingPage from './pages/fraud/landing_page'
+import FraudSearch from './pages/fraud/search'
+import FraudSearchResults from './pages/fraud/search_results'
+import FraudManageAccount from './pages/fraud/manage_account'
 
 export default function(props) {
     
@@ -174,7 +180,13 @@ export default function(props) {
             <Route path="/org/delete_account" component={OrgDeleteAccount}/>
             <Route path="/org/registration_complete" component={OrgRegistrationComplete}/>
 
-
+            <Route path="/fraud" component={FraudHome}/>
+            <Route path="/fraud/index" component={FraudIndex}/>
+            <Route path="/fraud/enrol" component={FraudEnrol}/>
+            <Route path="/fraud/landing_page" component={FraudLandingPage}/>
+            <Route path="/fraud/search" component={FraudSearch}/>
+            <Route path="/fraud/search_results" component={FraudSearchResults}/>
+            <Route path="/fraud/manage_account" component={FraudManageAccount}/>
         </Router>
         
     )
