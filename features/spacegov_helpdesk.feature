@@ -13,7 +13,7 @@ Feature: Spacegov Helpdesk feature
   Scenario: Search the trust store for Lapse Larry
     Given I log into spacegov truststore with email: "helen@spacegov-help.com", password: "password"
     Then  I should be on the "Search Spacegov for account" page
-    And   I enter: {"Space trading license": "SP651C02E4"}
+    And   I enter: {license: "SP651C02E4"}
     And   I click "Search for license"
     Then  I should be on the "Lapse Larry SpaceCorp" page
     When  I click "Prove Identity"
