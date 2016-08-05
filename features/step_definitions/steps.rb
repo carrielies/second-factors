@@ -1,4 +1,8 @@
 
+And /^I start on the Home Page$/ do
+  visit "https://localhost:3000"
+end
+
 And /^I'm enroled onto Spacegov as (.*)$/ do |email|
   visit "https://localhost:3000"
   click_link "Spacegov"
@@ -136,6 +140,15 @@ And /^I have registered for spacegov with name: "(.*)", email: "(.*)", password:
 end
 
 
+And /^I log into spacegov truststore with email: "(.*)", password: "(.*)"$/ do |email,password|
+  click_link "Helpdesk"
+  click_link "Spacegov Trust Store Helpdesk"
+  click_link "Sign into Spacegov Trust Store Helpdesk"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+end
+
 And /^I log into spacegov with email: "(.*)", password: "(.*)"$/ do |email,password|
   click_link "Spacegov"
   click_link "Sign into Spacegov"
@@ -153,16 +166,10 @@ And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
 end
 
 And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do |email,password|
-  visit "https://localhost:3000"
-  login_to_credential_management email,password
-end
-
-And /^I return to credential management with email: "(.*)", password: "(.*)"$/ do |email,password|
   login_to_credential_management email,password
 end
 
 And /^I log into organisation management with email: "(.*)", password: "(.*)"$/ do |email,password|
-  visit "https://localhost:3000"
   login_to_credential_management email,password
   click_link "Manage Organisation"
 end
@@ -262,9 +269,10 @@ end
 
 def search_helpdesk_for email
   click_link "Helpdesk"
+  click_link "Gateway Helpdesk"
   click_link "Sign into Helpdesk"
   # sign in
-  fill_in "email", with: "average@joe.com"
+  fill_in "email", with: "helen@spacegov-help.com"
   fill_in "password", with: "password"
   click_link "Continue"
   # two step verification

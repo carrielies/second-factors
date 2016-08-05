@@ -13,8 +13,8 @@ export default connect((state) => state) (
         onClick(e) {
             e.preventDefault();
             let request = {
-                name: "Credential Management",
-                auth_level_required: "1",
+                name: "Organisation Management",
+                auth_level_required: "2",
                 auth_level_desired: "2",
                 redirect_url: "/credential/landing_page",
                 help_desk: {
@@ -30,7 +30,7 @@ export default connect((state) => state) (
             return(
                 <Govuk title="Helpdesk">
                     <br/>
-                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Credential Management</a>
+                    <a href="#" className="button" onClick={(e) => this.onClick(e)}>Sign into Organisation Management</a>
                 </Govuk>
             )
         }

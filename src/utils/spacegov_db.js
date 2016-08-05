@@ -37,3 +37,15 @@ export function exportEnrolments() {
 export function rawDb() {
     return db;
 }
+
+saveEnrolment(
+  {
+    email: "lapse@larry.com",
+    name: "Lapse Larry",
+    gg_id: "1234LARRY",
+    trust_id: "875678687GJHGH343",
+    space_trading_license_number: "SP651C02E4",
+    org_name: "Lapse Larry SpaceCorp",
+    mission: "See the Universe"
+  }
+)

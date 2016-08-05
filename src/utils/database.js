@@ -117,6 +117,27 @@ saveAccount({
 });
 
 saveAccount({
+    email: "helen@spacegov-help.com",
+    name: "Helpful Helen",
+    always_use_2fa: false,
+    gg_id: "765875671112223",
+    trust_id: "875678687G4HELPGL111",
+    group_id: "GR587HELP",
+    org_name: "Spacegov Helpdesk",
+    type: "admin",
+    is_org: true,
+    interactions: [],
+    factors: {
+        password: {
+            secret: "password"
+        },
+        google_authenticator: {
+            secret: "JM4VQTSGMQRSGRZEKJGSMUTNORUE63JS"
+        }
+    }
+});
+
+saveAccount({
     email: "security@simon.com",
     name: "Security Simon",
     always_use_2fa: true,
