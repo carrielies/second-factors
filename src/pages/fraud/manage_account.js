@@ -42,6 +42,74 @@ export default connect((state) => state) (
             });
         }
 
+        suspendAccount(e) {
+            e.preventDefault();
+            let session = this.props.session.fraud;
+            let account = session.account;
+            account.status = "Suspended";
+            applyInteraction( account, "fraud", `Account Suspended` );
+            updateAccount( account ).then( () => {
+                saveFraudSession(this.props.dispatch, {account});
+            });
+        }
+
+        clearAccount(e) {
+            e.preventDefault();
+            let session = this.props.session.fraud;
+            let account = session.account;
+            account.status = "Active";
+            applyInteraction( account, "fraud", `Account Cleared` );
+            updateAccount( account ).then( () => {
+                saveFraudSession(this.props.dispatch, {account});
+            });
+        }
+
+        flagAccount(e) {
+            e.preventDefault();
+            let session = this.props.session.fraud;
+            let account = session.account;
+            account.status = "Flagged";
+            applyInteraction( account, "fraud", `Account Flagged` );
+            updateAccount( account ).then( () => {
+                saveFraudSession(this.props.dispatch, {account});
+            });
+        }
+
+        statusUpdates() {
+            let session = this.props.session.fraud;
+            let gg3 = this.props.session.gg3;
+            let account = session.account;
+            if (!account.status || account.status == "Active"){
+               return(
+                    <div>
+                        <a href="#" onClick={(e) => this.suspendAccount(e)}>Suspend Account</a>
+                        <br/>
+                        <br/>
+                        <a href="#" onClick={(e) => this.flagAccount(e)} >Flag Account</a>
+                    </div>
+                )
+            }
+            if (account.status == "Flagged"){
+               return(
+                    <div>
+                       <a href="#" onClick={(e) => this.clearAccount(e)}>Clear Account</a>
+                       <br/>
+                       <br/>
+                       <a href="#" onClick={(e) => this.suspendAccount(e)}>Suspend Account</a>
+                    </div>
+               )
+            }
+            if (account.status == "Suspended"){
+               return(
+                    <div>
+                       <a href="#" onClick={(e) => this.clearAccount(e)}>Clear Account</a>
+                        <br/>
+                        <br/>
+                        <a href="#" onClick={(e) => this.flagAccount(e)}>Flag Account</a>
+                    </div>
+               )
+            }
+        }
 
         eventLog() {
 
@@ -88,11 +156,12 @@ export default connect((state) => state) (
             let session = this.props.session.fraud;
             let gg3 = this.props.session.gg3;
             let account = session.account;
+            let account_status = account.status ? account.status: "Active"
 
             return(
                 <Govuk title="Fraud Helpdesk" header="FRAUD.GOV">
                     <div className="fraud"></div>
-
+                    <Breadcrumb text="" back="/fraud/search_results"/>
                     <table className="table-font-xsmall summary" >
                         <thead>
                         <tr>
@@ -119,12 +188,17 @@ export default connect((state) => state) (
                             <td>{account.trust_id}</td>
                             <td>{session.trust_id_changed ? "Trust broken" : ""}</td>
                         </tr>
-
+                        <tr>
+                            <td>Status</td>
+                            <td>{account_status}</td>
+                            <td></td>
+                        </tr>
                         </tbody>
                     </table>
                     <br/>
-
-
+                    <br/>
+                    {this.statusUpdates()}
+                    <br/>
                     <br/>
                     {this.eventLog()}
 

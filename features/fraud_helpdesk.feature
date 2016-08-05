@@ -10,7 +10,7 @@ Feature: Fraud Helpdesk feature
     Then  I should be on the "Sorry, but you don't have access to Fraud Helpdesk" page
 
 
-  Scenario: Search the trust store for Lapse Larry
+  Scenario: Search the trust store for Lapse Larry and change his status
     Given I log into fraud helpdesk with email: "Patty@fraud.com", password: "password"
     And   I use Google authenticator
     Then  I should be on the "Search for a user" page
@@ -18,3 +18,19 @@ Feature: Fraud Helpdesk feature
     And   I click "Search"
     When  I click "Manage Account"
     Then  I should be on the "Lapse Larry" page
+    And   I should see content "Active"
+    And   I should not see content "Account Suspended"
+    And   I should not see content "Account Flagged"
+    And   I should not see content "Account Cleared"
+    When  I click "Suspend Account"
+    And   I should see content "Suspended"
+    And   I should see content "Account Suspended"
+    When  I click "Flag Account"
+    Then  I should see content "Flagged"
+    And   I should see content "Account Suspended"
+    And   I should see content "Account Flagged"
+    When  I click "Clear Account"
+    Then  I should see content "Active"
+    And   I should see content "Account Suspended"
+    And   I should see content "Account Flagged"
+    And   I should see content "Account Cleared"
