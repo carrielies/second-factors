@@ -175,6 +175,7 @@ export default connect((state) => state) (
             let session = this.props.session.helpdesk;
             let gg3 = this.props.session.gg3;
             let account = session.account;
+            let account_status = account.status || "Active"
             let callingService = null;
             if (gg3 && gg3.request && gg3.request.calling_service_request){
                 callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
@@ -211,7 +212,11 @@ export default connect((state) => state) (
                             <td>{account.trust_id}</td>
                             <td>{session.trust_id_changed ? "Trust broken" : ""}</td>
                         </tr>
-
+                        <tr>
+                            <td>Status</td>
+                            <td>{account_status}</td>
+                            <td></td>
+                        </tr>
                         </tbody>
                     </table>
                     <br/>
