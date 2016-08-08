@@ -245,8 +245,8 @@ export default connect((state) => state) (
                         </tbody>
                     </table>
                     <br/>
-
-
+                    <Link to="/credential/delete_account" className="button-secondary">Delete account</Link>
+                    <br/>
                     {callingService ?
                     <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {callingService.name}</a> : null}
 

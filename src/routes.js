@@ -66,6 +66,8 @@ import CredentialSetupCryptophoto from './pages/credential/setup_cryptophoto'
 import CredentialChangePassword from './pages/credential/change_password'
 import CredentialConvertToOrg from './pages/credential/convert_to_org'
 import CredentialU2f from './pages/credential/u2f'
+import CredentialDeleteAccount from './pages/credential/delete_account'
+import CredentialAccountDeleted from './pages/credential/account_deleted'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
 import SpacegovTrustStoreEnrol from './pages/spacegov_trust_store/enrol'
@@ -177,6 +179,8 @@ export default function(props) {
             <Route path="/credential/cryptophoto" component={CredentialSetupCryptophoto}/>
             <Route path="/credential/change_password" component={CredentialChangePassword}/>
             <Route path="/credential/convert_to_org" component={CredentialConvertToOrg}/>
+            <Route path="/credential/delete_account" component={CredentialDeleteAccount}/>
+            <Route path="/credential/account_deleted" component={CredentialAccountDeleted}/>
 
             <Route path="/org" component={OrgHome}/>
             <Route path="/org/manage_org" component={OrgManageOrg}/>
