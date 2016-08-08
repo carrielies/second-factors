@@ -332,3 +332,7 @@ And(/^I debug$/) do
   require 'pry'
   binding.pry
 end
+
+And(/^I take a screenshot: "(.*)"$/) do |file_name|
+  page.save_screenshot(file_name, full: true)
+end
