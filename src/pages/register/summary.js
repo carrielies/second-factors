@@ -86,6 +86,12 @@ export default connect((state) => state) (
                             <td>{this.authFactors()}</td>
                         </tr>
 
+                        { Object.keys(account.factors).length > 1 ?
+                            <tr>
+                                <td>Always ask for a second factor</td>
+                                <td>{account.always_use_2fa ? "Yes" : "No"}</td>
+                            </tr> : null }
+
                         </tbody>
                     </table>
                     <br/>

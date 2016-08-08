@@ -25,6 +25,9 @@ export default connect((state) => state) (
 
         onNext(e) {
 
+            let session = this.props.session.registration;
+            let account = session.account;
+
             e.preventDefault();
             if( this.refs.ga && this.refs.ga.checked ) {
                 browserHistory.push("/register/ga")
@@ -40,7 +43,12 @@ export default connect((state) => state) (
             }
 
             else {
-                browserHistory.push("/register/summary")
+                if ( Object.keys(account.factors).length > 1 ) {
+                    browserHistory.push("/register/always_use_2fa")
+                }
+                else {
+                    browserHistory.push("/register/summary")
+                }
             }
 
         }

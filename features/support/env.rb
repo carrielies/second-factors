@@ -11,7 +11,6 @@ if ENV['browser'] == "phantom"
         options = {
                   js_errors: false, # silences js errors
                   timeout: 500, # adjusts timeout in ms
-                  debug: false
                   }
       Capybara::Poltergeist::Driver.new(app, options)
     end
