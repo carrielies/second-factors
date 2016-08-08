@@ -89,7 +89,7 @@ export default connect((state) => state) (
                         </div>
                     </main>
     
-                    <footer className="group js-footer footer-padding" id="footer" role="contentinfo">
+                    <footer className="group js-footer" id="footer" role="contentinfo">
                         <div className="footer-wrapper">
                             <div className="footer-meta">
                                 <div className="footer-meta-inner">
