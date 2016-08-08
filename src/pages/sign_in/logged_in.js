@@ -26,6 +26,7 @@ export default connect((state) => state) (
                         email: a.email,
                         gg_id: a.gg_id,
                         group_id: a.group_id,
+                        status: a.status || "Active",
                         org_name: a.org_name || "",
                         last_logged_in: time
                 };

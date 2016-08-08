@@ -41,17 +41,7 @@ And /^I choose "(.*)"$/ do |choice|
 end
 
 And /^I use Google authenticator$/ do
-  choose("Google authenticator")
-  click_link "Continue"
-
-
-  code = find(:css, '.ga_code_hidden').text
-  if code.is_a? Array
-    code=code[0]
-  end
-
-  fill_in "code", with: code
-  click_link "Continue"
+  use_google_authenticator
 end
 
 And /^I enter: (.*)$/ do |data|
@@ -73,6 +63,21 @@ end
 
 And /^I click hint link "(.*)"$/ do |link|
   click_hint_link link
+end
+
+
+def use_google_authenticator
+  choose("Google authenticator")
+  click_link "Continue"
+
+
+  code = find(:css, '.ga_code_hidden').text
+  if code.is_a? Array
+    code=code[0]
+  end
+
+  fill_in "code", with: code
+  click_link "Continue"
 end
 
 def click_hint_link name
@@ -172,6 +177,19 @@ And /^I log into fraud helpdesk with email: "(.*)", password: "(.*)"$/ do |email
   fill_in "email", with: email
   fill_in "password", with: password
   click_link "Continue"
+end
+
+And /^I search fraud helpdesk with email: "(.*)", password: "(.*)" for email: "(.*)"$/ do |email,password,findEmail|
+  click_link "Fraud"
+  click_link "Fraud Helpdesk"
+  click_link "Sign into Fraud Helpdesk"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+  use_google_authenticator
+  fill_in "email", with: findEmail
+  click_link "Search"
+  click_link "Manage Account"
 end
 
 And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do |email,password|

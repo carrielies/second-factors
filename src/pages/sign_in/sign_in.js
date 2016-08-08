@@ -2,7 +2,7 @@ import React from 'react'
 import {Breadcrumb, Govuk, Field, Question, Server } from '../../components/all'
 import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
-import {findAccountByEmailAndPassword, findAccount} from '../../utils/database'
+import {findAccountByEmailAndPassword, saveInteraction, findAccount} from '../../utils/database'
 import {saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
@@ -47,8 +47,18 @@ export default connect((state) => state) (
                         this.setState( {errors});
                     }
                     else {
-                        saveGG3Session(this.props.dispatch, {account: account, level: "1"});
-                        browserHistory.push("/your_auth_factors");
+                        if (account.status === 'Suspended'){
+                            saveInteraction( account.gg_id, "sign-in", `Login with Suspended Account` );
+                            let errors = {};
+                            errors["email"] = {msg: "Account Suspended", summary: "Your account has been suspended", regEx: /\w+/}
+                            this.setState( {errors});
+                        } else {
+                            if (account.status === 'Flagged'){
+                                saveInteraction( account.gg_id, "sign-in", `Login with Flagged Account` );
+                            }
+                            saveGG3Session(this.props.dispatch, {account: account, level: "1"});
+                            browserHistory.push("/your_auth_factors");
+                        }
                     }
                 });
             })
