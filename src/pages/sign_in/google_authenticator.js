@@ -37,6 +37,7 @@ export default connect((state) => state) (
                 let errors = {};
                 errors["code"] = {msg: "Wrong code entered", summary: "You entered the wrong code"};
                 this.setState( {errors: errors});
+                return;
             }
 
             saveGG3Session( this.props.dispatch, {level: "2"});

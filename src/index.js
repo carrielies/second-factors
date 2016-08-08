@@ -14,4 +14,4 @@ function AppRoutes() {
 }
 
 
-ReactDOM.render(<AppRoutes />, document.getElementById('content'));
+ReactDOM.render(<AppRoutes />, document.getElementsByTagName('body')[0]);
