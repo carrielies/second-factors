@@ -3,11 +3,11 @@ Feature: Fraud Helpdesk feature
 
   Background:
     Given I start on the Home Page
-#
-#  Scenario: I try to log in with a user with no enrolments
-#    Given I log into fraud helpdesk with email: "org@olive.com", password: "password"
-#    And   I use Google authenticator
-#    Then  I should be on the "Sorry, but you don't have access to Fraud Helpdesk" page
+
+  Scenario: I try to log in with a user with no enrolments
+    Given I log into fraud helpdesk with email: "org@olive.com", password: "password"
+    And   I use Google authenticator
+    Then  I should be on the "Sorry, but you don't have access to Fraud Helpdesk" page
 
   Scenario: Search the trust store for Lapse Larry, Suspend him then attempt to log in
     Given I search fraud helpdesk with email: "Patty@fraud.com", password: "password" for email: "lapse@larry.com"
@@ -23,7 +23,7 @@ Feature: Fraud Helpdesk feature
     When  I click "proposition-name"
     And   I search fraud helpdesk with email: "Patty@fraud.com", password: "password" for email: "lapse@larry.com"
     Then  I should be on the "Lapse Larry" page
-    And I click hint link "View their event log"
+    And   I click hint link "View their event log"
     And   I should see:
       | Status Suspended |
       | Account Suspended |
@@ -33,7 +33,6 @@ Feature: Fraud Helpdesk feature
     When  I log into spacegov with email: "lapse@larry.com", password: "password"
     Then  I should see:
       | Service trusts you to level 1 |
-      | "status": "Active" |
 
 
 
@@ -48,11 +47,11 @@ Feature: Fraud Helpdesk feature
     When  I log into spacegov with email: "lapse@larry.com", password: "password"
     Then  I should see:
       | Service trusts you to level 1 |
-      | "status": "Flagged" |
+      | FLAGGED |
     When  I click "Sign out"
     And   I search fraud helpdesk with email: "Patty@fraud.com", password: "password" for email: "lapse@larry.com"
     Then  I should be on the "Lapse Larry" page
-    When I click hint link "View their event log"
+    When  I click hint link "View their event log"
     And   I should see:
       | Status Flagged |
       | Account Flagged |

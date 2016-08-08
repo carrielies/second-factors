@@ -93,7 +93,7 @@ export default connect((state) => state) (
 
                             </div>
                             <div className="column-one-half">
-                                <div className="info">Service trusts you to level {resp.level}
+                                <div className="info">Service trusts you to level {resp.level} {resp.status === "Flagged" ? "- FLAGGED" : ""}
                                     <br/>
                                     <br/>
                                     <ul className="list-bullet">
@@ -104,7 +104,6 @@ export default connect((state) => state) (
                                         <li>New Station grant: <br/>Requires you to be at trust level 2</li>
 
                                     </ul>
-
                                 </div>
                             </div>
                         </div>
