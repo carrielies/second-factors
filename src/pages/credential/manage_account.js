@@ -34,6 +34,20 @@ export default connect((state) => state) (
 
         }
 
+        toggleAlwaysAskFor2fa(e) {
+            e.preventDefault();
+
+            let session = this.props.session.credential;
+            let account = session.account;
+
+            account.always_use_2fa = ! account.always_use_2fa
+
+            updateAccount(account).then(() => {
+                saveCredentialSession( this.props.dispatch, {account});
+            });
+
+        }
+
 
         authFactors() {
 
@@ -107,6 +121,21 @@ export default connect((state) => state) (
                 )
             }
 
+            if ( Object.keys(account.factors).length > 1 ) {
+                list.push(
+                    <tr>
+                        <td>Always ask for a second factor</td>
+                        <td></td>
+                        <td>{account.always_use_2fa ? "Enabled" : "Disabled"}</td>
+                        <td className="change-link">
+                            <a href="#" onClick={(e) => this.toggleAlwaysAskFor2fa(e)}>
+                                {account.always_use_2fa ? "Disable" : "Enable"}
+                            </a>
+                        </td>
+                    </tr>
+                );
+            }
+
             list.push(
                 <tr>
                     <td></td>
@@ -118,6 +147,7 @@ export default connect((state) => state) (
                 </tr>
 
             )
+
 
             return list;
         }
