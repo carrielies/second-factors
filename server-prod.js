@@ -9,6 +9,7 @@ app.use(express.static('public'));
 app.use('/static', express.static('dist'));
 app.use('/govuk_template', express.static('govuk_template'));
 app.use('/public', express.static('public'));
+app.use('/docs', express.static('docs'));
 
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));

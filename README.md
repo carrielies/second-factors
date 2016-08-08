@@ -10,7 +10,7 @@ New Government Gateway authentication portal, offering a range of second factors
 ### Overview 
 
 * See the live prototype [here](https://gg3alpha.herokuapp.com)
-* [Cucumber report](./docs/cucumber.html)
+* [Cucumber report](https://gg3alpha.herokuapp.com/docs/cucumber.html)
 * [Screenshots](./docs/screenshots)
  
 
