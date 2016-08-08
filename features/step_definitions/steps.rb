@@ -325,3 +325,8 @@ def reset_spacegov_password email
   click_link "resetpassword"
   # Two step verification?
 end
+
+And(/^I debug$/) do
+  require 'pry'
+  binding.pry
+end
