@@ -130,6 +130,83 @@ export default connect((state) => state) (
             return list;
         }
 
+        addNote(e) {
+            e.preventDefault();
+
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+            let gg3 = this.props.session.gg3;
+            let response = gg3.response;
+
+
+            account.notes = account.notes || [];
+
+            account.notes.push( {
+                timestamp: this.timestamp(),
+                agent: response.email,
+                note: this.refs.note.value
+            });
+
+            updateAccount(account).then( () => {
+                saveHelpdeskSession(this.props.dispatch, {account});
+            });
+
+
+        }
+
+        notes() {
+            let session = this.props.session.helpdesk;
+            let account = session.account;
+
+            let notes = (account.notes || []).map( (note) => {
+               return (
+                   <tr>
+                       <td>{note.timestamp}</td>
+                       <td>{note.agent}</td>
+                       <td><textarea value={note.note} cols="60" rows="3"/></td>
+                       <td></td>
+                   </tr>
+               )
+            });
+
+            notes.push(
+                <tr>
+                    <td colSpan="2"></td>
+                    <td>
+                        <textarea ref="note" cols="60" rows="3"/>
+                    </td>
+                    <td className="change-link">
+                        <a href="#" onClick={(e) => this.addNote(e)}>Add note</a>
+                    </td>
+                </tr>
+            );
+
+
+            return(
+
+                <div>
+                    <details>
+                        <summary><span className="summary">View their notes</span></summary>
+                        <div className="panel panel-border-narrow">
+                            <table className="table-font-xsmall" >
+                                <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Agent</th>
+                                    <th>Note</th>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {notes}
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            )
+        }
+
         eventLog() {
 
             let session = this.props.session.helpdesk;
@@ -237,6 +314,7 @@ export default connect((state) => state) (
                     </table>
                     <br/>
                     {this.eventLog()}
+                    {this.notes()}
 
                     <br/>
 
