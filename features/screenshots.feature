@@ -1,5 +1,5 @@
 Feature: Screenshots
-  As the a product owner, I want to see some screenshots of the various journeys
+  As the a product owner, I want to see some screenshots of the journeys
 
   Background:
     Given I start on the Home Page

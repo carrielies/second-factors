@@ -5,12 +5,12 @@ New Government Gateway authentication portal, offering a range of second factors
  
 ####[Live Prototype](https://gg3alpha.herokuapp.com)
  
- ![](./docs/images/sign_in_mob.png)
+ ![](./docs/screenshots/sign_in.png)
 
 ### Overview 
 
 * See the live prototype [here](https://gg3alpha.herokuapp.com)
-* [Cucumber report](https://gg3alpha.herokuapp.com/docs/cucumber.html)
+* [Cucumber features](./features)
 * [Screenshots](./docs/screenshots)
  
 
@@ -29,9 +29,6 @@ New Government Gateway authentication portal, offering a range of second factors
 ### Testing
 * [Capybara](https://github.com/jnicklas/capybara)
 * Cucumber
-
-
-
 
 
 
@@ -86,9 +83,9 @@ This will start an express server listening on https://localhost:3000
 ```
 
 
-#####Generating screenshots and report
+#####Generating screenshots
 ```
-    bundle exec cucumber browser=phantom --format html --format pretty --out docs/cucumber.html
+    bundle exec cucumber browser=phantom screenshots=true features/screenshots.feature 
 ```
 
 

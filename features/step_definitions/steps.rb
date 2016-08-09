@@ -334,5 +334,7 @@ And(/^I debug$/) do
 end
 
 And(/^I take a screenshot: "(.*)"$/) do |file_name|
-  page.save_screenshot(file_name, full: true)
+  if ENV['screenshots'] == "true"
+    save_screenshot(file_name, full: true)
+  end
 end
