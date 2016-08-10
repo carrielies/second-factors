@@ -24,4 +24,4 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: gg3alpha-stage
+      appname: gg3alpha
