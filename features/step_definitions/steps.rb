@@ -332,3 +332,9 @@ And(/^I debug$/) do
   require 'pry'
   binding.pry
 end
+
+And(/^I take a screenshot: "(.*)"$/) do |file_name|
+  if ENV['screenshots'] == "true"
+    save_screenshot(file_name, full: true)
+  end
+end

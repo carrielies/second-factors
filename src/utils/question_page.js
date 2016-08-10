@@ -1,10 +1,15 @@
 import React from 'react'
+import fecha from 'fecha'
 
 export default class QuestionPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {errors: {}};
+    }
+
+    timestamp() {
+        return fecha.format(new Date(), 'DD/MM/YY HH:mm:ss');
     }
 
     trust_id() {
