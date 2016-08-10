@@ -55,8 +55,9 @@ export function updateAccount(account) {
     return db.updateAsync( {gg_id: account.gg_id}, {$set: account}, {});
 }
 
-export function deleteAccount(gg_id) {
-    return db.removeAsync( {gg_id: gg_id} )
+export function deleteAccount(account) {
+    account.status = "Deleted";
+    return updateAccount(account);
 }
 
 export function allAccounts() {

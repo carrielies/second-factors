@@ -61,7 +61,7 @@ export default connect((state) => state) (
         }
 
         render() {
-            let drop_down = this.state.accounts.map( (u) => <option key={u.email} value={u.email}>{u.email}</option> );
+            let drop_down = this.state.accounts.map( (u) => <option key={u.email} value={u.email}>{u.status == 'Deleted' ? "DELETED : " + u.email : u.email}</option> );
 
             return(
                 <GovUk title="Home">

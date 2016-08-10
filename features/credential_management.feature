@@ -20,3 +20,14 @@ Feature: Credential Management feature
     And   I click "Sign out"
     When  I log into credential management with email: "lapse@larry.com", password: "new_password"
     Then  I should be on the "Credential Management" page
+
+
+  Scenario: I want to able delete my account
+    Given I log into credential management with email: "lapse@larry.com", password: "password"
+    And   I click "Delete account"
+    And   I choose "Yes"
+    And   I click "Continue"
+    Then  I should be on the "Account has been deleted" page
+    When  I click "proposition-name"
+    And   I attempt to log into spacegov with email: "lapse@larry.com", password: "password"
+    Then  I should be on the "Invalid email/password" page

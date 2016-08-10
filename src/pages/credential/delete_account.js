@@ -23,14 +23,14 @@ export default connect((state) => state) (
             if ( this.refs.yes.checked ) {
                 let session = this.props.session.org;
                 let account = session.account;
-                applyInteraction( account, "organisation", `Delete account` );
+                applyInteraction( account, "user", `Delete account` );
                 deleteAccount(account).then( () => {
-                    browserHistory.push("/org/manage_org")
+                    browserHistory.push("/credential/account_deleted")
                 })
             }
 
             if ( this.refs.no.checked ) {
-                browserHistory.push("/org/manage_account")
+                browserHistory.push("/credential/manage_account")
             }
         }
 
@@ -40,9 +40,9 @@ export default connect((state) => state) (
             let account = session.account;
 
             return(
-                <Govuk title={session.org_name}>
-                    <Breadcrumb text={`${account.name}`} back="/org/manage_account"/>
-                    <Question title={`Do you want to delete ${account.name}?`}>
+                <Govuk title="Credential Management">
+                    <Breadcrumb text={`${account.name}`} back="/credential/manage_account"/>
+                    <Question title={`Are you sure you want to delete your account`}>
                         <fieldset className="inline">
                             <label className="block-label">
                                 <input id="yes" type="radio" name="radio-group" value="Yes" ref="yes"/>Yes

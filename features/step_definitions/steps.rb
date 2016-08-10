@@ -166,6 +166,15 @@ And /^I log into spacegov with email: "(.*)", password: "(.*)"$/ do |email,passw
   click_link "Continue"
 end
 
+And /^I attempt to log into spacegov with email: "(.*)", password: "(.*)"$/ do |email,password|
+  click_link "Spacegov"
+  click_link "Sign into Spacegov"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+end
+
+
 And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
   click_link "Spacegov"
   click_link "Sign into Spacegov"
