@@ -17,29 +17,24 @@ export default connect((state) => state) (
             super(props);
             let new_password = "monday12";
             this.state = { new_password };
-            let session = props.session.helpdesk;
+            let session = this.props.session.org;
             let account = session.account;
             account.factors.password.secret = new_password;
             account.factors.password.force_reset = true;
-            applyInteraction( account, "helpdesk", `Password reset` );
-
-            if ( ! session.id_proven && !session.trust_id_changed) {
-                account.trust_id = this.trust_id();
-                saveHelpdeskSession( this.props.dispatch, {trust_id_changed: true});
-            }
-
+            applyInteraction( account, "organisation", `Password reset` );
 
             updateAccount( account )
         }
 
 
         render() {
-            let session = this.props.session.helpdesk;
-            let account = session.account;
+            let gg3 = this.props.session.gg3;
 
+            let session = this.props.session.org;
+            let account = session.account;
             return(
-                <Govuk title={session.title}>
-                    <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/manage_account"/>
+                <Govuk title={session.org_name}>
+                    <Breadcrumb text={`${account.name}`} back="/org/manage_account"/>
                     <Content title="Reset password">
                         <p>
                             The customer will be asked to change this password, the next time they sign in.
@@ -49,7 +44,7 @@ export default connect((state) => state) (
                         <br/>
                         <br/>
                         <br/>
-                        <Link to="/helpdesk/manage_account" className="button">Continue</Link>
+                        <Link to="/org/manage_account" className="button">Continue</Link>
 
                     </Content>
                 </Govuk>

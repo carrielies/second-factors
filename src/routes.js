@@ -2,6 +2,7 @@ import React from 'react'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import SignIn from './pages/sign_in/sign_in'
+import ForcePasswordChange from './pages/sign_in/force_password_change'
 import ForgotPassword from './pages/forgot/forgot_password'
 import ForgotPasswordConfirm from './pages/forgot/forgot_password_confirm'
 import ForgotPasswordReset from './pages/forgot/forgot_password_reset'
@@ -79,6 +80,7 @@ import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search
 import OrgHome from './pages/org/index'
 import OrgManageOrg from './pages/org/manage_org'
 import OrgManageAccount from './pages/org/manage_account'
+import OrgResetPassword from './pages/org/reset_password'
 import OrgRemoveFactor from './pages/org/remove_factor'
 import OrgCreateAccount from './pages/org/create_account'
 import OrgCreateAccountSummary from './pages/org/create_account_summary'
@@ -109,6 +111,7 @@ export default function(props) {
             <Route path="/cryptophoto" component={CryptoPhoto}/>
             <Route path="/ga" component={GoogleAuthenticator}/>
             <Route path="/u2f" component={U2F}/>
+            <Route path="/force_password_change" component={ForcePasswordChange}/>
             <Route path="/your_auth_factors" component={YourAuthFactors}/>
             <Route path="/service_redirect" component={ServiceRedirect}/>
             <Route path="/sso" component={Sso}/>
@@ -190,6 +193,7 @@ export default function(props) {
             <Route path="/org/create_account_summary" component={OrgCreateAccountSummary}/>
             <Route path="/org/delete_account" component={OrgDeleteAccount}/>
             <Route path="/org/registration_complete" component={OrgRegistrationComplete}/>
+            <Route path="/org/reset_password" component={OrgResetPassword}/>
 
             <Route path="/fraud" component={FraudHome}/>
             <Route path="/fraud/index" component={FraudIndex}/>

@@ -118,6 +118,27 @@ saveAccount({
 });
 
 saveAccount({
+    email: "annie@olive.com",
+    name: "Assistant Annie",
+    always_use_2fa: false,
+    gg_id: "765123475786234",
+    trust_id: "875678687GJ234HGH343",
+    group_id: "GR58723457",
+    org_name: "Olive ltd",
+    type: "assistant",
+    is_org: true,
+    interactions: [],
+    factors: {
+        password: {
+            secret: "password"
+        },
+        google_authenticator: {
+            secret: "JM4VQTSGMQRSGRZEKJGSMUTNORUE63JS"
+        }
+    }
+});
+
+saveAccount({
     email: "helen@spacegov-help.com",
     name: "Helpful Helen",
     always_use_2fa: false,

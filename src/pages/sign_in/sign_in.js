@@ -60,12 +60,13 @@ export default connect((state) => state) (
                             break;
                         case 'Flagged' :
                             saveInteraction( account.gg_id, "sign-in", `Login with Flagged Account` );
-                            saveGG3Session(this.props.dispatch, {account: account, level: "1"});
-                            browserHistory.push("/your_auth_factors");
-                            break;
                         default :
                             saveGG3Session(this.props.dispatch, {account: account, level: "1"});
-                            browserHistory.push("/your_auth_factors");
+                            if (account.factors.password.force_reset) {
+                                browserHistory.push("/force_password_change");
+                            } else {
+                                browserHistory.push("/your_auth_factors");
+                            }
                     }
                 });
             })

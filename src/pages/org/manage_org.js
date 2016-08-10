@@ -71,7 +71,7 @@ export default connect((state) => state) (
                         <td>{a.name}</td>
                         <td>{a.email}</td>
                         <td>{a.type == "admin" ? "Administrator" : "Assistant"}</td>
-                        <td className="change-link"><a href="#" onClick={(e) => this.manageAccount(e, a.gg_id)}>Manage Account</a></td>
+                        <td className="change-link"><a href="#" id={`Manage-${a.email}`} onClick={(e) => this.manageAccount(e, a.gg_id)}>Manage Account</a></td>
                     </tr>
                 )
             });

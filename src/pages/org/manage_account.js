@@ -38,7 +38,7 @@ export default connect((state) => state) (
                     <td>This is enabled by default.  </td>
                     <td>Enabled</td>
                     <td className="change-link">
-                        <Link to="/org/change_password">Change password</Link>
+                        <Link to="/org/reset_password">Reset password</Link>
                     </td>
                 </tr>
             );
