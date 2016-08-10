@@ -11,6 +11,16 @@ var speakeasy = require('speakeasy');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get('/info', function(reg,res) {
+  var j = {
+    app_name: process.env.HEROKU_APP_NAME || "",
+    commit_hash: process.env.HEROKU_SLUG_COMMIT || "",
+    created_at: process.env.HEROKU_RELEASE_CREATED_AT || "",
+    heroku_release: process.env.HEROKU_RELEASE_VERSION || "",
+  };
+  res.json(j)
+});
+
 app.get('/svr/ga/secret', function(req, res) {
   var secret = speakeasy.generateSecret({length: 20});
   res.json(secret);

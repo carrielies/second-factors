@@ -101,3 +101,8 @@ You will need to add an env variable to heroku:
 ```
     NPM_CONFIG_PRODUCTION=false
 ```
+
+Also, enable the following plugins:
+```
+    heroku labs:enable runtime-dyno-metadata
+```

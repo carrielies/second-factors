@@ -11,7 +11,8 @@ new WebpackDevServer(webpack(config), {
     hot: true,
     historyApiFallback: true,
     proxy: {
-        "/svr/*": "http://localhost:3001"
+        "/svr/*": "http://localhost:3001",
+        "/info": "http://localhost:3001"
     }
 }).listen(3000, 'localhost', function (err, result) {
     if (err) {
