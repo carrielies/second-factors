@@ -4,13 +4,25 @@ Feature: Credential Management feature
   Background:
     Given I start on the Home Page
 
-  Scenario: Convert to be an Organisation
+  Scenario: Convert to be an Organisation when I have a 2FA
+    Given I log into credential management with email: "average@joe.com", password: "password"
+    And   I click "Convert to Organisation"
+    And   I enter: {org_name: "Joe ltd"}
+    When  I click "Continue"
+    And   I click "Manage Organisation"
+    And   I use Google authenticator
+    Then   I should see:
+      | Joe ltd |
+      | Your linked accounts |
+
+  Scenario: Convert to be an Organisation when I have a 1FA
     Given I log into credential management with email: "lapse@larry.com", password: "password"
     And   I click "Convert to Organisation"
     And   I enter: {org_name: "Larry ltd"}
     When  I click "Continue"
     And   I click "Manage Organisation"
-    Then  I should be on the "Larry ltd" page
+    Then  I should be on the "You don't have a second factor set up" page
+
 
   Scenario: I want to be able to change my password
     Given I log into credential management with email: "lapse@larry.com", password: "password"
@@ -28,6 +40,6 @@ Feature: Credential Management feature
     And   I choose "Yes"
     And   I click "Continue"
     Then  I should be on the "Account has been deleted" page
-    When  I click "proposition-name"
+    When  I return to the Home Page
     And   I attempt to log into spacegov with email: "lapse@larry.com", password: "password"
     Then  I should be on the "Invalid email/password" page

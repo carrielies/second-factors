@@ -20,7 +20,7 @@ Feature: Fraud Helpdesk feature
     When  I log into spacegov with email: "lapse@larry.com", password: "password"
     Then  I should see:
       | Your account has been suspended |
-    When  I click "proposition-name"
+    When  I return to the Home Page
     And   I search fraud helpdesk with email: "Patty@fraud.com", password: "password" for email: "lapse@larry.com"
     Then  I should be on the "Lapse Larry" page
     And   I click hint link "View their event log"

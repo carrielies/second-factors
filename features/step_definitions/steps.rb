@@ -3,6 +3,10 @@ And /^I start on the Home Page$/ do
   visit "https://localhost:3000"
 end
 
+And /^I return to the Home Page$/ do
+  click_link "proposition-name"
+end
+
 And /^I'm enroled onto Spacegov as (.*)$/ do |email|
   visit "https://localhost:3000"
   click_link "Spacegov"
