@@ -41,24 +41,31 @@ export default connect((state) => state) (
             }, (props) => {
 
                 findAccountByEmailAndPassword(props.email, props.password).then( (account)=> {
-                    if ( !account) {
-                        let errors = {};
-                        errors["email"] = {msg: "Invalid email/password", summary: "You need to enter a valid username and password", regEx: /\w+/}
-                        this.setState( {errors});
-                    }
-                    else {
-                        if (account.status === 'Suspended'){
+                    let status = account ? account.status : 'Failed'
+                    let errors = {};
+                    switch(status) {
+                        case 'Failed' :
+                            errors["email"] = {msg: "Invalid email/password", summary: "You need to enter a valid username and password", regEx: /\w+/}
+                            this.setState( {errors});
+                            break;
+                        case 'Deleted' :
+                            saveInteraction( account.gg_id, "sign-in", `Attempted Login with Deleted Account` );
+                            errors["email"] = {msg: "Invalid email/password", summary: "You need to enter a valid username and password", regEx: /\w+/}
+                            this.setState( {errors});
+                            break;
+                        case 'Suspended' :
                             saveInteraction( account.gg_id, "sign-in", `Login with Suspended Account` );
-                            let errors = {};
                             errors["email"] = {msg: "Account Suspended", summary: "Your account has been suspended", regEx: /\w+/}
                             this.setState( {errors});
-                        } else {
-                            if (account.status === 'Flagged'){
-                                saveInteraction( account.gg_id, "sign-in", `Login with Flagged Account` );
-                            }
+                            break;
+                        case 'Flagged' :
+                            saveInteraction( account.gg_id, "sign-in", `Login with Flagged Account` );
                             saveGG3Session(this.props.dispatch, {account: account, level: "1"});
                             browserHistory.push("/your_auth_factors");
-                        }
+                            break;
+                        default :
+                            saveGG3Session(this.props.dispatch, {account: account, level: "1"});
+                            browserHistory.push("/your_auth_factors");
                     }
                 });
             })

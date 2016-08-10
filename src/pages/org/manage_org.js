@@ -29,7 +29,7 @@ export default connect((state) => state) (
                 return admin_account;
             }).then( (admin_account) => {
                 getGroupAccounts(admin_account.group_id).then( (accounts) => {
-                    let filteredAccounts = accounts.filter( (a) => a.gg_id != admin_account.gg_id );
+                    let filteredAccounts = accounts.filter( (a) => a.gg_id != admin_account.gg_id && a.status != 'Deleted');
                     this.setState( { accounts: filteredAccounts })
                 })
             });

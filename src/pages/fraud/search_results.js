@@ -31,6 +31,7 @@ export default connect((state) => state) (
                         <td>{account.gg_id}</td>
                         <td>{account.space_trading_license_number}</td>
                         <td>{account.org_name}</td>
+                        <td>{account.status}</td>
                         <td className="change-link"><a href="#" onClick={(e) => this.select(e, account.gg_id)}>Manage Account</a></td>
 
                     </tr>
@@ -50,6 +51,7 @@ export default connect((state) => state) (
                             <th>Gateway ID</th>
                             <th>License</th>
                             <th>Organisation Name</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                         </thead>
