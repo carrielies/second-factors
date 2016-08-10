@@ -7,7 +7,7 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 
 import {connect} from 'react-redux'
-import {saveRegistrationSession} from '../../reducers/helpers'
+import {clearGG3Session} from '../../reducers/helpers'
 import {deleteAccount, applyInteraction} from '../../utils/database'
 
 export default connect((state) => state) (
@@ -16,6 +16,7 @@ export default connect((state) => state) (
 
         constructor(props) {
             super(props);
+            clearGG3Session(this.props.dispatch)
         }
 
         render() {
