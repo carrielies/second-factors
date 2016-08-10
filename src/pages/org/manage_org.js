@@ -1,6 +1,7 @@
 import React from 'react'
 import Govuk from '../../components/govuk'
 import Content from '../../components/content'
+import Trust from '../../components/trust'
 import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
@@ -78,7 +79,7 @@ export default connect((state) => state) (
             return(
                 <Govuk title={session.org_name}>
                     <Breadcrumb text={`${session.org_name}`} back="/credential/manage_account"/>
-
+                    <Trust required="2" desired="2"/>
 
 
                     <table className="table-font-xsmall summary" >

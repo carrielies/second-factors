@@ -65,6 +65,10 @@ And /^I click hint link "(.*)"$/ do |link|
   click_hint_link link
 end
 
+def debug
+  require 'pry'
+  binding.pry
+end
 
 def use_google_authenticator
   choose("Google authenticator")
@@ -199,6 +203,7 @@ end
 And /^I log into organisation management with email: "(.*)", password: "(.*)"$/ do |email,password|
   login_to_credential_management email,password
   click_link "Manage Organisation"
+  use_google_authenticator
 end
 
 
@@ -228,7 +233,11 @@ And /^I create an organisation user with name: "(.*)", email: "(.*)", type: "(.*
     fill_in "password", with: "password"
     fill_in "password2", with: "password"
     click_link "Continue"
+    use_google_authenticator
     choose "I'm done"
+    click_link "Continue"
+    # always ask for a second factor
+    choose "Yes"
     click_link "Continue"
     click_link "Continue to Olive ltd"
     click_link "Credential Management"
