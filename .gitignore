@@ -6,4 +6,5 @@ dist
 *.iml
 vendor
 mirage.log
+docs/screenshots
 

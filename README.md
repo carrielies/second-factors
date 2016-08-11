@@ -3,7 +3,7 @@
 New Government Gateway authentication portal, offering a range of second factors,
  credential management, helpdesk and more... 
  
-####[Live Prototype](https://gg3alpha.herokuapp.com)
+####[Live Functional Prototype](https://gg3alpha.herokuapp.com)
  
  ![](./docs/images/sign_in_journey.png)
 
@@ -105,3 +105,9 @@ Also, enable the following plugins:
 ```
     heroku labs:enable runtime-dyno-metadata
 ```
+
+
+### Notes
+
+* [Original click through prototype demo site](https://gg3prototype.herokuapp.com)
+* [Original click through prototype github](https://github.tools.tax.service.gov.uk/HMRC/gg3-prototype)
