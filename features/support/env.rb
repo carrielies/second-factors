@@ -4,6 +4,7 @@ require 'capybara/rspec'
 require 'mirage/client'
 require 'capybara/poltergeist'
 require 'phantomjs'
+require 'pry'
 
 if ENV['browser'] == "phantom"
 
@@ -25,4 +26,25 @@ else
   Capybara.default_driver = :selenium
 end
 
+# w = Capybara.current_session.driver.browser.manage.window
+# window_width = w.size.width
+# window_height = w.size.height
 
+
+Before('@smartphone') do
+  set_window_size 360, 2000
+end
+
+After('@smartphone') do
+  set_window_size 900, 900
+end
+
+
+def set_window_size(width, height)
+  if Capybara.default_driver == :poltergeist
+    page.driver.resize(width, height)
+  else
+    window = Capybara.current_session.driver.browser.manage.window
+    window.resize_to(width, height)
+  end
+end

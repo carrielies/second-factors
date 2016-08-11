@@ -97,6 +97,11 @@ And /^I wait$/ do
   sleep 1000
 end
 
+And /^I wait (.*) seconds$/ do |seconds|
+  sleep seconds.to_i
+end
+
+
 When /^I sign in as (.*)$/ do |user_id|
   fill_in "userID", with: user_id
   fill_in "password", with: "anything"
@@ -359,4 +364,13 @@ And(/^I take a screenshot: "(.*)"$/) do |file_name|
   if ENV['screenshots'] == "true"
     save_screenshot(file_name, full: true)
   end
+end
+
+And(/^I key in the google authenticator code$/) do
+  code = find(:css, '.ga_code_hidden').text
+  if code.is_a? Array
+    code=code[0]
+  end
+
+  fill_in "code", with: code
 end

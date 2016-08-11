@@ -5,13 +5,12 @@ New Government Gateway authentication portal, offering a range of second factors
  
 ####[Live Prototype](https://gg3alpha.herokuapp.com)
  
- ![](./docs/screenshots/sign_in.png)
+ ![](./docs/images/sign_in_journey.png)
 
 ### Overview 
 
 * See the live prototype [here](https://gg3alpha.herokuapp.com)
 * [Cucumber features](./features)
-* [Screenshots](./docs/screenshots)
  
 
 ### Technology stack
