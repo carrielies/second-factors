@@ -183,6 +183,13 @@ And /^I attempt to log into spacegov with email: "(.*)", password: "(.*)"$/ do |
   click_link "Continue"
 end
 
+And /^I attempt to log into spacegov with new password for email: "(.*)"$/ do |email|
+  click_link "Spacegov"
+  click_link "Sign into Spacegov"
+  fill_in "email", with: email
+  fill_in "password", with: "monday12"
+  click_link "Continue"
+end
 
 And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
   click_link "Spacegov"
@@ -239,6 +246,22 @@ And /^helpdesk agent unable to prove identity and breaks trust$/ do
   @new_password = find(:css, '.password_box').text
   click_link "Continue"
   click_link "Sign out"
+end
+
+And /^I manage the user with email: "(.*)"$/ do |email|
+    click_link "Manage-" + email
+end
+
+And /^I reset the assistants password of email: "(.*)"$/ do |email|
+    click_link "Manage-" + email
+    click_link "Reset password"
+    click_link "Continue"
+end
+
+And /^I'm forced to reset my password: "(.*)"$/ do |password|
+    fill_in "password1", with: password
+    fill_in "password2", with: password
+    click_link "Change password"
 end
 
 And /^I create an organisation user with name: "(.*)", email: "(.*)", type: "(.*)"$/ do |name,email,type|
