@@ -49,3 +49,15 @@ saveEnrolment(
     mission: "See the Universe"
   }
 )
+
+saveEnrolment(
+  {
+    email: "average@joe.com",
+    name: "Average Joe",
+    gg_id: "765875675786",
+    trust_id: "875678687GJHGH343",
+    space_trading_license_number: "SP645C02E5",
+    org_name: "Average Joe Mining",
+    mission: "Mine the Universe"
+  }
+)

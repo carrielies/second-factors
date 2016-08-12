@@ -14,7 +14,7 @@ export default connect((state) => state) (
                     <div className="asteroidgov"></div>
                     <Content title="Help using ASTEROID.GOV">
                         <p>
-                            Find out about SPACE.GOV, including the use of cookies, accessibility of the site, the privacy policy and terms and conditions of use.
+                            Find out about ASTEROID.GOV, including the use of cookies, accessibility of the site, the privacy policy and terms and conditions of use.
                             <br/>
                             <br/>
                             <ul>
@@ -23,7 +23,7 @@ export default connect((state) => state) (
                                     <p>Details of how to contact us</p>
                                   </li>
                                   <li>
-                                    <a href="/help/about-govuk">About SPACE.GOV</a>
+                                    <a href="/help/about-govuk">About ASTEROID.GOV</a>
                                     <p>Information about the website and the team that are building it</p>
                                   </li>
                                   <li>
@@ -31,8 +31,8 @@ export default connect((state) => state) (
                                     <p>Details of accessibility and help using the internet</p>
                                   </li>
                                   <li>
-                                    <a href="/help/beta">Beta services on SPACE.GOV</a>
-                                    <p>How new services are developed on SPACE.GOV and what it means for users</p>
+                                    <a href="/help/beta">Beta services on ASTEROID.GOV</a>
+                                    <p>How new services are developed on ASTEROID.GOV and what it means for users</p>
                                   </li>
                                   <li>
                                     <a href="/help/browsers">Browsers</a>
@@ -40,7 +40,7 @@ export default connect((state) => state) (
                                   </li>
                                   <li>
                                     <a href="/help/cookies">Cookies</a>
-                                    <p>How cookies are used on SPACE.GOV and each cookie’s purpose</p>
+                                    <p>How cookies are used on ASTEROID.GOV and each cookie’s purpose</p>
                                   </li>
                                   <li>
                                     <a href="/help/privacy-policy">Privacy policy</a>
@@ -48,7 +48,7 @@ export default connect((state) => state) (
                                   </li>
                                   <li>
                                     <a href="/help/terms-conditions">Terms and conditions</a>
-                                    <p>Information about the use of SPACE.GOV and liability</p>
+                                    <p>Information about the use of ASTEROID.GOV and liability</p>
                                   </li>
                              </ul>
                         </p>
