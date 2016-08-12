@@ -290,7 +290,7 @@ export default connect((state) => state) (
             }
             return(
                 <Govuk title={session.title}>
-                    <Breadcrumb text={`${account_name}`} back="/helpdesk/search_results"/>
+                    <Breadcrumb text={`${account_name}`} back={session.back_to_service_url}/>
 
                     <table className="table-font-xsmall summary" >
                         <thead>
