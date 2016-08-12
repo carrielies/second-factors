@@ -42,3 +42,19 @@ Feature: Trust feature
     And   I log into asteroidgov with email: "average@joe.com", password: "newpassword"
     Then  I should see:
          | We need to check that it really is you. |
+
+
+  Scenario: Users removes a 2FA as level 1 and breaks level 2 trust
+    Given I log into credential management with email: "average@joe.com", password: "password"
+    And   I break level 2 trust
+    When  I log into spacegov with email: "average@joe.com", password: "password"
+    Then  I should see:
+      | Service trusts you to level 1 |
+    When  I click "Apply for a grant to create a new station"
+    And   I use Google authenticator
+    Then  I should see:
+      | We need to check that it really is you. |
+    And   I Sign out
+    And   I log into asteroidgov with email: "average@joe.com", password: "password"
+    Then  I should see:
+      | We trust you to level 1 |

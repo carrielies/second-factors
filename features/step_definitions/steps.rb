@@ -237,6 +237,13 @@ And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do
   login_to_credential_management email,password
 end
 
+And /^I break level 2 trust$/ do
+  click_link "Remove Device Fingerprint"
+  choose "Yes"
+  click_link "Continue"
+  click_link "Sign out"
+end
+
 And /^I log into organisation management with email: "(.*)", password: "(.*)"$/ do |email,password|
   login_to_credential_management email,password
   click_link "Manage Organisation"
