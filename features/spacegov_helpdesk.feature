@@ -12,11 +12,18 @@ Feature: Spacegov Helpdesk feature
 
   Scenario: Search the trust store for Lapse Larry
     Given I log into spacegov truststore with email: "helen@spacegov-help.com", password: "password"
-    Then  I should be on the "Search Spacegov for account" page
-    And   I enter: {license: "SP651C02E4"}
-    And   I click "Search for license"
-    Then  I should be on the "Lapse Larry SpaceCorp" page
-    When  I click "Prove Identity"
+    Then  spacegov helpdesk agent finds license: "SP651C02E4"
     Then  I should be on the "Prove their identity" page
     When  I click "Back"
     Then  I should be on the "Lapse Larry SpaceCorp" page
+
+  Scenario: Spacegov agents Resets the password of Lapse Larry proving identity via swivel chair. Trusted in Spacegov, not in Asteroidgov
+    Given I log into spacegov truststore with email: "helen@spacegov-help.com", password: "password"
+    And   spacegov helpdesk agent finds license: "SP651C02E4"
+    And   spacegov helpdesk agent proves identity using swivel chair and resets password
+    And   I log into spacegov with email: "lapse@larry.com" and reset password
+    And   I'm forced to reset my password: "newpassword"
+    And   I should be on the "Service trusts you to level 1" page
+    And   I Sign out
+    And   I log into asteroidgov with email: "lapse@larry.com", password: "newpassword"
+    And   I should be on the "We trust you to level 1" page

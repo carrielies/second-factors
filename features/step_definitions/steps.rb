@@ -7,6 +7,10 @@ And /^I return to the Home Page$/ do
   click_link "proposition-name"
 end
 
+And /^I Sign out$/ do
+  click_link "Sign out"
+end
+
 And /^I'm enroled onto Spacegov as (.*)$/ do |email|
   visit "https://localhost:3000"
   click_link "Spacegov"
@@ -199,6 +203,14 @@ And /^I log into spacegov with email: "(.*)" and reset password$/ do |email|
   click_link "Continue"
 end
 
+And /^I log into asteroidgov with email: "(.*)", password: "(.*)"$/ do |email,password|
+  click_link "Asteroidgov"
+  click_link "Sign into Asteroidgov"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+end
+
 And /^I log into fraud helpdesk with email: "(.*)", password: "(.*)"$/ do |email,password|
   click_link "Fraud"
   click_link "Fraud Helpdesk"
@@ -236,10 +248,27 @@ And /^helpdesk agent searches for "(.*)"$/ do |email|
   search_helpdesk_for email
 end
 
-And /^helpdesk agent unable to prove identity and breaks trust$/ do
+Given(/^spacegov helpdesk agent finds license: "([^"]*)"$/) do |license|
+  fill_in "license", with: license
+  click_link "Search for license"
+  click_link "Prove Identity"
+end
+
+And /^spacegov helpdesk agent unable to prove identity and breaks trust$/ do
   click_hint_link "Customer unable to prove their identity"
 
   click_link "manage_account_and_break_trust"
+  # manage account
+  click_link "Reset password"
+  # reset password
+  @new_password = find(:css, '.password_box').text
+  click_link "Continue"
+  click_link "Sign out"
+end
+
+Given(/^spacegov helpdesk agent proves identity using swivel chair and resets password$/) do
+  click_hint_link "I've proved their identity by other means"
+  click_link "manage_account"
   # manage account
   click_link "Reset password"
   # reset password
