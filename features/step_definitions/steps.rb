@@ -78,19 +78,6 @@ def debug
   binding.pry
 end
 
-def use_google_authenticator
-  choose("Google authenticator")
-  click_link "Continue"
-
-
-  code = find(:css, '.ga_code_hidden').text
-  if code.is_a? Array
-    code=code[0]
-  end
-
-  fill_in "code", with: code
-  click_link "Continue"
-end
 
 def click_hint_link name
   find("span", :text => Regexp.new(name)).click
@@ -233,6 +220,15 @@ And /^I search fraud helpdesk with email: "(.*)", password: "(.*)" for email: "(
   click_link "Manage Account"
 end
 
+And /^I log into credential management using a second factor with email: "(.*)", password: "(.*)"$/ do |email,password|
+  click_link "Credential Management"
+  click_link "Sign into Credential Management"
+  fill_in "email", with: email
+  fill_in "password", with: password
+  click_link "Continue"
+  use_google_authenticator
+end
+
 And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do |email,password|
   login_to_credential_management email,password
 end
@@ -280,6 +276,18 @@ And /^helpdesk agent unable to prove identity and breaks level 2 trust$/ do
   # manage account
   click_link "Remove Device Fingerprint"
   choose "Yes"
+  click_link "Continue"
+  click_link "Sign out"
+end
+
+Given(/^helpdesk agent proves identity and resets password$/) do
+  # manage account
+  click_link "Issue Challenge"
+  populate_google_authenticator
+  # manage account
+  click_link "Reset password"
+  # reset password
+  @new_password = find(:css, '.password_box').text
   click_link "Continue"
   click_link "Sign out"
 end
@@ -383,6 +391,16 @@ end
 def setup_google_authenticator
   choose("Google authenticator")
   click_link "Continue"
+  populate_google_authenticator
+end
+
+def use_google_authenticator
+  choose("Google authenticator")
+  click_link "Continue"
+  populate_google_authenticator
+end
+
+def populate_google_authenticator
 
   code = find(:css, '.ga_code_hidden').text
   if code.is_a? Array
@@ -392,7 +410,6 @@ def setup_google_authenticator
   fill_in "code", with: code
   click_link "Continue"
 end
-
 
 def search_helpdesk_for email
   click_link "Helpdesk"
