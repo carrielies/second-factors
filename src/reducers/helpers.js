@@ -26,6 +26,10 @@ export function saveSpacegovSession(dispatchFn, data) {
     saveSession(dispatchFn, "spacegov", data);
 }
 
+export function saveAsteriodgovSession(dispatchFn, data) {
+    saveSession(dispatchFn, "asteroidgov", data);
+}
+
 export function saveCredentialSession(dispatchFn, data) {
     saveSession(dispatchFn, "credential", data);
 }
@@ -73,11 +77,16 @@ export function clearSpacegovSession(dispatchFn) {
     clearSession(dispatchFn, "spacegov");
 }
 
+export function clearAsteroidgovSession(dispatchFn) {
+    clearSession(dispatchFn, "asteroidgov");
+}
+
 export function clearAllSessions(dispatchFn) {
     clearRegistrationSession(dispatchFn);
     clearHelpdeskSession(dispatchFn);
     clearGG3Session(dispatchFn);
     clearSpacegovSession(dispatchFn);
+    clearAsteroidgovSession(dispatchFn);
     clearCredentialSession(dispatchFn);
     clearResetPasswordSession(dispatchFn);
     clearTrustStoreSession(dispatchFn);

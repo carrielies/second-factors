@@ -42,7 +42,7 @@ import Summary from './pages/register/summary'
 import Home from './pages/home'
 import CheckDevice from './pages/sign_in/check_device'
 import LandingPage from './pages/service/landing_page'
-import AsteroidGovLandingPage from './pages/service/asteroid_gov_landing_page'
+
 import ServiceHome from './pages/service/index'
 import ServiceEnrol from './pages/service/enrol'
 import WeDontTrustYou from './pages/service/we_dont_trust_you'
@@ -69,6 +69,13 @@ import CredentialConvertToOrg from './pages/credential/convert_to_org'
 import CredentialU2f from './pages/credential/u2f'
 import CredentialDeleteAccount from './pages/credential/delete_account'
 import CredentialAccountDeleted from './pages/credential/account_deleted'
+
+import AsteroidGovLandingPage from './pages/asteroid_gov/landing_page'
+import AsteroidGovFeedback from './pages/asteroid_gov/feedback'
+import AsteroidGovHelp from './pages/asteroid_gov/help'
+import AsteroidGovHome from './pages/asteroid_gov/index'
+import AsteroidGovEnrol from './pages/asteroid_gov/enrol'
+import AsteroidGovWeDontTrustYou from './pages/asteroid_gov/we_dont_trust_you'
 
 import SpacegovTrustStoreHome from './pages/spacegov_trust_store/index'
 import SpacegovTrustStoreEnrol from './pages/spacegov_trust_store/enrol'
@@ -131,11 +138,10 @@ export default function(props) {
             <Route path="/register/always_use_2fa" component={RegisterAlwaysUse2fa}/>
 
 
-
+            <Route path="/service" component={ServiceHome}/>
             <Route path="/service/landing_page" component={LandingPage}/>
             <Route path="/service/we_dont_trust_you" component={WeDontTrustYou}/>
             <Route path="/service/enrol" component={ServiceEnrol}/>
-            <Route path="/service/asteroid_gov_landing_page" component={AsteroidGovLandingPage}/>
             <Route path="/service/index" component={ServiceHome}/>
             <Route path="/service/my_details" component={ServiceMyDetails}/>
             <Route path="/service/apply_for_cleaning_grant" component={ServiceCleaningGrant}/>
@@ -145,13 +151,21 @@ export default function(props) {
             <Route path="/service/help" component={ServiceHelp}/>
             <Route path="/service/contact" component={ServiceContact}/>
 
+            <Route path="/asteroid_gov" component={AsteroidGovHome}/>
+            <Route path="/asteroid_gov/index" component={AsteroidGovHome}/>
+            <Route path="/asteroid_gov/landing_page" component={AsteroidGovLandingPage}/>
+            <Route path="/asteroid_gov/we_dont_trust_you" component={AsteroidGovWeDontTrustYou}/>
+            <Route path="/asteroid_gov/enrol" component={AsteroidGovEnrol}/>
+            <Route path="/asteroid_gov/feedback" component={AsteroidGovFeedback}/>
+            <Route path="/asteroid_gov/help" component={AsteroidGovHelp}/>
+
             <Route path="/spacegov/trust_store" component={SpacegovTrustStoreHome}/>
             <Route path="/spacegov/trust_store/enrol" component={SpacegovTrustStoreEnrol}/>
             <Route path="/spacegov/trust_store/landing_page" component={SpacegovTrustStoreLandingPage}/>
             <Route path="/spacegov/trust_store/search" component={SpacegovTrustStoreSearch}/>
             <Route path="/spacegov/trust_store/search_results" component={SpacegovTrustStoreSearchResults}/>
 
-            <Route path="/service" component={ServiceHome}/>
+
             <Route path="/helpdesk" component={HelpDeskHome}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>
             <Route path="/helpdesk/landing_page" component={HelpDeskLandingPage}/>

@@ -42,8 +42,8 @@ export default connect((state) => state) (
             let request = {
                 name: "Asteroid Gov",
                 auth_level_required: "1",
-                auth_level_desired: "2",
-                redirect_url: "/service/asteroid_gov_landing_page"
+                auth_level_desired: "1",
+                redirect_url: "/asteroid_gov/landing_page"
             };
             saveGG3Session(this.props.dispatch, {request});
             browserHistory.push("/service_redirect");

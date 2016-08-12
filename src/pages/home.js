@@ -77,6 +77,9 @@ export default connect((state) => state) (
                     <Link to="/service">Spacegov</Link>
                     <br/>
                     <br/>
+                    <Link to="/asteroid_gov">Asteroidgov</Link>
+                    <br/>
+                    <br/>
                     <Link to="/credential">Credential Management</Link>
                     <br/>
                     <br/>
