@@ -254,7 +254,7 @@ Given(/^spacegov helpdesk agent finds license: "([^"]*)"$/) do |license|
   click_link "Prove Identity"
 end
 
-And /^spacegov helpdesk agent unable to prove identity and breaks trust$/ do
+And /^helpdesk agent unable to prove identity and breaks level 1 trust$/ do
   click_hint_link "Customer unable to prove their identity"
 
   click_link "manage_account_and_break_trust"
@@ -262,6 +262,17 @@ And /^spacegov helpdesk agent unable to prove identity and breaks trust$/ do
   click_link "Reset password"
   # reset password
   @new_password = find(:css, '.password_box').text
+  click_link "Continue"
+  click_link "Sign out"
+end
+
+And /^helpdesk agent unable to prove identity and breaks level 2 trust$/ do
+  click_hint_link "Customer unable to prove their identity"
+
+  click_link "manage_account_and_break_trust"
+  # manage account
+  click_link "Remove Device Fingerprint"
+  choose "Yes"
   click_link "Continue"
   click_link "Sign out"
 end
@@ -274,6 +285,7 @@ Given(/^spacegov helpdesk agent proves identity using swivel chair and resets pa
   # reset password
   @new_password = find(:css, '.password_box').text
   click_link "Continue"
+  click_link "Accept Trust for Spacegov Helpdesk"
   click_link "Sign out"
 end
 

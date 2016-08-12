@@ -8,7 +8,7 @@ import {} from '../../utils/helpdesk_db'
 import {saveTrustStoreSession} from '../../reducers/helpers'
 import {saveHelpdeskSession} from '../../reducers/helpers'
 import {saveGG3Session} from '../../reducers/helpers'
-import {findAccount} from '../../utils/helpdesk_db'
+
 
 import {connect} from 'react-redux'
 
@@ -28,6 +28,12 @@ export default connect((state) => state) (
                     auth_level_required: "1",
                     auth_level_desired: "1",
                     redirect_url: "/spacegov/trust_store/search_results"
+                },
+                accept_trust_request: {
+                    name: "Spacegov Helpdesk",
+                    auth_level_required: "1",
+                    auth_level_desired: "1",
+                    redirect_url: "/spacegov/trust_store/external_accept_trust?gg_id=" + gg_id
                 }
             };
             saveGG3Session(this.props.dispatch, {request});

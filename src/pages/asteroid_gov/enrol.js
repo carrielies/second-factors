@@ -35,6 +35,7 @@ export default connect((state) => state) (
                     name: resp.name,
                     gg_id: resp.gg_id,
                     trust_id: resp.trust_id,
+                    trust_id_level_2: resp.trust_id_level_2,
                     asteriod_mining_license_number: licenseNumber,
                     org_name: props.org
                 };

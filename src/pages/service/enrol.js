@@ -36,6 +36,7 @@ export default connect((state) => state) (
                     name: resp.name,
                     gg_id: resp.gg_id,
                     trust_id: resp.trust_id,
+                    trust_id_level_2: resp.trust_id_level_2,
                     space_trading_license_number: licenseNumber,
                     org_name: props.org,
                     mission: props.mission

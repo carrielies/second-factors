@@ -28,12 +28,12 @@ export default connect((state) => state) (
 
         }
 
-        manage_account(log, account, id_proven) {
+        manage_account(log, account, id_proven, id_proven_for_service) {
             let session = this.props.session.helpdesk;
             saveAccountInteraction(account.gg_id, "helpdesk", log ).then( () => {
                 return findAccount(account.gg_id)
             }).then((a) => {
-                saveHelpdeskSession( this.props.dispatch, {account: a, id_proven});
+                saveHelpdeskSession( this.props.dispatch, {account: a, id_proven, id_proven_for_service});
                 browserHistory.push("/helpdesk/manage_account");
             })
         }
@@ -92,16 +92,16 @@ export default connect((state) => state) (
             actions.push("trust_id reset");
 
             saveHelpdeskSession(this.props.dispatch, {actions: actions});
-            this.manage_account("unable to prove identity", account, false);
+            this.manage_account("unable to prove identity", account, false, false);
         }
 
-        trustWithReason(e) {
+        trustForService(e) {
             e.preventDefault();
             let session = this.props.session.helpdesk;
             let account = session.account;
 
             // saveHelpdeskSession(this.props.dispatch, {account: account, id_proof: true});
-            this.manage_account(`Proved identity by other means: ${this.refs.how.value}`, account, true);
+            this.manage_account(`Proved identity by other means: ${this.refs.how.value}`, account, false, true);
         }
 
 
@@ -162,7 +162,7 @@ export default connect((state) => state) (
                                 <br/>
                                 <br/>
 
-                                <a href="#" id="manage_account" className="button" onClick={(e) => this.trustWithReason(e)}>Manage their account</a>
+                                <a href="#" id="manage_account" className="button" onClick={(e) => this.trustForService(e)}>Manage their account</a>
 
                             </div>
 

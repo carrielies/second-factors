@@ -19,6 +19,7 @@ export default connect((state) => state) (
                 let resp = this.props.session.gg3.response;
                 findEnrolment(resp.gg_id).then( (enrolment) => {
                     enrolment.trust_id = resp.trust_id;
+                    enrolment.trust_id_level_2 = resp.trust_id_level_2;
                     return updateEnrolment(enrolment)
                 }).then( () => {
                     browserHistory.push("/asteroid_gov/landing_page")

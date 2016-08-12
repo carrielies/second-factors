@@ -82,7 +82,7 @@ import SpacegovTrustStoreEnrol from './pages/spacegov_trust_store/enrol'
 import SpacegovTrustStoreLandingPage from './pages/spacegov_trust_store/landing_page'
 import SpacegovTrustStoreSearch from './pages/spacegov_trust_store/search'
 import SpacegovTrustStoreSearchResults from './pages/spacegov_trust_store/search_results'
-
+import SpacegovTrustExternalAcceptTrust from './pages/spacegov_trust_store/external_accept_trust'
 
 import OrgHome from './pages/org/index'
 import OrgManageOrg from './pages/org/manage_org'
@@ -164,7 +164,7 @@ export default function(props) {
             <Route path="/spacegov/trust_store/landing_page" component={SpacegovTrustStoreLandingPage}/>
             <Route path="/spacegov/trust_store/search" component={SpacegovTrustStoreSearch}/>
             <Route path="/spacegov/trust_store/search_results" component={SpacegovTrustStoreSearchResults}/>
-
+            <Route path="/spacegov/trust_store/external_accept_trust" component={SpacegovTrustExternalAcceptTrust}/>
 
             <Route path="/helpdesk" component={HelpDeskHome}/>
             <Route path="/helpdesk/index" component={HelpDeskIndex}/>

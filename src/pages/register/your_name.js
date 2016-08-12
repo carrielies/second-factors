@@ -23,6 +23,7 @@ export default connect((state) => state) (
                     name: props.name,
                     gg_id: this.cred_id(),
                     trust_id: this.trust_id(),
+                    trust_id_level_2: this.trust_id(),
                     group_id: this.group_id(),
                     type: "individual",
                     factors: {

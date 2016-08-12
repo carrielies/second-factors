@@ -82,6 +82,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "765875675786",
     trust_id: "875678687GJHGH343",
+    trust_id_level_2: "875678687GJHGH343",
     group_id: "GR58757",
     type: "individual",
     interactions: [],
@@ -91,6 +92,14 @@ saveAccount({
         },
         google_authenticator: {
             secret: "JM4VQTSGMQRSGRZEKJGSMUTNORUE63JS"
+        },
+        device_fingerprint: {
+            devices: [
+                {
+                    device: "laptop",
+                    fingerprint: "2c02c8bc7a959ab4bfddfac82de12a19"
+                }
+            ]
         }
     }
 });
@@ -102,6 +111,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "765875675786234",
     trust_id: "875678687GJ234HGH343",
+    trust_id_level_2: "875678687GJHGH343",
     group_id: "GR58723457",
     org_name: "Olive ltd",
     type: "admin",
@@ -123,6 +133,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "765123475786234",
     trust_id: "875678687GJ234HGH343",
+    trust_id_level_2: "875678687GJHGH343",
     group_id: "GR58723457",
     org_name: "Olive ltd",
     type: "assistant",
@@ -144,6 +155,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "765875671112223",
     trust_id: "875678687G4HELPGL111",
+    trust_id_level_2: "875678687G4HELPGL111",
     group_id: "GR587HELP",
     org_name: "Spacegov Helpdesk",
     type: "admin",
@@ -165,6 +177,7 @@ saveAccount({
     always_use_2fa: true,
     gg_id: "GWed85d4c3",
     trust_id: "875678687GJHGH343",
+    trust_id_level_2: "875678687GJHGH343",
     group_id: "GR58877",
     interactions: [],
     type: "individual",
@@ -204,6 +217,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "1234LARRY",
     trust_id: "875678687GJHGH343",
+    trust_id_level_2: "875678687GJHGH343",
     group_id: "GR511257",
     type: "individual",
     interactions: [],
@@ -220,6 +234,7 @@ saveAccount({
     always_use_2fa: false,
     gg_id: "765875671115523",
     trust_id: "875678687G4FRAUDGL111",
+    trust_id_level_2: "875678687G4FRAUDGL111",
     group_id: "GR587FRAUD",
     org_name: "Fraud Helpdesk",
     type: "admin",

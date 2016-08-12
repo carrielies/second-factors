@@ -29,9 +29,9 @@ export default connect((state) => state) (
                 let factor_to_remove = this.state.factor_to_remove;
                 delete account.factors[factor_to_remove];
 
-                if ( ! session.id_proven && !session.trust_id_changed) {
-                    account.trust_id = this.trust_id();
-                    saveHelpdeskSession( this.props.dispatch, {trust_id_changed: true});
+                if ( ! session.id_proven && !session.trust_id_level_2_changed) {
+                    account.trust_id_level_2 = this.trust_id();
+                    saveHelpdeskSession( this.props.dispatch, {trust_id_level_2_changed: true});
                 }
 
                 applyInteraction( account, "helpdesk", `Removed ${factor_to_remove}` );

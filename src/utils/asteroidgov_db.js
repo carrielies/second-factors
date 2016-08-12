@@ -44,6 +44,7 @@ saveEnrolment(
     name: "Lapse Larry",
     gg_id: "1234LARRY",
     trust_id: "875678687GJHGH343",
+    trust_id_level_2: "875678687GJHGH343",
     asteriod_mining_license_number: "ASTRO651C02E4",
     org_name: "Lapse Larry SpaceCorp",
     mission: "See the Universe"
@@ -56,6 +57,7 @@ saveEnrolment(
     name: "Average Joe",
     gg_id: "765875675786",
     trust_id: "875678687GJHGH343",
+    trust_id_level_2: "875678687GJHGH343",
     asteriod_mining_license_number: "ASTRO645C02E5",
     org_name: "Average Joe Mining"
   }

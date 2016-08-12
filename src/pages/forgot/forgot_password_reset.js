@@ -31,6 +31,7 @@ export default connect((state) => state) (
                 account.factors.password.secret = props.password;
                 if (resp.level != "2") {
                    account.trust_id = this.trust_id();
+                   account.trust_id_level_2 = this.trust_id();
                 }
 
 

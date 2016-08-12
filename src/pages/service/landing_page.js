@@ -27,7 +27,8 @@ export default connect((state) => state) (
                     browserHistory.push("/service/enrol");
                     return;
                 }
-                else if ( enrolment.trust_id != resp.trust_id ) {
+                else if ( enrolment.trust_id != resp.trust_id) {
+                    //Note: We only care about level 1 trust at this point
                     browserHistory.push("/service/we_dont_trust_you");
                     return;
                 }

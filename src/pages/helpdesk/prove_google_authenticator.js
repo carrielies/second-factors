@@ -40,7 +40,7 @@ export default connect((state) => state) (
                 return;
             }
 
-            saveHelpdeskSession(this.props.dispatch, {id_proof: "Google Authenticator", id_proven: true});
+            saveHelpdeskSession(this.props.dispatch, {id_proof: "Google Authenticator", id_proven: true, id_proven_for_service: true});
             browserHistory.push("/helpdesk/prove_identity")
         }
 

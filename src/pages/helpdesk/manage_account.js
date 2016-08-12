@@ -36,9 +36,10 @@ export default connect((state) => state) (
             let session = this.props.session.helpdesk;
             let account = session.account;
             account.trust_id = this.trust_id();
+            account.trust_id_level_2 = this.trust_id();
             applyInteraction( account, "helpdesk", `Forced retrust` );
             updateAccount( account ).then( () => {
-                saveHelpdeskSession(this.props.dispatch, {trust_id_changed: true, account});
+                saveHelpdeskSession(this.props.dispatch, {trust_id_changed: true, trust_id_level_2_changed: true, account});
             });
         }
 
@@ -56,6 +57,18 @@ export default connect((state) => state) (
 
         }
 
+        acceptTrustForService(e) {
+            let gg3 = this.props.session.gg3;
+            if (gg3 && gg3.request && gg3.request.calling_service_request) {
+                e.preventDefault();
+
+                let request = gg3.request.accept_trust_request;
+
+                saveGG3Session(this.props.dispatch, {request});
+                browserHistory.push("/service_redirect");
+            }
+
+        }
 
         authFactors() {
             let account = this.props.session.helpdesk.account;
@@ -255,13 +268,29 @@ export default connect((state) => state) (
             let account_status = account.status || "Active"
             let callingService = null;
             if (gg3 && gg3.request && gg3.request.calling_service_request){
-                callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
+                if (session.id_proven_for_service && (session.trust_id_level_2_changed || session.trust_id_changed)) {
+                    callingService =
+                        <div>
+                            <a href="#" className="button" onClick={(e) => this.acceptTrustForService(e)}>Accept Trust for {gg3.request.calling_service_request.name}</a>
+                            <br/>
+                            <br/>
+                            <a href="#" className="button-secondary" onClick={(e) => this.goBack(e)}>Don't Accept Trust for {gg3.request.calling_service_request.name}</a>
+                        </div>
+                } else {
+                    callingService = <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {gg3.request.calling_service_request.name}</a>
+                }
+            }
+
+            let account_name = account.name + " (Identity not Proven)"
+            if (session.id_proven_for_service) {
+                account_name = account.name + " (Identity Proven for " + gg3.request.calling_service_request.name + ")"
+            }
+            if (session.id_proven) {
+                account_name = account.name + " (Identity Proven)"
             }
             return(
                 <Govuk title={session.title}>
-                    <Breadcrumb text={`${account.name} ${session.id_proven ?  "(Identity Proven)" : "(Identity not Proven)"}`} back="/helpdesk/search_results"/>
-
-
+                    <Breadcrumb text={`${account_name}`} back="/helpdesk/search_results"/>
 
                     <table className="table-font-xsmall summary" >
                         <thead>
@@ -288,6 +317,11 @@ export default connect((state) => state) (
                             <td>Trust Id</td>
                             <td>{account.trust_id}</td>
                             <td>{session.trust_id_changed ? "Trust broken" : ""}</td>
+                        </tr>
+                        <tr>
+                            <td>Trust Id Level 2</td>
+                            <td>{account.trust_id_level_2}</td>
+                            <td>{session.trust_id_level_2_changed ? "Trust broken" : ""}</td>
                         </tr>
                         <tr>
                             <td>Status</td>

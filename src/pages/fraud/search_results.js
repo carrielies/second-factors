@@ -15,7 +15,7 @@ export default connect((state) => state) (
         select(e, gg_id) {
             e.preventDefault();
             findAccount(gg_id).then( (account) => {
-                saveFraudSession(this.props.dispatch, {account, account_changed: false, trust_id_changed: false, id_proven: false, id_proof: null, actions: []} );
+                saveFraudSession(this.props.dispatch, {account, account_changed: false, trust_id_changed: false, trust_id_level_2_changed: false, id_proven: false, id_proof: null, actions: []} );
                 browserHistory.push("/fraud/manage_account")
             });
         }

@@ -5,7 +5,7 @@ import { browserHistory, Link } from 'react-router'
 import QuestionPage from '../../utils/question_page'
 import Question from '../../components/question'
 import Field from '../../components/field'
-import {searchTrustStore} from '../../utils/spacegov_db'
+import {searchTrustStore} from '../../utils/spacegov_helpdesk_db'
 import {saveTrustStoreSession, saveGG3Session} from '../../reducers/helpers'
 
 import {connect} from 'react-redux'
@@ -26,6 +26,12 @@ export default connect((state) => state) (
                     auth_level_required: "1",
                     auth_level_desired: "1",
                     redirect_url: "/spacegov/trust_store/search",
+                },
+                accept_trust_request: {
+                    name: "Spacegov Helpdesk",
+                    auth_level_required: "1",
+                    auth_level_desired: "1",
+                    redirect_url: "/spacegov/trust_store/external_accept_trust?gg_id=" + gg_id
                 }
             };
             saveGG3Session(this.props.dispatch, {request});

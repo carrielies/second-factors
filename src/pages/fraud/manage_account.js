@@ -36,9 +36,10 @@ export default connect((state) => state) (
             let session = this.props.session.fraud;
             let account = session.account;
             account.trust_id = this.trust_id();
+            account.trust_id_level_2 = this.trust_id();
             applyInteraction( account, "fraud", `Forced retrust` );
             updateAccount( account ).then( () => {
-                saveFraudSession(this.props.dispatch, {trust_id_changed: true, account});
+                saveFraudSession(this.props.dispatch, {trust_id_changed: true, trust_id_level_2_changed: true, account});
             });
         }
 
@@ -187,6 +188,11 @@ export default connect((state) => state) (
                             <td>Trust Id</td>
                             <td>{account.trust_id}</td>
                             <td>{session.trust_id_changed ? "Trust broken" : ""}</td>
+                        </tr>
+                        <tr>
+                            <td>Trust Id Level 2</td>
+                            <td>{account.trust_id_level_2}</td>
+                            <td>{session.trust_id_level_2_changed ? "Trust broken" : ""}</td>
                         </tr>
                         <tr>
                             <td>Status</td>

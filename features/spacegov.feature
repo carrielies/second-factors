@@ -59,12 +59,6 @@ Feature: Trust and security level feature
       | Service trusts you to level 2 |
 
 
-  Scenario: Break trust
-    When helpdesk agent searches for "markymiddleton@gmail.com"
-    And helpdesk agent unable to prove identity and breaks trust
-    And I log into spacegov with email: "markymiddleton@gmail.com" and reset password
-    And I'm forced to reset my password: "newpassword"
-    And I should be on the "We need to check that it really is you." page
 
 
 

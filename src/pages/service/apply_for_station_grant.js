@@ -9,11 +9,31 @@ import JSONTree from 'react-json-tree'
 import Field from '../../components/field'
 import BehindTheScenes from '../../components/service_behind_the_scenes'
 import Breadcrumb from '../../components/breadcrumb'
-import {saveGG3Session} from '../../reducers/helpers'
+import {saveGG3Session, saveSpacegovSession} from '../../reducers/helpers'
 import Trust from '../../components/trust'
+import {findEnrolment} from '../../utils/spacegov_db'
 
 export default connect((state) => state) (
     class extends QuestionPage {
+        constructor(props) {
+            super(props);
+            this.state = {enrolment: {}};
+            let resp = props.session.gg3.response;
+
+            findEnrolment(resp.gg_id).then( (enrolment) =>{
+                if ( !enrolment ) {
+                    browserHistory.push("/service/enrol");
+                    return;
+                }
+                else if ( enrolment.trust_id != resp.trust_id || enrolment.trust_id_level_2 != resp.trust_id_level_2) {
+                    //Note: We only care about level 1 trust at this point
+                    browserHistory.push("/service/we_dont_trust_you");
+                    return;
+                }
+
+                saveSpacegovSession(this.props.dispatch, {enrolment});
+            })
+        }
 
 
         onNext(e) {

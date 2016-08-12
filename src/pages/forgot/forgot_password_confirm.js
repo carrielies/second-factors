@@ -44,6 +44,7 @@ export default connect((state) => state) (
             let response = {
                 level: "1",
                 trust_id: account.trust_id,
+                trust_id_level_2: account.trust_id_level_2,
                 name: account.name,
                 email: account.email,
                 gg_id: account.gg_id,
