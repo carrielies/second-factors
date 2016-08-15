@@ -5,12 +5,10 @@ Feature: Trust and security level feature
 
   Background:
     Given I start on the Home Page
-
-  Scenario: I can register a new account
+    
+  Scenario: I can register a new account and have 2 level trust
     Given I have registered for spacegov with name: "Mark Middleton", email: "markymiddleton@gmail.com", password: "password"
-
-  Scenario: Level 1 and Level 2 trust
-    When I log into spacegov with email: "average@joe.com", password: "password"
+    When I log into spacegov with email: "markymiddleton@gmail.com", password: "password"
     Then I should see:
       | Service trusts you to level 1 |
     And I click "Apply for a grant to clean"
