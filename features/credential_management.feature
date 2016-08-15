@@ -61,25 +61,6 @@ Feature: Credential Management feature
     And   I remove a second factor
     Then  The credential level 2 trust should be broken
     And   The credential level 1 trust should not be broken
-
-
-  Scenario: I want to add a second factor when not logged in with a second factor and break my trust
-    Given I log into credential management with email: "lapse@larry.com", password: "password"
-    And   I add a second factor
-    Then  The credential level 2 trust should be broken
-    And   The credential level 1 trust should not be broken
-
-  Scenario: I want to manage my second factors when logged in with a second factor and not break my trust
-    Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
-    And   I remove a second factor
-    And   I add a second factor
-    Then  The credential level 2 trust should not be broken
-    And   The credential level 1 trust should not be broken
-
-
-  Scenario: Users removes a 2FA as level 1 and breaks level 2 trust
-    Given I log into credential management with email: "average@joe.com", password: "password"
-    And   I remove a second factor
     And   I Sign out
     When  I log into spacegov with email: "average@joe.com", password: "password"
     Then  I should see:
@@ -93,9 +74,18 @@ Feature: Credential Management feature
     Then  I should see:
       | We trust you to level 1 |
 
-  Scenario: Users removes a 2FA as level 2 and doesn't break trust
+  Scenario: I want to add a second factor when not logged in with a second factor and break my trust
+    Given I log into credential management with email: "lapse@larry.com", password: "password"
+    And   I add a second factor
+    Then  The credential level 2 trust should be broken
+    And   The credential level 1 trust should not be broken
+
+  Scenario: I want to manage my second factors when logged in with a second factor and not break my trust
     Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
     And   I remove a second factor
+    And   I add a second factor
+    Then  The credential level 2 trust should not be broken
+    And   The credential level 1 trust should not be broken
     And   I Sign out
     When  I log into spacegov with email: "average@joe.com", password: "password"
     Then  I should see:
@@ -108,3 +98,5 @@ Feature: Credential Management feature
     And   I log into asteroidgov with email: "average@joe.com", password: "password"
     Then  I should see:
       | We trust you to level 1 |
+
+
