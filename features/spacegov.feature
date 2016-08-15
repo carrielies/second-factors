@@ -9,36 +9,6 @@ Feature: Trust and security level feature
   Scenario: I can register a new account
     Given I have registered for spacegov with name: "Mark Middleton", email: "markymiddleton@gmail.com", password: "password"
 
-  Scenario: Reset Password and breaking trust
-    When I reset my spacegov password by entering my email: "average@joe.com"
-    And I should be on the "Two step verification" page
-    And I choose "Don't use two step verification"
-    And I click "Continue"
-    And I enter: {password: "newpassword", password2: "newpassword"}
-    When I click "Reset password"
-    Then I should be on the "We need to check that it really is you." page
-
-
-  Scenario: Reset Password and do not break trust
-    When I reset my spacegov password by entering my email: "average@joe.com"
-    And I should be on the "Two step verification" page
-    And I use Google authenticator
-    And I enter: {password: "newpassword", password2: "newpassword"}
-    When I click "Reset password"
-    Then I should be on the "What would you like to do?" page
-    And I should see:
-      | Service trusts you to level 2 |
-
-  Scenario: Reset Password and not breaking trust
-    When I reset my spacegov password by entering my email: "average@joe.com"
-    And I'm on the "Two step verification" page
-    And I choose "Don't use two step verification"
-    And I click "Continue"
-    And I enter: {password: "newpassword", password2: "newpassword"}
-    When I click "Reset password"
-    Then I should be on the "We need to check that it really is you." page
-
-
   Scenario: Level 1 and Level 2 trust
     When I log into spacegov with email: "average@joe.com", password: "password"
     Then I should see:
