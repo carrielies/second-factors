@@ -1,0 +1,7 @@
+---
+applications:
+- name: gg3
+  host: gg3alpha
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  env:
+    APP_ENV: production

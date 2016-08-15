@@ -8,4 +8,5 @@ gem 'selenium-webdriver'
 gem 'mirage'
 gem 'phantomjs2'
 gem 'poltergeist'
+gem 'rake'
 

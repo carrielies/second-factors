@@ -6,5 +6,6 @@ dist
 *.iml
 vendor
 mirage.log
+cf_stage
 docs/screenshots
 

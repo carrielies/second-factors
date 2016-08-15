@@ -1,0 +1,26 @@
+{
+  "name": "gg3-alpha",
+  "version": "1.0.0",
+  "description": "GG3 react alpha prototype",
+  "scripts": {
+    "start": "node server-prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.tools.tax.service.gov.uk/mark-middleton/gg3-prototype.git"
+  },
+  "keywords": [
+  ],
+  "author": "Mark Middleton",
+  "homepage": "https://github.tools.tax.service.gov.uk/mark-middleton/gg3-prototype",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "node-fetch": "^1.5.3",
+    "speakeasy": "^2.0.0",
+    "u2f": "^0.1.2"
+  }
+}
