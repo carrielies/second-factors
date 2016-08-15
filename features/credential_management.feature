@@ -23,17 +23,6 @@ Feature: Credential Management feature
     And   I click "Manage Organisation"
     Then  I should be on the "You don't have a second factor set up" page
 
-
-  Scenario: I want to be able to change my password
-    Given I log into credential management with email: "lapse@larry.com", password: "password"
-    And   I click "Change password"
-    When  I enter: {old_password: "password", password1: "new_password", password2: "new_password"}
-    And   I click "Continue"
-    And   I click "Sign out"
-    When  I log into credential management with email: "lapse@larry.com", password: "new_password"
-    Then  I should be on the "Credential Management" page
-
-
   Scenario: I want to able delete my account
     Given I log into credential management with email: "lapse@larry.com", password: "password"
     And   I click "Delete account"
@@ -43,6 +32,29 @@ Feature: Credential Management feature
     When  I return to the Home Page
     And   I attempt to log into spacegov with email: "lapse@larry.com", password: "password"
     Then  I should be on the "Invalid email/password" page
+
+
+  Scenario: I want to be able to change my password when I don't have a second factor and not break my trust
+    Given I log into credential management with email: "average@joe.com", password: "password"
+    And   I click "Change password"
+    When  I enter: {old_password: "password", password1: "new_password", password2: "new_password"}
+    And   I click "Continue"
+    And   I click "Sign out"
+    When  I log into credential management with email: "average@joe.com", password: "new_password"
+    Then  I should be on the "Credential Management" page
+    Then  The credential level 2 trust should not be broken
+    And   The credential level 1 trust should not be broken
+
+  Scenario: I want to be able to change my password when I do have a second factor and not break my trust
+    Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
+    And   I click "Change password"
+    When  I enter: {old_password: "password", password1: "new_password", password2: "new_password"}
+    And   I click "Continue"
+    And   I click "Sign out"
+    When  I log into credential management with email: "average@joe.com", password: "new_password"
+    Then  I should be on the "Credential Management" page
+    Then  The credential level 2 trust should not be broken
+    And   The credential level 1 trust should not be broken
 
   Scenario: I want to remove a second factor when not logged in with a second factor and break my trust
     Given I log into credential management with email: "average@joe.com", password: "password"
