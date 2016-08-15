@@ -76,3 +76,35 @@ Feature: Credential Management feature
     Then  The credential level 2 trust should not be broken
     And   The credential level 1 trust should not be broken
 
+
+  Scenario: Users removes a 2FA as level 1 and breaks level 2 trust
+    Given I log into credential management with email: "average@joe.com", password: "password"
+    And   I remove a second factor
+    And   I Sign out
+    When  I log into spacegov with email: "average@joe.com", password: "password"
+    Then  I should see:
+      | Service trusts you to level 1 |
+    When  I click "Apply for a grant to create a new station"
+    And   I use Google authenticator
+    Then  I should see:
+      | We need to check that it really is you. |
+    And   I Sign out
+    And   I log into asteroidgov with email: "average@joe.com", password: "password"
+    Then  I should see:
+      | We trust you to level 1 |
+
+  Scenario: Users removes a 2FA as level 2 and doesn't break trust
+    Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
+    And   I remove a second factor
+    And   I Sign out
+    When  I log into spacegov with email: "average@joe.com", password: "password"
+    Then  I should see:
+      | Service trusts you to level 1 |
+    When  I click "Apply for a grant to create a new station"
+    And   I use Google authenticator
+    Then  I should see:
+      | Apply for station grant We need some details about your space station. |
+    And   I Sign out
+    And   I log into asteroidgov with email: "average@joe.com", password: "password"
+    Then  I should see:
+      | We trust you to level 1 |
