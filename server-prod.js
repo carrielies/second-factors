@@ -1,3 +1,4 @@
+var newrelic = require('newrelic');
 var https = require('https');
 var fs = require('fs');
 var app = require('./server');

@@ -21,6 +21,7 @@
     "express-session": "^1.14.0",
     "node-fetch": "^1.5.3",
     "speakeasy": "^2.0.0",
+    "newrelic": "^1.29.0",
     "u2f": "^0.1.2"
   }
 }
