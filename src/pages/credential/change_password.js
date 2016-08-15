@@ -24,7 +24,12 @@ export default connect((state) => state) (
 
                 let session = this.props.session.credential;
                 let account = session.account;
-
+                let gg3 = this.props.session.gg3;
+                let resp = gg3.response;
+                if (this.has_factors(account) && resp.level != 2) {
+                    account.trust_id = this.trust_id();
+                    account.trust_id_level_2 = this.trust_id();
+                }
                 account.factors.password = {
                     secret: props.password1
                 };
@@ -33,6 +38,11 @@ export default connect((state) => state) (
                     browserHistory.push("/credential/manage_account")
                 });
             })
+        }
+
+        has_factors(account) {
+            let factors = account.factors;
+            return (factors && (factors.google_authenticator || factors.device_fingerprint || factors.u2f_key || factors.cryptophoto))
         }
 
         render() {

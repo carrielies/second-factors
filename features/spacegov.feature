@@ -5,7 +5,7 @@ Feature: Trust and security level feature
 
   Background:
     Given I start on the Home Page
-    
+
   Scenario: I can register a new account and have 2 level trust
     Given I have registered for spacegov with name: "Mark Middleton", email: "markymiddleton@gmail.com", password: "password"
     When I log into spacegov with email: "markymiddleton@gmail.com", password: "password"
