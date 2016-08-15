@@ -53,11 +53,6 @@ export default connect((state) => state) (
             saveGG3Session(this.props.dispatch, {response, signed_in: true, service_name: originalRequest.name});
         }
 
-        has_factors(account) {
-            let factors = account.factors;
-            return (factors && (factors.google_authenticator || factors.device_fingerprint || factors.u2f_key || factors.cryptophoto))
-        }
-
         render() {
 
             let errors = this.state.errors;

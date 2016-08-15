@@ -36,34 +36,28 @@ Feature: Credential Management feature
 
   Scenario: I want to be able to change my password when I don't have a second factor and not break my trust
     Given I log into credential management with email: "lapse@larry.com", password: "password"
-    And   I click "Change password"
-    When  I enter: {old_password: "password", password1: "new_password", password2: "new_password"}
-    And   I click "Continue"
+    And   I change my credential password to: "new_password"
     And   The credential level 2 trust should not be broken
     And   The credential level 1 trust should not be broken
-    When  I click "Sign out"
+    When  I Sign out
     And   I log into credential management with email: "lapse@larry.com", password: "new_password"
     Then  I should be on the "Credential Management" page
 
   Scenario: I want to be able to change my password when I don't use my second factor and break my trust
     Given I log into credential management with email: "average@joe.com", password: "password"
-    And   I click "Change password"
-    When  I enter: {old_password: "password", password1: "new_password", password2: "new_password"}
-    And   I click "Continue"
+    And   I change my credential password to: "new_password"
     And   The credential level 2 trust should be broken
     And   The credential level 1 trust should be broken
-    When  I click "Sign out"
+    When  I Sign out
     And   I log into credential management with email: "average@joe.com", password: "new_password"
     Then  I should be on the "Credential Management" page
 
   Scenario: I want to be able to change my password when I do have a second factor and not break my trust
     Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
-    And   I click "Change password"
-    When  I enter: {old_password: "password", password1: "new_password", password2: "new_password"}
-    And   I click "Continue"
+    And   I change my credential password to: "new_password"
     And   The credential level 2 trust should not be broken
     And   The credential level 1 trust should not be broken
-    When  I click "Sign out"
+    When  I Sign out
     And   I log into credential management with email: "average@joe.com", password: "new_password"
     Then  I should be on the "Credential Management" page
 
@@ -120,7 +114,7 @@ Feature: Credential Management feature
     Then I should be on the "We need to check that it really is you." page
 
 
-  Scenario: Reset Password and do not break trust
+  Scenario: Reset Password using email and do not break trust
     When I reset my spacegov password by entering my email: "average@joe.com"
     And I should be on the "Two step verification" page
     And I use Google authenticator
@@ -130,7 +124,7 @@ Feature: Credential Management feature
     And I should see:
       | Service trusts you to level 2 |
 
-  Scenario: Reset Password and not breaking trust
+  Scenario: Reset Password using email and not breaking trust
     When I reset my spacegov password by entering my email: "average@joe.com"
     And I'm on the "Two step verification" page
     And I choose "Don't use two step verification"
@@ -140,3 +134,24 @@ Feature: Credential Management feature
     Then I should be on the "We need to check that it really is you." page
 
 
+  Scenario: I want to be able to change my email when I don't have a second factor and not break my trust
+    Given I log into credential management with email: "lapse@larry.com", password: "password"
+    And   I change my credential email to: "lapse2@joe.com"
+    Then  I should see:
+      | lapse2@joe.com |
+    And   The credential level 2 trust should not be broken
+    And   The credential level 1 trust should not be broken
+    When  I Sign out
+    And   I log into credential management with email: "lapse2@joe.com", password: "password"
+    Then  I should be on the "Credential Management" page
+
+  Scenario: I want to be able to change my email when I don't use my second factor and break my trust
+    Given I log into credential management with email: "average@joe.com", password: "password"
+    And   I change my credential email to: "average2@joe.com"
+    Then  I should see:
+      | average2@joe.com |
+    And   The credential level 2 trust should be broken
+    And   The credential level 1 trust should be broken
+    When  I Sign out
+    And   I log into credential management with email: "average2@joe.com", password: "password"
+    Then  I should be on the "Credential Management" page

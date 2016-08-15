@@ -43,6 +43,10 @@ export default class QuestionPage extends React.Component {
 
     }
 
+    has_factors(account) {
+        let factors = account.factors;
+        return (factors && (factors.google_authenticator || factors.device_fingerprint || factors.u2f_key || factors.cryptophoto))
+    }
 
     validate(e,rules,callback) {
         let errors = {};

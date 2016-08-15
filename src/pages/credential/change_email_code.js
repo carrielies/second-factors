@@ -20,6 +20,12 @@ export default connect((state) => state) (
                 let session = this.props.session.credential;
                 let account = session.account;
                 account.email = session.new_email;
+                let gg3 = this.props.session.gg3;
+                let resp = gg3.response;
+                if (this.has_factors(account) && resp.level != 2) {
+                    account.trust_id = this.trust_id();
+                    account.trust_id_level_2 = this.trust_id();
+                }
                 updateAccount(account).then( () => {
                     return saveInteraction(account.gg_id, "credential_management", "change email")
                 }).then( () => {
@@ -27,6 +33,7 @@ export default connect((state) => state) (
                 });
             })
         }
+
 
         render() {
 

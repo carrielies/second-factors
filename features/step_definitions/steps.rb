@@ -249,6 +249,22 @@ And /^I add a second factor$/ do
   click_link "Continue"
 end
 
+And /^I change my credential email to: "(.*)"$/ do |email|
+  click_link "Change email"
+  fill_in "email", with: email
+  click_link "Continue"
+  fill_in "code", with: "1234"
+  click_link "Continue"
+end
+
+And /^I change my credential password to: "(.*)"$/ do |password|
+  click_link "Change password"
+  fill_in "old_password", with: "password"
+  fill_in "password1", with: password
+  fill_in "password2", with: password
+  click_link "Continue"
+end
+
 And /^The credential level 2 trust should be broken$/ do
   account_trust_level_2 = eval(find("#credential-account").value)[:trust_id_level_2]
   response_trust_level_2 = eval(find("#gateway-response").value)[:trust_id_level_2]

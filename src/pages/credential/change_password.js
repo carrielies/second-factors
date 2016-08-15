@@ -40,11 +40,6 @@ export default connect((state) => state) (
             })
         }
 
-        has_factors(account) {
-            let factors = account.factors;
-            return (factors && (factors.google_authenticator || factors.device_fingerprint || factors.u2f_key || factors.cryptophoto))
-        }
-
         render() {
             let session = this.props.session.credential;
             let account = session.account;
