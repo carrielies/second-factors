@@ -233,11 +233,44 @@ And /^I log into credential management with email: "(.*)", password: "(.*)"$/ do
   login_to_credential_management email,password
 end
 
-And /^I break level 2 trust$/ do
+And /^I remove a second factor$/ do
   click_link "Remove Device Fingerprint"
   choose "Yes"
   click_link "Continue"
-  click_link "Sign out"
+end
+
+And /^I add a second factor$/ do
+  click_link "Add additional second factor"
+  choose "Device fingerprint"
+  click_link "Continue"
+  fill_in "deviceName", with: "Auto Test Device"
+  click_link "Trust this device"
+  choose "I'm done"
+  click_link "Continue"
+end
+
+And /^The credential level 2 trust should be broken$/ do
+  account_trust_level_2 = eval(find("#credential-account").value)[:trust_id_level_2]
+  response_trust_level_2 = eval(find("#gateway-response").value)[:trust_id_level_2]
+  account_trust_level_2.should_not eq(response_trust_level_2)
+end
+
+And /^The credential level 2 trust should not be broken$/ do
+  account_trust_level_2 = eval(find("#credential-account").value)[:trust_id_level_2]
+  response_trust_level_2 = eval(find("#gateway-response").value)[:trust_id_level_2]
+  account_trust_level_2.should eq(response_trust_level_2)
+end
+
+And /^The credential level 1 trust should be broken$/ do
+  account_trust_level_1 = eval(find("#credential-account").value)[:trust_id]
+  response_trust_level_1 = eval(find("#gateway-response").value)[:trust_id]
+  account_trust_level_1.should_not eq(response_trust_level_1)
+end
+
+And /^The credential level 1 trust should not be broken$/ do
+  account_trust_level_1 = eval(find("#credential-account").value)[:trust_id]
+  response_trust_level_1 = eval(find("#gateway-response").value)[:trust_id]
+  account_trust_level_1.should eq(response_trust_level_1)
 end
 
 And /^I log into organisation management with email: "(.*)", password: "(.*)"$/ do |email,password|

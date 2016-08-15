@@ -43,3 +43,24 @@ Feature: Credential Management feature
     When  I return to the Home Page
     And   I attempt to log into spacegov with email: "lapse@larry.com", password: "password"
     Then  I should be on the "Invalid email/password" page
+
+  Scenario: I want to remove a second factor when not logged in with a second factor and break my trust
+    Given I log into credential management with email: "average@joe.com", password: "password"
+    And   I remove a second factor
+    Then  The credential level 2 trust should be broken
+    And   The credential level 1 trust should not be broken
+
+
+  Scenario: I want to add a second factor when not logged in with a second factor and break my trust
+    Given I log into credential management with email: "lapse@larry.com", password: "password"
+    And   I add a second factor
+    Then  The credential level 2 trust should be broken
+    And   The credential level 1 trust should not be broken
+
+  Scenario: I want to manage my second factors when logged in with a second factor and not break my trust
+    Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
+    And   I remove a second factor
+    And   I add a second factor
+    Then  The credential level 2 trust should not be broken
+    And   The credential level 1 trust should not be broken
+

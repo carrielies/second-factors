@@ -58,7 +58,8 @@ Feature: Trust feature
 
   Scenario: Users removes a 2FA as level 1 and breaks level 2 trust
     Given I log into credential management with email: "average@joe.com", password: "password"
-    And   I break level 2 trust
+    And   I remove a second factor
+    And   I Sign out
     When  I log into spacegov with email: "average@joe.com", password: "password"
     Then  I should see:
       | Service trusts you to level 1 |
@@ -73,7 +74,8 @@ Feature: Trust feature
 
   Scenario: Users removes a 2FA as level 2 and doesn't break trust
     Given I log into credential management using a second factor with email: "average@joe.com", password: "password"
-    And   I break level 2 trust
+    And   I remove a second factor
+    And   I Sign out
     When  I log into spacegov with email: "average@joe.com", password: "password"
     Then  I should see:
       | Service trusts you to level 1 |

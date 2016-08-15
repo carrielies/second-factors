@@ -41,6 +41,12 @@ export default connect((state) => state) (
                         let session = this.props.session.registration;
                         let account = session.account;
 
+                        let gg3 = this.props.session.gg3;
+                        let resp = gg3.response;
+                        if (resp.level != 2) {
+                            account.trust_id_level_2 = this.trust_id();
+                        }
+                
                         account.factors.u2f_key = {
                             keyHandle: res.keyHandle,
                             publicKey: res.publicKey

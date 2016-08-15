@@ -6,7 +6,7 @@ import QuestionPage from '../../utils/question_page'
 import Breadcrumb from '../../components/breadcrumb'
 import {findAccount, updateAccount, saveAccountInteraction} from '../../utils/database'
 import {saveCredentialSession, saveGG3Session} from '../../reducers/helpers'
-
+import BehindTheScenes from '../../components/credentials_behind_the_scenes'
 import {connect} from 'react-redux'
 
 export default connect((state) => state) (
@@ -249,7 +249,8 @@ export default connect((state) => state) (
                     <br/>
                     {callingService ?
                     <a href="#" className="button" onClick={(e) => this.goBack(e)}>Go back to {callingService.name}</a> : null}
-
+                    <hr/>
+                    <BehindTheScenes/>
                 </Govuk>
             )
         }
