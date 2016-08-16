@@ -39,7 +39,8 @@ export default class extends React.Component{
         return speakeasy.totp.verify({
             secret: this.state.secret,
             encoding: 'base32',
-            token: token
+            token: token,
+            window: 1
         });
     }
 
