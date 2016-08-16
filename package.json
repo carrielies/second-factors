@@ -66,6 +66,7 @@
     "govuk-elements-sass": "^1.1.4",
     "govuk_frontend_toolkit": "^4.9.1",
     "nedb": "^1.8.0",
+    "newrelic": "^1.29.0",
     "node-fetch": "^1.5.3",
     "password-generator": "^2.0.2",
     "qrcode.react": "^0.6.1",
