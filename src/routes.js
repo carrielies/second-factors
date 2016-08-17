@@ -102,6 +102,8 @@ import FraudSearch from './pages/fraud/search'
 import FraudSearchResults from './pages/fraud/search_results'
 import FraudManageAccount from './pages/fraud/manage_account'
 
+
+import NewAuthModel from './pages/test/index'
 import Level1Required from './pages/test/level_1_page'
 import Level2Required from './pages/test/level_2_page'
 import Level2Desired from './pages/test/level_2_desired_page'
@@ -223,6 +225,7 @@ export default function(props) {
             <Route path="/fraud/search_results" component={FraudSearchResults}/>
             <Route path="/fraud/manage_account" component={FraudManageAccount}/>
 
+            <Route path="/test" component={NewAuthModel}/>
             <Route path="/test/level_1_required" component={Level1Required}/>
             <Route path="/test/level_2_required" component={Level2Required}/>
             <Route path="/test/level_2_desired" component={Level2Desired}/>

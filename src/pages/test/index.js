@@ -1,9 +1,9 @@
 import React from 'react'
-import GovUk from '../components/govuk'
+import GovUk from '../../components/govuk'
 import { browserHistory, Link } from 'react-router'
-import {allAccounts, findAccountByEmail} from '../utils/database'
-import {saveGG3Session,clearAllSessions} from '../reducers/helpers'
-import {serialize, deserialize } from '../utils/serialize'
+import {allAccounts, findAccountByEmail} from '../../utils/database'
+import {saveGG3Session,clearAllSessions} from '../../reducers/helpers'
+import {serialize, deserialize } from '../../utils/serialize'
 
 import {connect} from 'react-redux'
 
@@ -71,24 +71,21 @@ export default connect((state) => state) (
                     </select>
                     <br/>
                     <br/>
-                    <Link to="/helpdesk">Helpdesk</Link>
                     <br/>
                     <br/>
-                    <Link to="/service">Spacegov</Link>
+                    <Link to="/test/level_1_required">Test Level 1 Required</Link>
                     <br/>
                     <br/>
-                    <Link to="/asteroid_gov">Asteroidgov</Link>
+                    <Link to="/test/level_2_required">Test Level 2 Required</Link>
                     <br/>
                     <br/>
-                    <Link to="/credential">Credential Management</Link>
+                    <Link to="/test/level_2_desired">Test Level 2 Desired</Link>
                     <br/>
                     <br/>
-                    <Link to="/fraud">Fraud</Link>
+                    <Link to="/test/level_2_none_repudiation">Test Level 2 Repudiation</Link>
                     <br/>
                     <br/>
-                    <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>
-                    <input type="hidden"  value={this.state.data} name="session_state"/>
-
+                    <Link to="/test/level_2_sso">Test Level 2 SSO</Link>
                 </GovUk>
             )
         }
