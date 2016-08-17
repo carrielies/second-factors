@@ -105,6 +105,8 @@ import FraudManageAccount from './pages/fraud/manage_account'
 import Level1Required from './pages/test/level_1_page'
 import Level2Required from './pages/test/level_2_page'
 import Level2Desired from './pages/test/level_2_desired_page'
+import Level2NoneRepudiation from './pages/test/level_2_none_repudiation_page'
+import Level2SSO from './pages/test/level_2_sso_page'
 
 export default function(props) {
     
@@ -224,6 +226,8 @@ export default function(props) {
             <Route path="/test/level_1_required" component={Level1Required}/>
             <Route path="/test/level_2_required" component={Level2Required}/>
             <Route path="/test/level_2_desired" component={Level2Desired}/>
+            <Route path="/test/level_2_none_repudiation" component={Level2NoneRepudiation}/>
+            <Route path="/test/level_2_sso" component={Level2SSO}/>
         </Router>
         
     )

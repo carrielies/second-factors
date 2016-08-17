@@ -11,12 +11,13 @@ export default connect((state) => state) (
     class extends QuestionPage {
         constructor(props) {
             super(props);
-            if (!props || !props.session || !props.session.gg3 || !props.session.gg3.response) {
+            var repudiation = this.getQueryParameter("repudiation")
+            if (!repudiation) {
                 let request = {
                     name: "Test",
                     auth_level_required: "2",
                     auth_level_desired: "2",
-                    redirect_url: "/test/level_2_required",
+                    redirect_url: "/test/level_2_none_repudiation?repudiation=true",
                     help: {
                         url_text: "Help using SPACE.GOV",
                         url_link: "/service/help"
@@ -26,32 +27,13 @@ export default connect((state) => state) (
                 saveGG3Session(this.props.dispatch, {request})
                 browserHistory.push("/signin")
                 return;
-            } else {
-                let response = props.session.gg3.response
-                let request = props.session.gg3.request
-                if (response.level != 2 || request.name != "Test") {
-                    let request = {
-                        name: "Test",
-                        auth_level_required: "2",
-                        auth_level_desired: "2",
-                        redirect_url: "/test/level_2_required",
-                        help: {
-                            url_text: "Help using SPACE.GOV",
-                            url_link: "/service/help"
-                        },
-                        feedback_url : "/test/feedback"
-                    };
-                    saveGG3Session(this.props.dispatch, {request})
-                    browserHistory.push("/signin")
-                    return;
-                }
             }
         }
 
         render() {
             return (
                 <Govuk title="Test" hidePhaseBanner={true} header="Test.GOV">
-                    <h1 className="heading-medium">Level 2 Required Page</h1>
+                    <h1 className="heading-medium">Level 2 None Repudiation</h1>
                     <br/>
                     <br/>
                     <Link to="/test/level_1_required">Test Level 1 Required</Link>

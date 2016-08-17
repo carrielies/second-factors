@@ -5,6 +5,7 @@ import QuestionPage from '../../utils/question_page'
 import { browserHistory, Link } from 'react-router'
 import {connect} from 'react-redux'
 import {saveGG3Session} from '../../reducers/helpers'
+import BehindTheScenes from '../../components/credentials_behind_the_scenes'
 
 export default connect((state) => state) (
     class extends QuestionPage {
@@ -12,10 +13,10 @@ export default connect((state) => state) (
             super(props);
             if (!props || !props.session || !props.session.gg3 || !props.session.gg3.response) {
                 let request = {
-                    name: "Test",
+                    name: "Test SSO",
                     auth_level_required: "2",
                     auth_level_desired: "2",
-                    redirect_url: "/test/level_2_required",
+                    redirect_url: "/test/level_2_sso",
                     help: {
                         url_text: "Help using SPACE.GOV",
                         url_link: "/service/help"
@@ -27,12 +28,13 @@ export default connect((state) => state) (
                 return;
             } else {
                 let response = props.session.gg3.response
-                if (response.level != 2) {
+                let request = props.session.gg3.request
+                if (response.level != 2 || request.name != "Test SSO") {
                     let request = {
-                        name: "Test",
+                        name: "Test SSO",
                         auth_level_required: "2",
                         auth_level_desired: "2",
-                        redirect_url: "/test/level_2_required",
+                        redirect_url: "/test/level_2_sso",
                         help: {
                             url_text: "Help using SPACE.GOV",
                             url_link: "/service/help"
@@ -48,14 +50,25 @@ export default connect((state) => state) (
 
         render() {
             return (
-                <Govuk title="Test" hidePhaseBanner={true} header="Test.GOV">
-                    <h1 className="heading-medium">Level 2 Required Page</h1>
+                <Govuk title="Test SSO" hidePhaseBanner={true} header="Test.GOV">
+                    <h1 className="heading-medium">Level 2 SSO Page</h1>
                     <br/>
                     <br/>
                     <Link to="/test/level_1_required">Test Level 1 Required</Link>
                     <br/>
                     <br/>
                     <Link to="/test/level_2_required">Test Level 2 Required</Link>
+                    <br/>
+                    <br/>
+                    <Link to="/test/level_2_desired">Test Level 2 Desired</Link>
+                    <br/>
+                    <br/>
+                    <Link to="/test/level_2_none_repudiation">Test Level 2 Repudiation</Link>
+                    <br/>
+                    <br/>
+                    <Link to="/test/level_2_sso">Test Level 2 SSO</Link>
+                        <hr/>
+                        <BehindTheScenes/>
                 </Govuk>
             )
         }
