@@ -26,7 +26,7 @@ export function saveSpacegovSession(dispatchFn, data) {
     saveSession(dispatchFn, "spacegov", data);
 }
 
-export function saveAsteriodgovSession(dispatchFn, data) {
+export function saveAsteroidgovSession(dispatchFn, data) {
     saveSession(dispatchFn, "asteroidgov", data);
 }
 
