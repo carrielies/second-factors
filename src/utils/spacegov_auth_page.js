@@ -1,8 +1,9 @@
 import React from 'react'
 import fecha from 'fecha'
 import QuestionPage from './question_page'
-import {saveGG3Session} from '../reducers/helpers'
 import {browserHistory} from 'react-router'
+import {findEnrolment} from './spacegov_db'
+import {saveGG3Session, saveSpacegovSession} from '../reducers/helpers'
 
 export default class SpacegovAuthPage extends QuestionPage {
 
@@ -37,6 +38,30 @@ export default class SpacegovAuthPage extends QuestionPage {
                 }
             }
         }
+        this.checkTrust(desired_level)
+    }
+
+    checkTrust(desired_level) {
+        this.state = {enrolment: {}};
+        let resp = this.props.session.gg3.response;
+
+        findEnrolment(resp.gg_id).then( (enrolment) =>{
+            if ( !enrolment ) {
+                browserHistory.push("/service/enrol");
+                return;
+            }
+            else if (desired_level == "1" && enrolment.trust_id != resp.trust_id) {
+                //Note: We only care about level 1 trust at this point
+                browserHistory.push("/service/we_dont_trust_you");
+                return;
+            }
+            else if (desired_level == "2" && (enrolment.trust_id != resp.trust_id || enrolment.trust_id_level_2 != resp.trust_id_level_2)) {
+                //Note: We only care about level 1 trust at this point
+                browserHistory.push("/service/we_dont_trust_you");
+                return;
+            }
+            saveSpacegovSession(this.props.dispatch, {enrolment});
+        })
     }
 
     noneRepudiation() {

@@ -86,6 +86,13 @@ export default connect((state) => state) (
                     <Link to="/fraud">Fraud</Link>
                     <br/>
                     <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <Link to="/test">New Test Authentication</Link>
+                    <br/>
+                    <br/>
                     <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>
                     <input type="hidden"  value={this.state.data} name="session_state"/>
 
