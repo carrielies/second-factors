@@ -84,18 +84,18 @@ export default connect((state) => state) (
                     <br/>
                     <br/>
                     <Link to="/fraud">Fraud</Link>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <Link to="/test">New Test Authentication</Link>
-                    <br/>
-                    <br/>
-                    <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>
                     <input type="hidden"  value={this.state.data} name="session_state"/>
-
+                    <br/>
+                    <br/>
+                    <details>
+                        <summary><span className="summary">Test stuff...</span></summary>
+                        <div className="panel panel-border-narrow">
+                            <Link to="/test">New Test Authentication</Link>
+                            <br/>
+                            <br/>
+                            <a href={`/?session_state=${this.state.data}`}>Open a new window (and copy state)</a>
+                        </div>
+                    </details>
                 </GovUk>
             )
         }
