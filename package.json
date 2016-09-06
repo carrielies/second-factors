@@ -1,7 +1,7 @@
 {
-  "name": "gg3-alpha",
+  "name": "carrielies-second-factors",
   "version": "1.0.0",
-  "description": "GG3 react alpha prototype",
+  "description": "Second Factors react alpha prototype",
   "scripts": {
     "start": "node server-prod.js",
     "dev": "node server-dev.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.tools.tax.service.gov.uk/mark-middleton/gg3-prototype.git"
+    "url": "https://github.com:carrielies/second-factors.git"
   },
   "keywords": [
     "react",
@@ -23,8 +23,8 @@
     "edit",
     "webpack"
   ],
-  "author": "Mark Middleton",
-  "homepage": "https://github.tools.tax.service.gov.uk/mark-middleton/gg3-prototype",
+  "author": "Paul Carrielies",
+  "homepage": "https://github.com:carrielies/second-factors.git",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^6.1.0",
