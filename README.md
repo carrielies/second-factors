@@ -1,15 +1,15 @@
-# Government Gateway 3 Functional Prototype
+# Authentication Portal Functional Prototype
 
-New Government Gateway authentication portal, offering a range of second factors,
+authentication portal, offering a range of second factors,
  credential management, helpdesk and more... 
  
-####[Live Functional Prototype](https://gg3alpha.herokuapp.com)
+####[Live Functional Prototype](https://carrielies-second-factors.herokuapp.com/)
  
  ![](./docs/images/sign_in_journey.png)
 
 ### Overview 
 
-* See the live prototype [here](https://gg3alpha.herokuapp.com)
+* See the live prototype [here](https://carrielies-second-factors.herokuapp.com/)
 * [Cucumber features](./features)
  
 
@@ -57,13 +57,6 @@ New Government Gateway authentication portal, offering a range of second factors
 ```
     brew install phantom
 ```
-
-#####Download the code
-```
-    git clone git@github.tools.tax.service.gov.uk:hmrc/gg3-alpha.git
-    cd gg3-alpha
-```
-
 
 #####Start server
 
@@ -114,43 +107,6 @@ Install cloud foundary client:
 ```
     brew install cf
 ```
-
-Log into cloud foundary using our trial account:
-
-```
-    cf login -a api.cf.skyscapecloud.com
-    mark.middleton@mdtpcollab.digital.hmrc.gov.uk / sWAtre3@
-```
-
-Create stage folder and push:
-```
-    rake cf:stage
-    cd cf_stage
-    cf push
-    cf apps
-    
-    Getting apps in org 28-686-2 / space gg3alpha as mark.middleton@mdtpcollab.digital.hmrc.gov.uk...
-    OK
-    
-    name   requested state   instances   memory   disk   urls
-    gg3    started           1/1         512M     512M   gg3alpha.cf.skyscapecloud.com    
-```
-
-Navigate to:  [https://gg3alpha.cf.skyscapecloud.com](https://gg3alpha.cf.skyscapecloud.com)
-
-
-I've also got a pivotal account setup which works in exactly the same way:
- 
-```
-    cf login -a api.run.pivotal.io
-    markymiddleton@gmail.com / Test12345
-```
-
-
-### Notes
-
-* [Original click through prototype demo site](https://gg3prototype.herokuapp.com)
-* [Original click through prototype github](https://github.tools.tax.service.gov.uk/HMRC/gg3-prototype)
 
 
 
